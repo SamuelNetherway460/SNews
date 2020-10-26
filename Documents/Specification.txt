@@ -1,0 +1,14 @@
+Specification
+
+• Retrieves and displays news.
+• Users should be able to personalise the type of news which is presented to them.
+• Users should receive alerts when new news that they like is available.
+• Users should be able to have an account which they can enter key terms which they are interested in.
+• App should fetch multiple news sources using a service such as https://newsapi.org/
+• Presents news information in an attractive way.
+• Key news information to include would be:
+	- Publisher
+	- Article Title
+	- Article Image
+	- Summary Text.
+• User should be able to configure which topics they would like to receive alerts for.
