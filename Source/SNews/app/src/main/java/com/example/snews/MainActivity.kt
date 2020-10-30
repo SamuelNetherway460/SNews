@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         val discoverFragment = DiscoverFragment()
         val gamesFragment = GamesFragment()
         val searchFragment = SearchFragment()
+        val profileFragment = ProfileFragment()
 
         setCurrentFragment(homeFragment)
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.discover -> setCurrentFragment(discoverFragment)
                 R.id.games -> setCurrentFragment(gamesFragment)
                 R.id.search -> setCurrentFragment(searchFragment)
+                R.id.profile -> setCurrentFragment(profileFragment)
             }
             true
         }
