@@ -9,6 +9,18 @@
     <string name="search_menu">Search</string>
     <string name="profile_menu">Profile</string>
 
+    <!--Games Screen-->
+    <!--Navigation-->
+    <string name="view_article_button">View Article</string>
+    <string name="skip_button">Cheat</string>
+    <!--Game Types-->
+    <string name="guess_fact">Guess The Fact</string>
+    <string name="guess_article">Guess The Article</string>
+    <string name="a">A.</string>
+    <string name="b">B.</string>
+    <string name="c">C.</string>
+    <string name="d">D.</string>
+
     <!--Discover Topics-->
     <string name="technology">Technology</string>
     <string name="cars">cars</string>
@@ -64,4 +76,12 @@
     <string name="dummy_datetime_two">22:00 21 October 2020</string>
     <string name="dummy_datetime_three">23:00 22 October 2020</string>
     <string name="dummy_datetime_four">00:00 23 October 2020</string>
+
+    <!--Dummy Values Games Screen-->
+    <string name="dummy_question">Ford is approaching _______ reservations for its long-awaited Bronco SUV, which is expected to arrive in U.S. dealerships next spring.</string>
+
+    <string name="dummy_answer_a">100,000</string>
+    <string name="dummy_answer_b">190,000</string>
+    <string name="dummy_answer_c">250,000</string>
+    <string name="dummy_answer_d">50,000</string>
 </resources>
