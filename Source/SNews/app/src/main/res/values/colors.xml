@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0326FA</color>
+    <color name="colorPrimary">#304FFE</color>
+    <color name="colorSecondary">#00B8D4</color>
+    <color name="backgroundGreyHeavy">#202020</color>
+    <color name="backgroundGreyMedium">#434447</color>
+    <color name="backgroundGreyLight">#434546</color>
+    <color name="text">@android:color/white</color>
+    <color name="toggleAccentOff">#2E3032</color>
+    <color name="toggleAccentOn">#304FFE</color>
+    <color name="button">#434546</color>
+    <color name="icon">@android:color/white</color>
 </resources>
