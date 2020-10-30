@@ -1,3 +1,67 @@
 <resources>
+    <!--General-->
     <string name="app_name">SNews</string>
+
+    <!--Bottom Navigation Menu-->
+    <string name="home_menu">Home</string>
+    <string name="discover_menu">Discover</string>
+    <string name="games_menu">Games</string>
+    <string name="search_menu">Search</string>
+    <string name="profile_menu">Profile</string>
+
+    <!--Discover Topics-->
+    <string name="technology">Technology</string>
+    <string name="cars">cars</string>
+    <string name="sport">Sport</string>
+    <string name="politics">Politics</string>
+    <string name="games">Games</string>
+    <string name="tv">TV</string>
+    <string name="travel">Travel</string>
+    <string name="health">Health</string>
+    <string name="stocks">Stocks</string>
+
+    <!--Settings-->
+    <string name="offline_mode">Offline Mode</string>
+    <string name="apply_tags">Apply Tags</string>
+
+    <!--Dummy Tags-->
+    <string name="dummy_tag_trump">Trump</string>
+    <string name="dummy_tag_apple">Apple</string>
+    <string name="dummy_tag_mac">Mac</string>
+    <string name="dummy_tag_computer">Computer</string>
+    <string name="dummy_tag_swimming">Swimming</string>
+    <string name="dummy_tag_rowing">Rowing</string>
+    <string name="dummy_tag_release">Release</string>
+    <string name="dummy_tag_confirmed">Confirmed</string>
+
+    <!--Dummy News Data-->
+    <!--Dummy Article Titles-->
+    <string name="dummy_title_one">Intel acquires SigOpt, a specialist in modeling optimization, to boost its AI business</string>
+    <string name="dummy_title_two">U.S. Stocks Edge Up Ahead of Tech Earnings</string>
+    <string name="dummy_title_three">Three stabbed to death in France terror attack</string>
+    <string name="dummy_title_four">Heathrow no longer Europes busiest airport as boss blames coronavirus testing failure</string>
+
+    <!--Dummy Article Descriptions-->
+    <string name="dummy_description_one">Intel has been doubling down on building chips and related architecture for the next generation of computing, and today it announced an acquisition that will bolster its expertise and work specifically in one area of future technology: artificial intelligence…</string>
+    <string name="dummy_description_two">Investors await guidance from tech giants including Apple, Amazon, Facebook and Alphabet</string>
+    <string name="dummy_description_three">President Macron says france will not give up its values after the attack at the Notre-Dame basilica</string>
+    <string name="dummy_description_four">The COVID-19 pandemic continues to crush demand for flying and Heathrow says it is falling behind airports with passenger testing.</string>
+
+    <!--Dummy Article Categories-->
+    <string name="dummy_category_one">Technology</string>
+    <string name="dummy_category_two">Stocks</string>
+    <string name="dummy_category_three">Terror</string>
+    <string name="dummy_category_four">Travel</string>
+
+    <!--Dummy News Providers-->
+    <string name="dummy_provider_one">TechCrunch</string>
+    <string name="dummy_provider_two">The Wall Street Journal</string>
+    <string name="dummy_provider_three">BBC News</string>
+    <string name="dummy_provider_four">Sky News</string>
+
+    <!--Dummy Date Times-->
+    <string name="dummy_datetime_one">21:00 20 October 2020</string>
+    <string name="dummy_datetime_two">22:00 21 October 2020</string>
+    <string name="dummy_datetime_three">23:00 22 October 2020</string>
+    <string name="dummy_datetime_four">00:00 23 October 2020</string>
 </resources>
