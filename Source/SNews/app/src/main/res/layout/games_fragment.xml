@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.GamesFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundGreyHeavy">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp">
+
+            <ToggleButton
+                android:id="@+id/toggleButton8"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="1dp"
+                android:text="Guess the fact"
+                android:textOff="Guess the article"
+                android:textOn="Guess the article"
+                android:textColor="@color/text"
+                android:backgroundTint="@color/button" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton9"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Guess the fact"
+                android:textOff="Guess the fact"
+                android:textOn="Guess the fact"
+                android:textColor="@color/text"
+                android:backgroundTint="@color/button"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ford_bronco"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_centerHorizontal="true"
+            android:text="Fill in the blank!"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textColor="@color/text"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="400dp"
+            android:layout_marginBottom="65dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <Button
+                android:id="@+id/checkBox3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="A. 100,000"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/checkBox2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="B. 190,000"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/checkBox4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="C. 250,000"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="d. 50,000"
+                android:textAlignment="textStart" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cheat" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Skip" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="305dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Ford is approaching _______ reservations for its long-awaited Bronco SUV, which is expected to arrive in U.S. dealerships next spring."
+            android:textColor="@color/text"/>
+    </RelativeLayout>
+</FrameLayout>

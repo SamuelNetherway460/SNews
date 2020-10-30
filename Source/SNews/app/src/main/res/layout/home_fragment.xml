@@ -1,0 +1,99 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.HomeFragment">
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ToggleButton
+                android:id="@+id/toggleButton13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/technology"
+                android:textOn="@string/technology"
+                android:textOff="@string/technology" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/health"
+                android:textOn="@string/health"
+                android:textOff="@string/health" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cars"
+                android:textOn="@string/cars"
+                android:textOff="@string/cars" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tv"
+                android:textOn="@string/tv"
+                android:textOff="@string/tv" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sport"
+                android:textOn="@string/sport"
+                android:textOff="@string/sport"/>
+
+            <ToggleButton
+                android:id="@+id/toggleButton20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/politics"
+                android:textOn="@string/politics"
+                android:textOff="@string/politics" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/games"
+                android:textOn="@string/games"
+                android:textOff="@string/games" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/travel"
+                android:textOn="@string/travel"
+                android:textOff="@string/travel"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <view class="androidx.recyclerview.widget.RecyclerView"
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:scrollbars="vertical" />
+</RelativeLayout>

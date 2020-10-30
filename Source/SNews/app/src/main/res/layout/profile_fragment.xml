@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/settingOneTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Setting One" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/boringTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Boring" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/enterBoringEditText"
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter a word to filer"
+                    android:inputType="textPersonName"
+                    android:text="Key Word" />
+
+                <Button
+                    android:id="@+id/addBoringButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="add" />
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOn="@string/health"
+                        android:textOff="@string/health"/>
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/boringToggle9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/interestTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Interesting" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/enterInterestingEditText"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter a word to filer"
+                    android:inputType="textPersonName"
+                    android:text="Key Word" />
+
+                <Button
+                    android:id="@+id/enterInterestingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Enter" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/interestingToggle8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/spotlightTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Spotlight" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/enterSpotlightEditText"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter a word to filer"
+                    android:inputType="textPersonName"
+                    android:text="Key Word" />
+
+                <Button
+                    android:id="@+id/button12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Enter" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+
+                    <ToggleButton
+                        android:id="@+id/spotlightToggle8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToggleButton" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
