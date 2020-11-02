@@ -12,7 +12,7 @@
     <!--Games Screen-->
     <!--Navigation-->
     <string name="view_article_button">View Article</string>
-    <string name="skip_button">Cheat</string>
+    <string name="skip_button">Skip Question</string>
     <!--Game Types-->
     <string name="guess_fact">Guess The Fact</string>
     <string name="guess_article">Guess The Article</string>
@@ -20,6 +20,8 @@
     <string name="b">B.</string>
     <string name="c">C.</string>
     <string name="d">D.</string>
+    <!--Instructions-->
+    <string name="guess_fact_instruction">Fill in the blank!</string>
 
     <!--Discover Topics-->
     <string name="technology">Technology</string>
