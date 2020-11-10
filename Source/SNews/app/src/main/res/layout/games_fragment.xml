@@ -46,8 +46,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
         android:layout_marginRight="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ford_bronco" />
+        android:scaleType="centerCrop" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/gameInstructions"
