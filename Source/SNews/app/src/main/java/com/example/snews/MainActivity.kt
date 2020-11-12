@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.koushikdutta.ion.Ion
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //getArticle()
 
         val bottomNavigation = findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
 
@@ -42,4 +45,26 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fl_main, fragment)
             commit()
         }
+
+    fun getArticle() {
+        Ion.with(this)
+            .load("GET", "https://newsapi.org/v2/top-headlines?sources=bbc-news&pageSize=1&apiKey=d3629af64f934b1889b1fc3afb716b3c")
+            .setHeader("user-agent", "insomnia/2020.4.1")
+            .asString()
+            .setCallback { ex, result ->
+                consolePrintArticle(result)
+            }
+    }
+
+    fun consolePrintArticle(data: String) {
+        val myJSON = JSONObject(data)
+        val articles = myJSON.getJSONArray("articles")
+        val article = articles.getJSONObject(0)
+
+        println("*****************************HERE*****************************")
+        println("*****************************HERE*****************************")
+        println("*****************************HERE*****************************")
+        println("*****************************HERE*****************************")
+        println("Title: " + article.get("title"))
+    }
 }
