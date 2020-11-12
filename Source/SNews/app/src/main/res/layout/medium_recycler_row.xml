@@ -1,84 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mediumRowCardView"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:clickable="true">
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/backgroundGreyMedium"
+    app:cardCornerRadius="10dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/mediumRowCardView"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/mediumRowLinearMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="@color/backgroundGreyMedium">
+        android:background="@color/backgroundGreyMedium"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mediumRowProviderSquareLogo"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dummy_provider_four_logo_square" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/mediumRowLinearMain"
+            android:id="@+id/mediumRowLinearSecondary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@color/backgroundGreyMedium">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/mediumRowProviderSquareLogo"
-                android:src="@drawable/dummy_provider_four_logo_square"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:scaleType="centerCrop"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mediumRowArticleTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="@string/dummy_title_four"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/mediumRowLinearSecondary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mediumRowConstraintArticleMeta"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/mediumRowArticleTitle"
-                    android:text="@string/dummy_title_four"
+                    android:id="@+id/mediumRowCategory"
                     android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:textColor="@color/text"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/dummy_category_two"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/mediumRowConstraintArticleMeta"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/mediumRowDatetime"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/mediumRowCategory"
-                        android:text="@string/dummy_category_two"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorSecondary"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/mediumRowDatetime"
-                        android:text="@string/dummy_datetime_two"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorSecondary"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_height="wrap_content"
+                    android:text="@string/dummy_datetime_two"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>
