@@ -6,6 +6,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.fragments.*
+import com.example.snews.models.ArticleGroup
+import com.example.snews.parsers.ArticleParser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.koushikdutta.ion.Ion
 import org.json.JSONObject
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //getArticle()
+        getArticle()
 
         val bottomNavigation = findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
 
@@ -57,6 +59,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun consolePrintArticle(data: String) {
+
+        var articleGroup = ArticleParser.parseArticleGroup(JSONObject(data))
+        var status = articleGroup.getStatus()
+
+        println("*****************************HERE*****************************")
+        println("*****************************HERE*****************************")
+        println("*****************************HERE*****************************")
+        println("*****************************HERE*****************************")
+        println("Status: " + status)
+
+        /*
         val myJSON = JSONObject(data)
         val articles = myJSON.getJSONArray("articles")
         val article = articles.getJSONObject(0)
@@ -66,5 +79,6 @@ class MainActivity : AppCompatActivity() {
         println("*****************************HERE*****************************")
         println("*****************************HERE*****************************")
         println("Title: " + article.get("title"))
+         */
     }
 }

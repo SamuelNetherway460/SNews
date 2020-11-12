@@ -1,6 +1,6 @@
 package com.example.snews.models
 
-class ArticleGroup (status: String, totalResults: Int, articles: ArrayList<Article>) {
+class ArticleGroup (status: String?, totalResults: Int?, articles: ArrayList<Article>?) {
 
     private var status: String? = null
     private var totalResults: Int? = null

@@ -7,12 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.snews.R
-import com.example.snews.models.ArticleModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.adapters.RecyclerAdapter
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.koushikdutta.ion.Ion
-import org.json.JSONObject
 
 class HomeFragment : Fragment() {
 

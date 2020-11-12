@@ -1,7 +1,7 @@
 package com.example.snews.models
 
-class Article (source: Source, author: String, title: String, description: String, url: String,
-               urlToImage: String, publishedAt: String, content: String) {
+class Article (source: Source?, author: String?, title: String?, description: String?, url: String?,
+               urlToImage: String?, publishedAt: String?, content: String?) {
 
     private var source: Source? = null
     private var author: String? = null
