@@ -1,112 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:andorid="http://schemas.android.com/tools"
-    android:id="@+id/largeRowRelativeLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/largeRowCardView"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="300dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    app:cardBackgroundColor="@color/backgroundGreyMedium"
+    app:cardCornerRadius="10dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/largeRowCardView"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/largeRowLinearMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="@color/backgroundGreyMedium">
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/largeRowArticleImage"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/dummy_article_image_one" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/largeRowProviderImageView"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/dummy_provider_one_logo_rectangle" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/largeRowArticleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/dummy_title_one"
+            android:textAlignment="textStart"
+            android:textColor="@color/text"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/largeRowArticleDescription"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/dummy_description_one"
+            android:textAlignment="textStart"
+            android:textColor="@color/text"
+            android:textSize="11sp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/largeRowLinearMain"
+            android:id="@+id/largeRowLinearArticleMeta"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/largeRowArticleImage"
-                app:srcCompat="@drawable/dummy_article_image_one"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:scaleType="centerCrop"/>
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/largeRowProviderImageView"
-                app:srcCompat="@drawable/dummy_provider_one_logo_rectangle"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:scaleType="fitStart"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/largeRowArticleTitle"
-                android:text="@string/dummy_title_one"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/text"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/largeRowArticleDescription"
-                android:text="@string/dummy_description_one"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/text"
-                android:textSize="11sp"/>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/largeRowLinearArticleMeta"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/largeRowConstraintArticleMeta"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="5dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/largeRowConstraintArticleMeta"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/largeRowCategory"
+                    android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp">
+                    android:text="@string/dummy_category_one"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    andorid:layout_editor_absoluteY="0dp"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/largeRowCategory"
-                        android:text="@string/dummy_category_one"
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorSecondary"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        andorid:layout_editor_absoluteY="0dp"
-                        app:layout_constraintStart_toStartOf="parent"/>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/largeRowDatetime"
-                        android:text="@string/dummy_datetime_one"
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorSecondary"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/largeRowDatetime"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/dummy_datetime_one"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>

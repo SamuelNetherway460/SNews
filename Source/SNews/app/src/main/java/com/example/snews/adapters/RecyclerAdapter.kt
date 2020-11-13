@@ -1,53 +1,73 @@
 package com.example.snews.adapters
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
+import com.example.snews.models.Article
+import com.example.snews.models.ArticleGroup
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-
-    private val titles = arrayOf("Title One", "Title Two", "Title Three", "Title Four",
-        "Title Five", "Title Six", "Title Seven", "Title Eight", "Title Nine", "Title Ten")
-
-    private val categories = arrayOf("Category One", "Category Two", "Category Three",
-        "Category Four", "Category Five", "Category Six", "Category Seven", "Category Eight",
-        "Category Nine", "Category Ten")
-
-    private val datetimes = arrayOf("01:00 1 August 2020", "02:00 2 August 2020",
-        "03:00 3 August 2020", "04:00 4 August 2020", "05:00 5 August 2020", "06:00 6 August 2020",
-        "07:00 7 August 2020", "08:00 8 August 2020", "09:00 9 August 2020", "10:00 10 August 2020")
+class RecyclerAdapter (private val articleGroup: ArticleGroup) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var articleTitle: TextView
-        var articleCategory: TextView
-        var articleDateTime: TextView
+        /*
+        var mediumArticleTitle: TextView
+        var mediumArticleCategory: TextView
+        var mediumArticleDateTime: TextView
+         */
+
+        var largeArticleTitle: TextView
+        var largeArticleDescription: TextView
+        var largeArticleCategory: TextView
+        var largeArticleDateTime: TextView
 
         init {
-            articleTitle = itemView.findViewById(R.id.mediumRowArticleTitle)
-            articleCategory = itemView.findViewById(R.id.mediumRowCategory)
-            articleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
+
+            /*
+            mediumArticleTitle = itemView.findViewById(R.id.mediumRowArticleTitle)
+            mediumArticleCategory = itemView.findViewById(R.id.mediumRowCategory)
+            mediumArticleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
+            */
+
+            largeArticleTitle = itemView.findViewById(R.id.largeRowArticleTitle)
+            largeArticleDescription = itemView.findViewById(R.id.largeRowArticleDescription)
+            largeArticleCategory = itemView.findViewById(R.id.largeRowCategory)
+            largeArticleDateTime = itemView.findViewById(R.id.largeRowDatetime)
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+        /*
         val v = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.medium_recycler_row, viewGroup, false)
         return ViewHolder(v)
+        */
+
+        val v = LayoutInflater.from(viewGroup.context)
+                    .inflate(R.layout.large_recycler_row, viewGroup, false)
+            return ViewHolder(v)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.articleTitle.text = titles[i]
-        viewHolder.articleCategory.text = categories[i]
-        viewHolder.articleDateTime.text = datetimes[i]
+        var article: Article = articleGroup.getArticles()!!.get(i)
+
+        /*
+        viewHolder.mediumArticleTitle.text = article.getTitle()
+        viewHolder.mediumArticleCategory.text = "category" // TODO Replace with category
+        viewHolder.mediumArticleDateTime.text = article.getPublishedAt()
+         */
+
+        viewHolder.largeArticleTitle.text = article.getTitle()
+        viewHolder.largeArticleDescription.text = article.getDescription()
+        viewHolder.largeArticleCategory.text = "category"
+        viewHolder.largeArticleDateTime.text = article.getPublishedAt()
 
     }
 
     override fun getItemCount(): Int {
-        return titles.size
+        return articleGroup.getArticles()!!.size
     }
 }
