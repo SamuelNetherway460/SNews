@@ -1,15 +1,19 @@
 package com.example.snews.adapters
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
 import com.example.snews.models.Article
 import com.example.snews.models.ArticleGroup
+import java.net.URL
 
-class RecyclerAdapter (private val articleGroup: ArticleGroup) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -23,6 +27,7 @@ class RecyclerAdapter (private val articleGroup: ArticleGroup) : RecyclerView.Ad
         var largeArticleDescription: TextView
         var largeArticleCategory: TextView
         var largeArticleDateTime: TextView
+        var largeArticleImage: ImageView
 
         init {
 
@@ -32,6 +37,7 @@ class RecyclerAdapter (private val articleGroup: ArticleGroup) : RecyclerView.Ad
             mediumArticleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
             */
 
+            largeArticleImage = itemView.findViewById(R.id.largeRowArticleImage)
             largeArticleTitle = itemView.findViewById(R.id.largeRowArticleTitle)
             largeArticleDescription = itemView.findViewById(R.id.largeRowArticleDescription)
             largeArticleCategory = itemView.findViewById(R.id.largeRowCategory)
@@ -64,7 +70,6 @@ class RecyclerAdapter (private val articleGroup: ArticleGroup) : RecyclerView.Ad
         viewHolder.largeArticleDescription.text = article.getDescription()
         viewHolder.largeArticleCategory.text = "category"
         viewHolder.largeArticleDateTime.text = article.getPublishedAt()
-
     }
 
     override fun getItemCount(): Int {

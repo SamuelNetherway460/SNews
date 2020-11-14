@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1049556049197",
+    "firebase_url": "https://snews-beb83.firebaseio.com",
+    "project_id": "snews-beb83",
+    "storage_bucket": "snews-beb83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049556049197:android:2b5aebca9ccd86c7cf87a4",
+        "android_client_info": {
+          "package_name": "com.example.snews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049556049197-f4vdsm5lmhp2cf0i0vslsb4ltsukp3id.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb6RyTi4Fkc2wvwRiYMEJmsJ5SXpwdiko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049556049197-f4vdsm5lmhp2cf0i0vslsb4ltsukp3id.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
