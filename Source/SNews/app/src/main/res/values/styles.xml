@@ -27,4 +27,9 @@
         <item name="android:textSize">24dp</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="AppTheme.Switch" partent="Widget.AppCompat.Switch">
+        <item name="thumbTint">@color/primary</item>
+        <item name="trackColorActive">@color/text</item>
+    </style>
 </resources>

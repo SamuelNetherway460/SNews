@@ -1,20 +1,770 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.circularreveal.CircularRevealFrameLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.DiscoverFragment">
 
-    <com.google.android.material.circularreveal.CircularRevealRelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:id="@+id/discoverButton"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Discover"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
-    </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
-</com.google.android.material.circularreveal.CircularRevealFrameLayout>
+            android:orientation="vertical" >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/categoriesCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardBackgroundColor="@color/backgroundGreyMedium"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/categoriesText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Categories"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/businessImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_portfolio"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/businessText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Business"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/businessSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:theme="@style/AppTheme.Switch" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/entertainmentImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_game_console"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/entertainmentText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Entertainment"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/entertainmentSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/generalImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_news"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/generalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="General"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/generalSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/healthImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_electrocardiogram"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/healthText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Health"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/healthSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/scienceImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_flask"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/scienceText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Science"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/scienceSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/sportsImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_dumbbell"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/sportsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Sports"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/sportsSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/technologyImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_keyboard_2"
+                            app:tint="@color/text" />
+
+                        <TextView
+                            android:id="@+id/technologyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Technology"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/technologySwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/publishersCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/backgroundGreyMedium"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/publishersText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Publishers"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/wiredImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/wiredText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Wired"
+                            android:textColor="@color/colorSecondary"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/wiredSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/techcrunchImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/techcrunchText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Tech Crunch"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/techcrunchSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/thenextwebImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/thenextwebText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="The Next Web"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/thenextwebSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/bbcnewsImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/bbcnewsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="BBC News"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/bbcnewsSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/macrumorsImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/macrumorsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Mac Rumors"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/macrumorsSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/cnetImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/cnetText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="CNET"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/cnetSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/bleacherreportImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/bleacherreportText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Bleacher Report"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/bleacherreportSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/bloombergImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/bloombergText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Bloomberg"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/bloombergSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/businessinsiderImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/businessinsiderText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Business Insider"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/businessinsiderSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/buzzfeedImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/buzzfeedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Buzzfeed"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/buzzfeedSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/cnnImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/cnnText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="CNN"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/cnnSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/espnImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/espnText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="ESPN"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/espnSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/finantialpostImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/finantialpostText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Financial Post"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/finantialpostSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/foxnewsImage"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_tablet"
+                            app:tint="@color/text"/>
+
+                        <TextView
+                            android:id="@+id/foxnewsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorSecondary"
+                            android:text="Fox News"
+                            android:textSize="18sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/foxnewsSwitch"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Switch"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
