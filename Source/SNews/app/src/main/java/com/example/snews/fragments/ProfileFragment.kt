@@ -9,12 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
+import com.example.snews.models.ArticleGroup
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-class ProfileFragment : Fragment() {
+class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
 
     private var mAuth = FirebaseAuth.getInstance()
 
@@ -37,12 +38,12 @@ class ProfileFragment : Fragment() {
         loggedInStatus.setText("Hello")
 
         loginButton.setOnClickListener { view ->
-            mAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
+            tAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnCompleteListener(this.requireActivity(),
                     OnCompleteListener<AuthResult?> { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
-                            val user = mAuth.currentUser
+                            val user = tAuth.currentUser
                             var uid = user!!.uid
                             loggedInStatus.setText("LOGGED IN" + uid)
                         } else {

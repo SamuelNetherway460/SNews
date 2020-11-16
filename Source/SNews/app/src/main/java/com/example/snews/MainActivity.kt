@@ -7,30 +7,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.snews.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
-
+    private var tAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-
-
-
-
-
         val bottomNavigation = findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
 
         val homeFragment = HomeFragment()
-        val discoverFragment = DiscoverFragment()
+        val discoverFragment = DiscoverFragment(tAuth)
         val gamesFragment = GamesFragment()
         val searchFragment = SearchFragment()
-        val profileFragment = ProfileFragment()
+        val profileFragment = ProfileFragment(tAuth)
 
         setCurrentFragment(homeFragment)
 

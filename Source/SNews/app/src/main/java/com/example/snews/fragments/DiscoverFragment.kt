@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class DiscoverFragment : Fragment() {
+class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
 
     //private val sharedPrefFile = "com.example.snews.discoverprefs"
 
@@ -27,7 +29,10 @@ class DiscoverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addData()
+        //addData()
+
+        var test = view.findViewById<TextView>(R.id.businessText)
+        test.setText(tAuth.uid)
 
         /*
         var discoverPreferences = activity!!.getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
