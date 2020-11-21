@@ -14,10 +14,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 //TODO Add sign in check
 //TODO Check null safety
-class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
-
-    // TODO Remove
-    //private val sharedPrefFile = "com.example.snews.discoverprefs"
+/**
+ * A fragment which provides functionality for the Discover screen of the app. The discover screen
+ * allows the user to customise their experience by selecting certain news related criteria.
+ *
+ * @param tAuth The Firebase authentication instance used to sync user discover preferences with
+ *              the FireStore database.
+ * @author Samuel Netherway
+ */
+class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
 
     private val BUSINESS: String = "business"
     private val ENTERTAINMENT: String = "entertainment"
@@ -27,9 +32,10 @@ class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
     private val SPORTS: String = "sports"
     private val TECHNOLOGY: String = "technology"
 
-    // TODO Possibly put in main activity
-    var db = FirebaseFirestore.getInstance()
-
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +44,10 @@ class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
         return inflater.inflate(R.layout.discover_fragment, container, false)
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,37 +67,12 @@ class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
         technologySwitch.setOnClickListener { updateDatabaseCategory(technologySwitch.isChecked, TECHNOLOGY) }
 
         updateCategories()
-
-        // TODO Remove
-        /*
-        var discoverPreferences = activity!!.getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
-        val preferencesEditor: SharedPreferences.Editor = discoverPreferences!!.edit()
-        //preferencesEditor.putString("test", "success")
-        //preferencesEditor.commit()
-
-        println(discoverPreferences.getString("test", "empty"))
-        println(discoverPreferences.getString("test", "empty"))
-        println(discoverPreferences.getString("test", "empty"))
-        println(discoverPreferences.getString("test", "empty"))
-        */
     }
 
-    // TODO Remove
-    fun getFirstName(view: View) {
-        var test = view.findViewById<TextView>(R.id.businessText)
-
-        val user = db.collection("users").document("irmdrh4xNoX53JuOH24SUO5uJHt2")
-        user.get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        test.setText(document.getString("first_name"))
-                    }
-                }
-                .addOnFailureListener {
-                    test.setText("Failure")
-                }
-    }
-
+    /**
+     * Queries the FireStore database to get the user's selected categories and updates the user
+     * interface.
+     */
     fun updateCategories() {
         var uid: String? = tAuth.uid
         if (uid != null) {
@@ -101,6 +86,29 @@ class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
         }
     }
 
+    /**
+     * Queries the FireStore database to get the user's selected publishers and updates the user
+     * interface.
+     */
+    fun updatePublishers() {
+        var uid: String? = tAuth.uid
+        if (uid != null) {
+            val user = db.collection("users").document(uid)
+            user.get()
+                    .addOnSuccessListener { document ->
+                        if (document != null) {
+                            updateUICategories(document.get("publishers") as ArrayList<String>)
+                        }
+                    }
+        }
+    }
+
+    //TODO - Reimplement, use a loop instead of multiple if statements
+    /**
+     * Updates the user interface with the category preferences for the currently signed in user.
+     *
+     * @param categories A list of selected categories for the currently signed in user.
+     */
     fun updateUICategories(categories: ArrayList<String>) {
         var businessSwitch = view?.findViewById<SwitchCompat>(R.id.businessSwitch)
         var entertainmentSwitch = view?.findViewById<SwitchCompat>(R.id.entertainmentSwitch)
@@ -147,48 +155,47 @@ class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
         }
     }
 
+    //TODO - Implement function
+    /**
+     * Updates the user interface with the publisher preferences for the currently signed in user.
+     *
+     * @param publishers A list of selected publishers for the currently signed in user.
+     */
+    fun updateUIPublishers(publishers: ArrayList<String>) {
+
+    }
+
+    /**
+     * Updates the FireStore database with the newly changed category preference.
+     *
+     * @param isChecked A boolean indicating whether the category is selected or not.
+     * @param category The category preference which has been altered.
+     */
     fun updateDatabaseCategory(isChecked: Boolean, category: String) {
-        var userQuery = UserQueryEngine(db)
-        var uid: String? = tAuth.uid
-        if (uid != null) {
+        if (tAuth.uid != null) {
+            var userQuery = UserQueryEngine(db, tAuth.uid!!)
             if (isChecked) {
-                userQuery.addCategory(uid, category)
+                userQuery.addCategory(category)
             } else {
-                userQuery.removeCategory(uid, category)
+                userQuery.removeCategory(category)
             }
         }
     }
 
-    fun getSelectedCategories() : ArrayList<String>? {
-
-        var businessSwitch = view?.findViewById<SwitchCompat>(R.id.businessSwitch)
-        var entertainmentSwitch = view?.findViewById<SwitchCompat>(R.id.entertainmentSwitch)
-        var generalSwitch = view?.findViewById<SwitchCompat>(R.id.generalSwitch)
-        var healthSwitch = view?.findViewById<SwitchCompat>(R.id.healthSwitch)
-        var scienceSwitch = view?.findViewById<SwitchCompat>(R.id.scienceSwitch)
-        var sportsSwitch = view?.findViewById<SwitchCompat>(R.id.sportsSwitch)
-        var technologySwitch = view?.findViewById<SwitchCompat>(R.id.technologySwitch)
-
-        var selectedCategories: ArrayList<String>? = null
-
-        if (businessSwitch!!.isChecked) selectedCategories?.add("Business")
-        if (entertainmentSwitch!!.isChecked) selectedCategories?.add("Entertainment")
-        if (generalSwitch!!.isChecked) selectedCategories?.add("General")
-        if (healthSwitch!!.isChecked) selectedCategories?.add("Health")
-        if (scienceSwitch!!.isChecked) selectedCategories?.add("Science")
-        if (sportsSwitch!!.isChecked) selectedCategories?.add("Sports")
-        if (technologySwitch!!.isChecked) selectedCategories?.add("Technology")
-
-        return selectedCategories
-    }
-
-    fun addData() {
-        val userOne: MutableMap<String, Any> = HashMap()
-        userOne["first_name"] = "Martin"
-        userOne["last_name"] = "Netherway"
-        userOne["favourite_topics"] = arrayListOf("Health", "Science", "Politics")
-
-        // Add a new document with a generated ID
-        db.collection("users").add(userOne)
+    /**
+     * Updates the FireStore database with the newly changed publisher preference.
+     *
+     * @param isChecked A boolean indicating whether the publisher is selected or not.
+     * @param publisher The publisher preference which has been altered.
+     */
+    fun updateDatabasePublisher(isChecked: Boolean, publisher: String) {
+        if (tAuth.uid != null) {
+            var userQuery = UserQueryEngine(db, tAuth.uid!!)
+            if (isChecked) {
+                userQuery.addPublisher(publisher)
+            } else {
+                userQuery.removePublisher(publisher)
+            }
+        }
     }
 }

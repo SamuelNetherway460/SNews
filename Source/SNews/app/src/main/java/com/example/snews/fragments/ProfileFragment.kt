@@ -15,10 +15,20 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-//TODO Implement shared preferences for storage of device specific preferences
-//TO Add signed in check
+//TODO - Implement shared preferences for storage of device specific preferences
+//TODO - Add signed in check
+//TODO - Documentation
+/**
+ *
+ *
+ * @author Samuel Netherway
+ */
 class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,6 +37,10 @@ class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,6 +68,10 @@ class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
         }
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     fun updateUI(user: FirebaseUser?, view: View) {
         val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
         if (user == null) {

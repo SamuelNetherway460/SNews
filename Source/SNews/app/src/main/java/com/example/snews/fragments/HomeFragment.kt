@@ -13,11 +13,19 @@ import com.example.snews.utilities.parsers.ArticleParser
 import com.koushikdutta.ion.Ion
 import org.json.JSONObject
 
+//TODO - Documentation
+/**
+ *
+ */
 class HomeFragment : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -26,11 +34,19 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchArticles(view)
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     fun fetchArticles(view: View) {
         Ion.with(this)
                 .load("GET", "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d3629af64f934b1889b1fc3afb716b3c")
@@ -41,7 +57,11 @@ class HomeFragment : Fragment() {
                 }
     }
 
-    // Change method contents to match module recycler view demo
+    //TODO - Change method contents to match module recycler view demo
+    //TODO - Documentation
+    /**
+     *
+     */
     fun startRecyclerView(view: View, result: String) {
         var recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         // Start recylcer view population

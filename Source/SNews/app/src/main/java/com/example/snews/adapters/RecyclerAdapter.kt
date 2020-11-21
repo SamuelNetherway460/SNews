@@ -1,6 +1,5 @@
 package com.example.snews.adapters
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
 import com.example.snews.models.Article
 import com.example.snews.models.ArticleGroup
-import java.net.URL
 
-
+//TODO - Multiple types of rows
+//TODO - Documentation, look at demo video for correct method layouts and functions
+/**
+ *
+ * @author Samuel Netherway
+ * @param articleGroup
+ */
 class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
+    //TODO - Documentation
+    /**
+     *
+     */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         /*
@@ -29,6 +37,10 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
         var largeArticleDateTime: TextView
         var largeArticleImage: ImageView
 
+        //TODO - Documentation
+        /**
+         * @constructor
+         */
         init {
 
             /*
@@ -45,6 +57,10 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
         }
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         /*
         val v = LayoutInflater.from(viewGroup.context)
@@ -57,6 +73,10 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
             return ViewHolder(v)
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var article: Article = articleGroup.getArticles()!!.get(i)
 
@@ -72,6 +92,10 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
         viewHolder.largeArticleDateTime.text = article.getPublishedAt()
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun getItemCount(): Int {
         return articleGroup.getArticles()!!.size
     }

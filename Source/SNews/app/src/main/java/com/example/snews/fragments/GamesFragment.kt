@@ -7,8 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 
+//TODO - Documentation
+/**
+ *
+ */
 class GamesFragment : Fragment() {
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
