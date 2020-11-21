@@ -9,6 +9,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+//TODO - Full XML Check
+//TODO - Make sure androidx components are being used in all XML files
+//TODO - Rename images, remove not required ones
 /**
  * Main activity which controls navigation between application fragments (screens).
  * Activity also controls the instantiation of Firebase instances for use in across fragments.
@@ -35,9 +38,9 @@ class MainActivity : AppCompatActivity() {
         val discoverFragment = DiscoverFragment(tAuth, db)
         val gamesFragment = GamesFragment()
         val searchFragment = SearchFragment()
-        val profileFragment = ProfileFragment(tAuth)
+        val profileFragment = ProfileFragment(tAuth, db)
 
-        // Default fragment when the application is first started
+        // Default fragment
         setCurrentFragment(homeFragment)
 
         bottomNavigation.setOnNavigationItemSelectedListener {

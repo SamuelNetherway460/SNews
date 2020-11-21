@@ -84,7 +84,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/a"
-                android:theme="@style/AppTheme.SpecialTextView" />
+                android:theme="@style/AppTheme.TextView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonA"
@@ -108,7 +108,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/b"
-                android:theme="@style/AppTheme.SpecialTextView" />
+                android:theme="@style/AppTheme.TextView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonB"
@@ -132,7 +132,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/c"
-                android:theme="@style/AppTheme.SpecialTextView" />
+                android:theme="@style/AppTheme.TextView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonC"
@@ -156,7 +156,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/d"
-                android:theme="@style/AppTheme.SpecialTextView" />
+                android:theme="@style/AppTheme.TextView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonD"

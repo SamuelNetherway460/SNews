@@ -9,12 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
-import com.example.snews.models.ArticleGroup
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
+//TODO - Full XML Check
 //TODO - Implement shared preferences for storage of device specific preferences
 //TODO - Add signed in check
 //TODO - Documentation
@@ -23,16 +24,16 @@ import com.google.firebase.auth.FirebaseUser
  *
  * @author Samuel Netherway
  */
-class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
+class ProfileFragment(private val tAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
 
     //TODO - Documentation
     /**
      *
      */
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
@@ -44,40 +45,31 @@ class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val email = view.findViewById<EditText>(R.id.enterEmail)
-        val password = view.findViewById<EditText>(R.id.enterPassword)
-        val loginButton = view.findViewById<Button>(R.id.loginButton)
-        val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
+        // TODO - Sign in check and update UI
 
-        loggedInStatus.setText("Hello")
+        val signInRegister = view.findViewById<Button>(R.id.signInRegisterButton)
 
-        loginButton.setOnClickListener { view ->
-            tAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                .addOnCompleteListener(this.requireActivity(),
-                    OnCompleteListener<AuthResult?> { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            val user = tAuth.currentUser
-                            var uid = user!!.uid
-                            loggedInStatus.setText("LOGGED IN" + uid)
-                        } else {
-                            loggedInStatus.setText("FAILURE")
-                            // If sign in fails, display a message to the user.
-                        }
-                    })
+        signInRegister.setOnClickListener {
+            navigateToSignInRegisterFragment()
         }
     }
 
+    fun navigateToSignInRegisterFragment() {
+        val signInRegisterFragment = SignInRegisterFragment(tAuth, db)
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fl_main, signInRegisterFragment, "SignInRegisterFragment") //TODO - Check what the value of the tag paramaeter is meant to be
+        fragmentTransaction.commit()
+    }
+
+    //TODO - Implement
     //TODO - Documentation
     /**
      *
+     *
+     * @param view
      */
-    fun updateUI(user: FirebaseUser?, view: View) {
-        val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
-        if (user == null) {
-            loggedInStatus.setText("LOGIN FAILURE")
-        } else {
-            loggedInStatus.setText("LOGGED IN")
-        }
+    fun updateUISignedIn(view: View) {
+
     }
 }

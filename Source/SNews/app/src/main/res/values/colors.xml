@@ -6,8 +6,10 @@
     <color name="backgroundGreyMedium">#434447</color>
     <color name="backgroundGreyLight">#616161</color>
     <color name="text">@android:color/white</color>
+    <color name="hint">#B1AFAF</color>
     <color name="toggleAccentOff">#2E3032</color>
     <color name="toggleAccentOn">#304FFE</color>
     <color name="button">#434546</color>
     <color name="icon">@android:color/white</color>
+    <color name="error">@android:color/holo_red_light</color>
 </resources>

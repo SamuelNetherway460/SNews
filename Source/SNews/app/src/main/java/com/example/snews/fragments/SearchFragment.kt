@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 
+//TODO - Full XML Check
 //TODO - Documentation
 /**
  *

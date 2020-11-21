@@ -6,11 +6,19 @@ import com.example.snews.models.Source
 import org.json.JSONArray
 import org.json.JSONObject
 
+//TODO - Check null safety
+/**
+ * A class used for parsing raw JSON article data.
+ *
+ * @author Samuel Netherway
+ */
 class ArticleParser {
 
     companion object {
         /**
-         * Parses a json article group object to a article group object
+         * Parses a JSON article group object to a article group object.
+         *
+         * @param articleGroup JSON object containing the raw article group data.
          */
         fun parseArticleGroup(articleGroup: JSONObject): ArticleGroup {
             var status: String? = articleGroup.getString("status")
@@ -20,7 +28,11 @@ class ArticleParser {
         }
 
         /**
-         * Converts a list of json article objects to a array list of article objects
+         * Converts a list of JSON article objects to a array list of article objects.
+         *
+         * @param jsonArticles Array of JSON objects containing the raw article data.
+         * @param totalResults The total number of articles contained in the JSON array.
+         * @return An array list of article objects.
          */
         fun parseArticles(jsonArticles: JSONArray, totalResults: Int): ArrayList<Article> {
             var articles: ArrayList<Article> = ArrayList()
@@ -32,7 +44,10 @@ class ArticleParser {
         }
 
         /**
-         * Converts a json article object to a article object
+         * Converts a JSON article object to a article object.
+         *
+         * @param jsonArticle A single JSON object containing the raw data for one article.
+         * @return A single article object.
          */
         fun parseArticle(jsonArticle: JSONObject): Article {
             var source: Source? = parseSource(jsonArticle.getJSONObject("source"))
@@ -47,7 +62,10 @@ class ArticleParser {
         }
 
         /**
-         * Converts a json source object to a source object
+         * Converts a JSON source object to a source object.
+         *
+         * @param jsonSource A JSON object containing the raw source data on an article.
+         * @return A single source object.
          */
         fun parseSource(jsonSource: JSONObject): Source {
             var id: String? = jsonSource.getString("id")

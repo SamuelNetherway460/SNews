@@ -5,6 +5,7 @@ import com.example.snews.models.Request
 
 //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d3629af64f934b1889b1fc3afb716b3c
 
+//TODO - Documentation
 //TODO - Externalise all strings
 /**
  * Formats URL requests sent to the News API

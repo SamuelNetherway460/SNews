@@ -1,5 +1,6 @@
 package com.example.snews.utilities.database.documents
 
+//TODO - Documentation
 class User (uid: String?){
 
     private var uid: String? = null

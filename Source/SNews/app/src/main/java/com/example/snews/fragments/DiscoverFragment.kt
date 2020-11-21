@@ -12,6 +12,8 @@ import com.example.snews.utilities.database.queryEngines.UserQueryEngine
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+//TODO - Full XML Check
+//TODO - Check over xml, put correct colors, i.e. iconColor
 //TODO Add sign in check
 //TODO Check null safety
 /**

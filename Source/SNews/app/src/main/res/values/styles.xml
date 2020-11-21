@@ -13,8 +13,8 @@
     </style>
 
     <style name="AppTheme.Button.Dark" parent="Widget.AppCompat.Button">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:backgroundTint">@color/backgroundGreyMedium</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:backgroundTint">@color/backgroundGreyLight</item>
     </style>
 
     <style name="AppTheme.Button.Nav" parent="Widget.AppCompat.Button">
@@ -22,7 +22,7 @@
         <item name="android:backgroundTint">@color/backgroundGreyLight</item>
     </style>
 
-    <style name="AppTheme.SpecialTextView" parent="Widget.AppCompat.TextView">
+    <style name="AppTheme.TextView" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">24dp</item>
         <item name="android:gravity">center</item>
@@ -31,5 +31,15 @@
     <style name="AppTheme.Switch" partent="Widget.AppCompat.Switch">
         <item name="thumbTint">@color/primary</item>
         <item name="trackColorActive">@color/text</item>
+    </style>
+
+    <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColorHint">@color/hint</item>
+    </style>
+
+    <style name="ErrorTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/error</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
