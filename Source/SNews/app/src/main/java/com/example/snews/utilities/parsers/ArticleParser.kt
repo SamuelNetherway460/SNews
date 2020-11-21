@@ -1,4 +1,4 @@
-package com.example.snews.parsers
+package com.example.snews.utilities.parsers
 
 import com.example.snews.models.Article
 import com.example.snews.models.ArticleGroup

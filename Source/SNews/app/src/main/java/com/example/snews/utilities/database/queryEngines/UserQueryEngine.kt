@@ -1,9 +1,9 @@
-package com.example.snews.database.queries
+package com.example.snews.utilities.database.queryEngines
 
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
-class UserQuery(val db: FirebaseFirestore) {
+class UserQueryEngine(val db: FirebaseFirestore) {
 
     /**
      * Adds a category to the user's list of selected categories.

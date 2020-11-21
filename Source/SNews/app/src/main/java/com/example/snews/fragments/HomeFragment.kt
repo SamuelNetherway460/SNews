@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.snews.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.adapters.RecyclerAdapter
-import com.example.snews.parsers.ArticleParser
+import com.example.snews.utilities.parsers.ArticleParser
 import com.koushikdutta.ion.Ion
 import org.json.JSONObject
 

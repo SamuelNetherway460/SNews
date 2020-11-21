@@ -1,4 +1,4 @@
-package com.example.snews.database.documents
+package com.example.snews.utilities.database.documents
 
 class User (uid: String?){
 

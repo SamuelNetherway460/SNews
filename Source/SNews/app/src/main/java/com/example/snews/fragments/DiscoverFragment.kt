@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.example.snews.R
-import com.example.snews.database.queries.UserQuery
+import com.example.snews.utilities.database.queryEngines.UserQueryEngine
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -148,7 +148,7 @@ class DiscoverFragment(private val tAuth: FirebaseAuth) : Fragment() {
     }
 
     fun updateDatabaseCategory(isChecked: Boolean, category: String) {
-        var userQuery = UserQuery(db)
+        var userQuery = UserQueryEngine(db)
         var uid: String? = tAuth.uid
         if (uid != null) {
             if (isChecked) {

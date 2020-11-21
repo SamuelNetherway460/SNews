@@ -15,9 +15,9 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+//TODO Implement shared preferences for storage of device specific preferences
+//TO Add signed in check
 class ProfileFragment(private val tAuth: FirebaseAuth) : Fragment() {
-
-    private var mAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
