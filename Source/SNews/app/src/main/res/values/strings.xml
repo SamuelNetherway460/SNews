@@ -24,22 +24,27 @@
     <!--Instructions-->
     <string name="guess_fact_instruction">Fill in the blank!</string>
 
-    <!--Discover Categories-->
-    <string name="technology">Technology</string>
-    <string name="cars">cars</string>
-    <string name="sport">Sport</string>
-    <string name="politics">Politics</string>
-    <string name="games">Games</string>
-    <string name="tv">TV</string>
-    <string name="travel">Travel</string>
-    <string name="health">Health</string>
-    <string name="stocks">Stocks</string>
+    <!--Discover Fragment-->
+    <string name="categories_header">Categories</string>
+    <string name="publishers_header">Publishers</string>
 
     <!--Profile Fragment-->
-    <string name="account_instructions_or_name">Please sign in or register</string>
+    <string name="account_instructions_or_name">Please Sign in or Register</string>
     <string name="sign_in_register">Sign In / Register</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="apply_tags">Apply Tags</string>
+    <string name="spotlight_filtering_header">Spotlight</string>
+    <string name="spotlight_filtering_description">Articles containing these words in the title will be pushed to the top of the news feed. Press and hold on a word to remove it permanently. Words can also be toggled off and on.</string>
+    <string name="spotlight_hint">Enter word</string>
+    <string name="hide_filtering_header">Hide</string>
+    <string name="hide_filtering_description">Articles containing these words in the title will be hidden from the news feed. Press and hold on a word to remove it permanently. Words can also be toggled off and on.</string>
+    <string name="hide_hint">Enter word</string>
+    <string name="add">Add</string>
+    <string name="remove_all">Remove All</string>
+    <string name="notification_preferences_header">Notifications</string>
+    <string name="notification_preferences_description">Customise article notifications preferences.</string>
+    <string name="offline_mode_preferences_header">Offline Mode</string>
+    <string name="offline_mode_preferences_description">Customise preferences for app performance when an active internet connection cannot be achieved.</string>
 
     <!--Sign In Register Fragment-->
     <string name="sign_in">Sign In</string>

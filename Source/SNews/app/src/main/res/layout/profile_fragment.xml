@@ -1,50 +1,565 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.ProfileFragment">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/userProfileImage"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_user_3"
-                app:tint="@color/icon"/>
+                app:tint="@color/icon" />
+
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/loggedInStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="@string/account_instructions_or_name"
-                android:textColor="@color/text"/>
-            <com.google.android.material.button.MaterialButton
+                android:theme="@style/DescriptionText" />
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signInRegisterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/sign_in_register"/>
+                android:layout_marginTop="10dp"
+                android:text="@string/sign_in_register"
+                android:theme="@style/AppTheme.Button.Dark"/>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/spotlightCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 app:cardBackgroundColor="@color/backgroundGreyMedium"
                 app:cardCornerRadius="10dp">
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/spotlightFilteringHeader"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/spotlight_filtering_header"
+                        android:theme="@style/HeaderText"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/spotlightFilteringDescription"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/spotlight_filtering_description"
+                        android:theme="@style/DescriptionText" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/spotlightWordEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/spotlight_hint"
+                            android:theme="@style/AppTheme.EditText" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/spotlightAddWord"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/add"
+                            android:theme="@style/AppTheme.Button.Dark" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <HorizontalScrollView
+                        android:id="@+id/spotlightScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp">
+
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="IPhone"
+                                android:textOff="IPhone"/>
+
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Apple"
+                                android:textOff="Apple"
+                                android:checked="true"/>
+
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Mac"
+                                android:textOff="Mac"/>
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Release"
+                                android:textOff="Release"
+                                android:checked="true"/>
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Confirmed"
+                                android:textOff="Confirmed"
+                                android:checked="true"/>
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Big Sur"
+                                android:textOff="Big Sur"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </HorizontalScrollView>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/spotlightRemoveAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/remove_all"
+                        android:theme="@style/AppTheme.Button.Dark" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/hideCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardBackgroundColor="@color/backgroundGreyMedium"
+                app:cardCornerRadius="10dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/hideFilteringHeader"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/hide_filtering_header"
+                        android:theme="@style/HeaderText"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/hideFilteringDescription"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/hide_filtering_description"
+                        android:theme="@style/DescriptionText" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/hideWordEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/spotlight_hint"
+                            android:theme="@style/AppTheme.EditText" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/hideAddWord"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/add"
+                            android:theme="@style/AppTheme.Button.Dark" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <HorizontalScrollView
+                        android:id="@+id/hideScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp">
+
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Covid"
+                                android:textOff="Covid"/>
+
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Trump"
+                                android:textOff="Trump"
+                                android:checked="true"/>
+
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Politics"
+                                android:textOff="Politics"/>
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="Samsung"
+                                android:textOff="Samsung"
+                                android:checked="true"/>
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="America"
+                                android:textOff="America"
+                                android:checked="true"/>
+                            <ToggleButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/AppTheme.ToggleButton"
+                                android:textOn="China"
+                                android:textOff="China"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </HorizontalScrollView>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/hideRemoveAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/remove_all"
+                        android:theme="@style/AppTheme.Button.Dark" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardBackgroundColor="@color/backgroundGreyMedium"
+                app:cardCornerRadius="10dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/notificationPreferencesHeader"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/notification_preferences_header"
+                        android:theme="@style/HeaderText" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/notificationPreferencesDescription"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/notification_preferences_description"
+                        android:theme="@style/DescriptionText" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/notificationSettingOneText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting One"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/notificationSettingOneSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/notificationSettingTwoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Two"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/notificationSettingTwoSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/notificationSettingThreeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Three"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/notificationSettingThreeSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/notificationSettingFourText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Four"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/notificationSettingFourSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/notificationSettingFiveText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Five"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/notificationSettingFiveSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardBackgroundColor="@color/backgroundGreyMedium"
+                app:cardCornerRadius="10dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/offlineModePreferencesHeader"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/offline_mode_preferences_header"
+                        android:theme="@style/HeaderText" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/offlineModePreferencesDescription"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/offline_mode_preferences_description"
+                        android:theme="@style/DescriptionText" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/offlineModeSettingOneText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting One"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/offlineModeSettingOneSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/offlineModeSettingTwoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Two"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/offlineModeSettingTwoSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/offlineModeSettingThreeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Three"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/offlineModeSettingThreeSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/offlineModeSettingFourText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Four"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/offlineModeSettingFourSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/offlineModeSettingFiveText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="Setting Five"
+                            android:theme="@style/SettingText" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/offlineModeSettingFiveSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:theme="@style/AppTheme.Switch" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

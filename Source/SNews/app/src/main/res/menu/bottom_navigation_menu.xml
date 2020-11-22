@@ -22,7 +22,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_game_console"
         app:showAsAction="ifRoom"
-        android:title="@string/games">
+        android:title="@string/games_menu">
     </item>
     <item
         android:id="@+id/search"

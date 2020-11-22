@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
+//TODO - Toast messages if there is a class between spotlight and hide filtering. Ask user to remove one first.
 //TODO - Full XML Check
 //TODO - Implement shared preferences for storage of device specific preferences
 //TODO - Add signed in check
