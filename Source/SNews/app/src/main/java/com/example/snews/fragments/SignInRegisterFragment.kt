@@ -14,6 +14,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+//TODO - Hide remove default error text and put in error handling and checking of user details, like check confirm email and password matches, etc
 //TODO - Full XML Check
 //TODO - Edit text entry color put in styles file
 //TODO - Documentation
@@ -62,7 +63,6 @@ class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: Fi
      * @param
      */
     fun signIn(view: View) {
-
         val emailSignIn = view.findViewById<EditText>(R.id.signInEmail)
         val passwordSignIn = view.findViewById<EditText>(R.id.signInPassword)
         val errorTextViewSignIn = view.findViewById<TextView>(R.id.signInErrorText)
@@ -92,6 +92,14 @@ class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: Fi
      * @param view
      */
     fun register(view: View) {
+
+    }
+
+    fun addNewUserToAuth() {
+
+    }
+
+    fun addNewUserToFireStore() {
 
     }
 

@@ -10,27 +10,55 @@
     <string name="search_menu">Search</string>
     <string name="profile_menu">Profile</string>
 
+    <!--Home Fragment-->
+
+
+    <!--Article Fragment-->
+
+
+    <!--Discover Fragment-->
+    <string name="categories_header">Categories</string>
+    <string name="business_category">Business</string>
+    <string name="entertainment_category">Entertainment</string>
+    <string name="general_category">General</string>
+    <string name="health_category">Health</string>
+    <string name="science_category">Science</string>
+    <string name="sports_category">Sports</string>
+    <string name="technology_category">Technology</string>
+    <string name="publishers_header">Publishers</string>
+    <string name="wired_publisher">Wired</string>
+    <string name="tech_crunch_publisher">Tech Crunch</string>
+    <string name="the_next_web_publisher">The Next Web</string>
+    <string name="bbc_news_publisher">BBC News</string>
+    <string name="mac_rumors_publisher">Mac Rumors</string>
+    <string name="cnet_publisher">CNET</string>
+    <string name="bleacher_report_publisher">Bleacher Report</string>
+    <string name="bloomberg_publisher">Bloomberg</string>
+    <string name="business_insider_publisher">Business Insider</string>
+    <string name="buzzfeed_publisher">Buzzfeed</string>
+    <string name="cnn_publisher">CNN</string>
+    <string name="espn_publisher">ESPN</string>
+    <string name="financial_post_publisher">Financial Post</string>
+    <string name="fox_news_publisher">Fox News</string>
+
     <!--Games Fragment-->
-    <!--Navigation-->
     <string name="view_article_button">View Article</string>
     <string name="skip_button">Skip Question</string>
-    <!--Game Types-->
     <string name="guess_fact">Guess The Fact</string>
     <string name="guess_article">Guess The Article</string>
     <string name="a">A.</string>
     <string name="b">B.</string>
     <string name="c">C.</string>
     <string name="d">D.</string>
-    <!--Instructions-->
     <string name="guess_fact_instruction">Fill in the blank!</string>
 
-    <!--Discover Fragment-->
-    <string name="categories_header">Categories</string>
-    <string name="publishers_header">Publishers</string>
+    <!--Search Fragment-->
+
 
     <!--Profile Fragment-->
     <string name="account_instructions_or_name">Please Sign in or Register</string>
     <string name="sign_in_register">Sign In / Register</string>
+    <string name="sign_out">Sign Out</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="apply_tags">Apply Tags</string>
     <string name="spotlight_filtering_header">Spotlight</string>

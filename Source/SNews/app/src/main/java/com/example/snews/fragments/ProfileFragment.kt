@@ -46,12 +46,35 @@ class ProfileFragment(private val tAuth: FirebaseAuth, private val db: FirebaseF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO - Sign in check and update UI
-
         val signInRegister = view.findViewById<Button>(R.id.signInRegisterButton)
+        val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
+
+        if (tAuth.currentUser != null) {
+            signInRegister.setText("Sign Out") //TODO - Externalise string
+        } else {
+            signInRegister.setText("Sign in / Register") //TODO - Externalise string
+        }
 
         signInRegister.setOnClickListener {
-            navigateToSignInRegisterFragment()
+            if (tAuth.currentUser != null) {
+                tAuth.signOut()
+                signInRegister.setText("Sign in / Register") //TODO - Externalise string
+                loggedInStatus.setText("Sign in or Register") //TODO - Externalise string
+            } else {
+                navigateToSignInRegisterFragment()
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val signInRegister = view?.findViewById<Button>(R.id.signInRegisterButton)
+        val loggedInStatus = view?.findViewById<TextView>(R.id.loggedInStatus)
+        if (tAuth.currentUser != null) {
+            if (signInRegister != null) signInRegister.setText("Sign Out") //TODO - Externalise string
+            if (signInRegister != null && loggedInStatus != null) loggedInStatus.setText(tAuth.currentUser!!.email) //TODO - Check null safety
+        } else {
+            if (signInRegister != null) signInRegister.setText("Sign In / Register") //TODO - Externalise string
         }
     }
 
@@ -71,6 +94,9 @@ class ProfileFragment(private val tAuth: FirebaseAuth, private val db: FirebaseF
      * @param view
      */
     fun updateUISignedIn(view: View) {
-
+        val signInRegister = view.findViewById<Button>(R.id.signInRegisterButton)
+        val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
+        signInRegister.setText("Sign Out") //TODO - Use external string
+        // TODO - Set loggedInStatus to be the first_name and last_name of the user
     }
 }

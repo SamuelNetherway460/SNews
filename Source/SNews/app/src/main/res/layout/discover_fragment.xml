@@ -69,9 +69,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="Business"
-                            android:textColor="@color/colorSecondary"
-                            android:textSize="18sp" />
+                            android:text="@string/business_category"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/businessSwitch"
@@ -102,9 +101,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Entertainment"
-                            android:textSize="18sp" />
+                            android:text="@string/entertainment_category"
+                            android:theme="@style/ImportantText"  />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/entertainmentSwitch"
@@ -134,9 +132,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="General"
-                            android:textSize="18sp" />
+                            android:text="@string/general_category"
+                            android:theme="@style/ImportantText"  />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/generalSwitch"
@@ -166,9 +163,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Health"
-                            android:textSize="18sp" />
+                            android:text="@string/health_category"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/healthSwitch"
@@ -198,9 +194,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Science"
-                            android:textSize="18sp" />
+                            android:text="@string/science_category"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/scienceSwitch"
@@ -230,9 +225,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Sports"
-                            android:textSize="18sp" />
+                            android:text="@string/sports_category"
+                            android:theme="@style/ImportantText"  />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/sportsSwitch"
@@ -262,9 +256,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Technology"
-                            android:textSize="18sp" />
+                            android:text="@string/technology_category"
+                            android:theme="@style/ImportantText"  />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/technologySwitch"
@@ -331,9 +324,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="Wired"
-                            android:textColor="@color/colorSecondary"
-                            android:textSize="18sp" />
+                            android:text="@string/wired_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/wiredSwitch"
@@ -363,9 +355,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Tech Crunch"
-                            android:textSize="18sp" />
+                            android:text="@string/tech_crunch_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/techcrunchSwitch"
@@ -395,9 +386,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="The Next Web"
-                            android:textSize="18sp" />
+                            android:text="@string/the_next_web_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/thenextwebSwitch"
@@ -427,9 +417,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="BBC News"
-                            android:textSize="18sp" />
+                            android:text="@string/bbc_news_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/bbcnewsSwitch"
@@ -459,9 +448,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Mac Rumors"
-                            android:textSize="18sp" />
+                            android:text="@string/mac_rumors_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/macrumorsSwitch"
@@ -491,9 +479,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="CNET"
-                            android:textSize="18sp" />
+                            android:text="@string/cnet_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/cnetSwitch"
@@ -523,9 +510,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Bleacher Report"
-                            android:textSize="18sp" />
+                            android:text="@string/bleacher_report_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/bleacherreportSwitch"
@@ -555,9 +541,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Bloomberg"
-                            android:textSize="18sp" />
+                            android:text="@string/bloomberg_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/bloombergSwitch"
@@ -587,9 +572,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Business Insider"
-                            android:textSize="18sp" />
+                            android:text="@string/business_insider_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/businessinsiderSwitch"
@@ -619,9 +603,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Buzzfeed"
-                            android:textSize="18sp" />
+                            android:text="@string/buzzfeed_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/buzzfeedSwitch"
@@ -651,9 +634,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="CNN"
-                            android:textSize="18sp" />
+                            android:text="@string/cnn_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/cnnSwitch"
@@ -683,9 +665,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="ESPN"
-                            android:textSize="18sp" />
+                            android:text="@string/espn_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/espnSwitch"
@@ -715,9 +696,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Financial Post"
-                            android:textSize="18sp" />
+                            android:text="@string/financial_post_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/finantialpostSwitch"
@@ -747,9 +727,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorSecondary"
-                            android:text="Fox News"
-                            android:textSize="18sp" />
+                            android:text="@string/fox_news_publisher"
+                            android:theme="@style/ImportantText" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/foxnewsSwitch"

@@ -29,8 +29,7 @@
     </style>
 
     <style name="AppTheme.Switch" partent="Widget.AppCompat.Switch">
-        <item name="thumbTint">@color/primary</item>
-        <item name="trackColorActive">@color/text</item>
+        <item name="colorAccent">@color/colorSecondary</item>
     </style>
 
     <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
@@ -46,6 +45,11 @@
 
     <style name="DescriptionText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+    </style>
+
+    <style name="ImportantText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/colorSecondary</item>
     </style>
 
