@@ -13,6 +13,7 @@ import com.example.snews.utilities.parsers.ArticleParser
 import com.koushikdutta.ion.Ion
 import org.json.JSONObject
 
+//TODO - If no discover publishers or categories are selected. Do top headlines as default.
 //TODO - Full XML Check
 //TODO - Documentation
 /**

@@ -175,11 +175,11 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
      */
     fun updateDatabaseCategory(isChecked: Boolean, category: String) {
         if (tAuth.uid != null) {
-            var userQuery = UserQueryEngine(db, tAuth.uid!!)
+            var userQuery = UserQueryEngine(db)
             if (isChecked) {
-                userQuery.addCategory(category)
+                userQuery.addCategory(category, tAuth.uid!!)
             } else {
-                userQuery.removeCategory(category)
+                userQuery.removeCategory(category, tAuth.uid!!)
             }
         }
     }
@@ -192,11 +192,11 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
      */
     fun updateDatabasePublisher(isChecked: Boolean, publisher: String) {
         if (tAuth.uid != null) {
-            var userQuery = UserQueryEngine(db, tAuth.uid!!)
+            var userQuery = UserQueryEngine(db)
             if (isChecked) {
-                userQuery.addPublisher(publisher)
+                userQuery.addPublisher(publisher, tAuth.uid!!)
             } else {
-                userQuery.removePublisher(publisher)
+                userQuery.removePublisher(publisher, tAuth.uid!!)
             }
         }
     }

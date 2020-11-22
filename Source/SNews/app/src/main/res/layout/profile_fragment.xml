@@ -30,7 +30,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="@string/account_instructions_or_name"
-                android:theme="@style/DescriptionText" />
+                android:theme="@style/ImportantText" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signInRegisterButton"

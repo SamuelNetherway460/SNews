@@ -72,7 +72,7 @@ class ProfileFragment(private val tAuth: FirebaseAuth, private val db: FirebaseF
         val loggedInStatus = view?.findViewById<TextView>(R.id.loggedInStatus)
         if (tAuth.currentUser != null) {
             if (signInRegister != null) signInRegister.setText("Sign Out") //TODO - Externalise string
-            if (signInRegister != null && loggedInStatus != null) loggedInStatus.setText(tAuth.currentUser!!.email) //TODO - Check null safety
+            if (signInRegister != null && loggedInStatus != null) loggedInStatus.setText(tAuth.currentUser!!.email) //TODO - Check null safety and change to users first and last name
         } else {
             if (signInRegister != null) signInRegister.setText("Sign In / Register") //TODO - Externalise string
         }
