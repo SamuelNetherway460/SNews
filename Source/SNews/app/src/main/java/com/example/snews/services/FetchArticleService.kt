@@ -3,19 +3,17 @@ package com.example.snews.services
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.IBinder
 import android.widget.Toast
+import com.example.snews.R
 import com.koushikdutta.ion.Ion
-import android.provider.Settings
-import java.io.File
 
 //TODO - JavaDoc
 //TODO - As part of service, send user notification that new articles have been successfully fetched
 //TODO - Remove test alarm and replace with fetch article method from API and write to local JSON article dump
 class FetchArticleService : Service() {
 
-    val filename = "articleData"
+    private val ARTICLE_STORE_FILENAME = getString(R.string.article_store_filename)
 
     override fun onCreate() {
         super.onCreate()
@@ -50,7 +48,7 @@ class FetchArticleService : Service() {
     }
 
     fun readFromFile() : String {
-        this.openFileInput(filename).bufferedReader().useLines { lines ->
+        this.openFileInput(ARTICLE_STORE_FILENAME).bufferedReader().useLines { lines ->
             lines.fold("") { some, text ->
                 return text
             }
@@ -59,7 +57,7 @@ class FetchArticleService : Service() {
     }
 
     fun writeToFile(string: String) {
-        this.openFileOutput(filename, Context.MODE_PRIVATE).use {
+        this.openFileOutput(ARTICLE_STORE_FILENAME, Context.MODE_PRIVATE).use {
             it.write(string.toByteArray())
         }
     }

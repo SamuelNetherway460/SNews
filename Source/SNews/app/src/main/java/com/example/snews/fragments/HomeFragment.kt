@@ -1,6 +1,8 @@
 package com.example.snews.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +23,7 @@ import org.json.JSONObject
  */
 class HomeFragment : Fragment() {
 
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+    private val ARTICLE_STORE_FILENAME = getString(R.string.article_store_filename)
 
     //TODO - Documentation
     /**
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        Log.d(TAG, "ON CREATE VIEW CALLED")
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
@@ -43,6 +45,27 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchArticles(view)
+        Log.d(TAG, "HOME - ON VIEW CREATED CALLED")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "HOME - ON PAUSE CALLED")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "HOME - ON RESUME CALLED")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "HOME - ON STOP CALLED")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "HOME - ON DESTROY CALLED")
     }
 
     //TODO - Documentation
@@ -72,7 +95,7 @@ class HomeFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = RecyclerAdapter(ArticleParser.parseArticleGroup(JSONObject(result)))
+            adapter = RecyclerAdapter(ArticleParser.parseArticleGroup(JSONObject(result)), activity!!)
         }
     }
 }

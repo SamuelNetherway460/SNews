@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     private val tAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    private val hour = 21
-    private val minute = 55
+    private val hour = 18
+    private val minute = 4
 
     //TODO - Documentation
     /**

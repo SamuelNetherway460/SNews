@@ -2,6 +2,7 @@
     <!--General-->
     <string name="app_name">SNews</string>
     <string name="error">ERROR</string>
+    <string name="article_store_filename">articleData</string>
 
     <!--Bottom Navigation Menu-->
     <string name="home_menu">Home</string>

@@ -3,14 +3,13 @@ package com.example.snews.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
 import com.example.snews.fragments.ArticleViewerFragment
 import com.example.snews.models.Article
 import com.example.snews.models.ArticleGroup
-import com.google.android.material.snackbar.Snackbar
 
 //TODO - Multiple types of rows
 //TODO - Documentation, look at demo video for correct method layouts and functions
@@ -19,13 +18,13 @@ import com.google.android.material.snackbar.Snackbar
  * @author Samuel Netherway
  * @param articleGroup
  */
-class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val articleGroup: ArticleGroup, private val activity: FragmentActivity) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     //TODO - Documentation
     /**
      *
      */
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var mediumArticleTitle: TextView
         var mediumArticleCategory: TextView
@@ -55,13 +54,6 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
             largeArticleCategory = itemView.findViewById(R.id.largeRowCategory)
             largeArticleDateTime = itemView.findViewById(R.id.largeRowDatetime)
              */
-
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            val snackbar = Snackbar.make(v, "SUCCESS", Snackbar.LENGTH_LONG)
-            snackbar.show()
         }
     }
 
@@ -71,7 +63,11 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
      *
      */
     fun navigateToArticleViewerFragment(article: Article) {
-
+        val articleViewerFragment = ArticleViewerFragment(article)
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fl_main, articleViewerFragment, "ArticleViewerFragment") //TODO - Check what the value of the tag paramaeter is meant to be
+        fragmentTransaction.commit()
     }
 
     //TODO - Documentation
@@ -107,6 +103,10 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
         viewHolder.largeArticleCategory.text = "category"
         viewHolder.largeArticleDateTime.text = article.getPublishedAt()
          */
+
+        viewHolder.itemView.setOnClickListener(View.OnClickListener {
+            navigateToArticleViewerFragment(article)
+        })
     }
 
     //TODO - Documentation
