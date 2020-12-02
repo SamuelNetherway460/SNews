@@ -14,19 +14,22 @@ import com.example.snews.R
 import com.example.snews.models.Article
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-
+//TODO - Organises on's in order of being called
+//TODO - Consider all on's
+//TODO - Look into savedInstanceState
 //TODO - Documentation
 //TODO - Implement
 /**
- *
+ * Fragment responsible for displaying news articles.
  *
  * @author Samuel Netherway
  */
 class ArticleViewerFragment(private val article: Article) : Fragment() {
 
-    //TODO - Documentation
     /**
+     * Creates and returns the view hierarchy associated with the fragment.
      *
+     * @return The view hierarchy associated with the fragment.
      */
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -38,7 +41,11 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
 
     //TODO - Documentation
     /**
+     * Initialises the web view and displays the article.
+     * Sets up navigation.
      *
+     * @param view The view hierarchy associated with the fragment.
+     * @param savedInstanceState The saved state of the fragment.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,11 +56,12 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
                 return false
             }
         })
+
         if (article.getUrl() != null) {
             webView.loadUrl(article.getUrl()!!)
         }
-        val bottomNavigation = activity!!.findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
 
+        val bottomNavigation = activity!!.findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
         // Allow alterations to checked menu items
         bottomNavigation.menu.setGroupCheckable(0, true, false)
         // Uncheck home
@@ -62,11 +70,15 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
         bottomNavigation.menu.setGroupCheckable(0, true, true)
     }
 
-    //TODO - Check
+    /**
+     * Sets up navigation if the back button is pressed.
+     *
+     * @param savedInstanceState The saved state of the fragment.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // This callback will only be called when MyFragment is at least Started.
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+        // Navigate back to the home fragment if the back buttion is pressed
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true ) {
             override fun handleOnBackPressed() {
                 navigateToHomeFragment()
                 val bottomNavigation = activity!!.findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
@@ -76,35 +88,53 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onPause() {
         super.onPause()
         Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON PAUSE CALLED")
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onResume() {
         super.onResume()
         Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON RESUME CALLED")
     }
 
-    fun navigateToHomeFragment() {
-        val homeFragment = HomeFragment()
-        val fragmentManager = activity!!.supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        //TODO - fl_main should be this fragment
-        fragmentTransaction.replace(R.id.fl_main, homeFragment, "HomeFragment") //TODO - Check what the value of the tag parameter is meant to be
-        fragmentTransaction.commit()
-    }
-
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onStop() {
         super.onStop()
         Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON STOP CALLED")
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON DESTROY CALLED")
+    }
+
+    /**
+     * Takes the user to the home fragment
+     */
+    fun navigateToHomeFragment() {
+        val homeFragment = HomeFragment()
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        //TODO - should fl_main be this fragment
+        fragmentTransaction.replace(R.id.fl_main, homeFragment, "HomeFragment") //TODO - Check what the value of the tag parameter is meant to be
+        fragmentTransaction.commit()
     }
 }
