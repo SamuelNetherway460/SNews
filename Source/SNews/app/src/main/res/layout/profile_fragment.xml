@@ -327,6 +327,11 @@
                             android:text="Setting One"
                             android:theme="@style/SettingText" />
 
+                        <TimePicker
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:timePickerMode="spinner"/>
+
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/notificationSettingOneSwitch"
                             android:layout_width="match_parent"

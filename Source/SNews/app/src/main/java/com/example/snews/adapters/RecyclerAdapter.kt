@@ -7,8 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
+import com.example.snews.fragments.ArticleViewerFragment
 import com.example.snews.models.Article
 import com.example.snews.models.ArticleGroup
+import com.google.android.material.snackbar.Snackbar
 
 //TODO - Multiple types of rows
 //TODO - Documentation, look at demo video for correct method layouts and functions
@@ -23,38 +25,53 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
     /**
      *
      */
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        /*
         var mediumArticleTitle: TextView
         var mediumArticleCategory: TextView
         var mediumArticleDateTime: TextView
-         */
 
+        /*
         var largeArticleTitle: TextView
         var largeArticleDescription: TextView
         var largeArticleCategory: TextView
         var largeArticleDateTime: TextView
         var largeArticleImage: ImageView
+         */
 
         //TODO - Documentation
         /**
          * @constructor
          */
         init {
-
-            /*
             mediumArticleTitle = itemView.findViewById(R.id.mediumRowArticleTitle)
             mediumArticleCategory = itemView.findViewById(R.id.mediumRowCategory)
             mediumArticleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
-            */
 
+            /*
             largeArticleImage = itemView.findViewById(R.id.largeRowArticleImage)
             largeArticleTitle = itemView.findViewById(R.id.largeRowArticleTitle)
             largeArticleDescription = itemView.findViewById(R.id.largeRowArticleDescription)
             largeArticleCategory = itemView.findViewById(R.id.largeRowCategory)
             largeArticleDateTime = itemView.findViewById(R.id.largeRowDatetime)
+             */
+
+            itemView.setOnClickListener(this)
         }
+
+        override fun onClick(v: View) {
+            val snackbar = Snackbar.make(v, "SUCCESS", Snackbar.LENGTH_LONG)
+            snackbar.show()
+        }
+    }
+
+    //TODO - Documentation
+    //TODO - Implement
+    /**
+     *
+     */
+    fun navigateToArticleViewerFragment(article: Article) {
+
     }
 
     //TODO - Documentation
@@ -62,15 +79,15 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
      *
      */
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        /*
         val v = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.medium_recycler_row, viewGroup, false)
         return ViewHolder(v)
-        */
 
+        /*
         val v = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.large_recycler_row, viewGroup, false)
             return ViewHolder(v)
+         */
     }
 
     //TODO - Documentation
@@ -80,16 +97,16 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup) : RecyclerView.Ada
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var article: Article = articleGroup.getArticles()!!.get(i)
 
-        /*
         viewHolder.mediumArticleTitle.text = article.getTitle()
         viewHolder.mediumArticleCategory.text = "category" // TODO Replace with category
         viewHolder.mediumArticleDateTime.text = article.getPublishedAt()
-         */
 
+        /*
         viewHolder.largeArticleTitle.text = article.getTitle()
         viewHolder.largeArticleDescription.text = article.getDescription()
         viewHolder.largeArticleCategory.text = "category"
         viewHolder.largeArticleDateTime.text = article.getPublishedAt()
+         */
     }
 
     //TODO - Documentation

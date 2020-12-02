@@ -3,7 +3,6 @@ package com.example.snews.utilities.database.queryEngines
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 //TODO - Possibly throw exception if the user cannot be found
 /**
  * Class used to update various details in the user collection for a particular database.
