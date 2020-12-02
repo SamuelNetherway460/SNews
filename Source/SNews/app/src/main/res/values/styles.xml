@@ -28,8 +28,9 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="AppTheme.Switch" partent="Widget.AppCompat.Switch">
+    <style name="AppTheme.Switch">
         <item name="colorAccent">@color/colorSecondary</item>
+        <item name="android:textSize">18dp</item>
     </style>
 
     <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">

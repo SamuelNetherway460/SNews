@@ -22,10 +22,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 /**
  * Fragment responsible for displaying news articles.
  *
+ * @property article article to be displayed
  * @author Samuel Netherway
  */
 class ArticleViewerFragment(private val article: Article) : Fragment() {
 
+    //TODO - Possibly remove
     /**
      * Creates and returns the view hierarchy associated with the fragment.
      *
