@@ -1,5 +1,6 @@
 package com.example.snews.fragments
 
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -11,19 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.snews.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.adapters.RecyclerAdapter
+import com.example.snews.models.ArticleGroup
 import com.example.snews.utilities.parsers.ArticleParser
-import com.koushikdutta.ion.Ion
 import org.json.JSONObject
 
 //TODO - If no discover publishers or categories are selected. Do top headlines as default.
 //TODO - Full XML Check
 //TODO - Documentation
 /**
+ * Fragment responsible for displaying article data.
  *
+ * @author Samuel Netherway
  */
 class HomeFragment : Fragment() {
 
-    private val ARTICLE_STORE_FILENAME = getString(R.string.article_store_filename)
+    //TODO - Externalise
+    private val ARTICLE_STORE_FILENAME = "articleData"
 
     //TODO - Documentation
     /**
@@ -44,50 +48,65 @@ class HomeFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchArticles(view)
-        Log.d(TAG, "HOME - ON VIEW CREATED CALLED")
+        startRecyclerView(view, getArticles())
+        Log.d(TAG, "HOME FRAGMENT - ON VIEW CREATED")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "HOME - ON PAUSE CALLED")
+        Log.d(TAG, "HOME FRAGMENT - ON PAUSE CALLED")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "HOME - ON RESUME CALLED")
+        Log.d(TAG, "HOME FRAGMENT - ON RESUME CALLED")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "HOME - ON STOP CALLED")
+        Log.d(TAG, "HOME FRAGMENT - ON STOP CALLED")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d(TAG, "HOME - ON DESTROY CALLED")
+        Log.d(TAG, "HOME FRAGMENT - ON DESTROY CALLED")
     }
 
-    //TODO - Documentation
     /**
+     * Read and parse the article data from internal storage.
      *
+     * @return An article group object containing the parsed article data.
      */
-    fun fetchArticles(view: View) {
-        Ion.with(this)
-                .load("GET", "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d3629af64f934b1889b1fc3afb716b3c")
-                .setHeader("user-agent", "insomnia/2020.4.1")
-                .asString()
-                .setCallback { ex, result ->
-                    startRecyclerView(view, result)
-                }
+    fun getArticles(): ArticleGroup {
+        var rawNewsArticleData = readFromFile()
+        return ArticleParser.parseArticleGroup(JSONObject((rawNewsArticleData)))
+    }
+
+    /**
+     * Reads the article data from internal storage.
+     *
+     * @return The raw article data.
+     */
+    fun readFromFile() : String {
+        //TODO - Null safety
+        activity!!.openFileInput(ARTICLE_STORE_FILENAME).bufferedReader().useLines { lines ->
+            lines.fold("") { some, text ->
+                return text
+            }
+        }
+        return "ERROR"
     }
 
     //TODO - Change method contents to match module recycler view demo
     //TODO - Documentation
+    //TODO - Sort out comments
     /**
+     * Sets up the recycler view with article data.
      *
+     * @param view
+     * @param articleGroup An article group object containing the article data.
      */
-    fun startRecyclerView(view: View, result: String) {
+    fun startRecyclerView(view: View, articleGroup: ArticleGroup) {
         var recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         // Start recylcer view population
         recyclerView.apply {
@@ -95,7 +114,7 @@ class HomeFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = RecyclerAdapter(ArticleParser.parseArticleGroup(JSONObject(result)), activity!!)
+            adapter = RecyclerAdapter(articleGroup, activity!!)
         }
     }
 }

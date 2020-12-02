@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 //TODO - Toast messages if there is a class between spotlight and hide filtering. Ask user to remove one first.
@@ -66,6 +62,10 @@ class ProfileFragment(private val tAuth: FirebaseAuth, private val db: FirebaseF
         }
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     override fun onStart() {
         super.onStart()
         val signInRegister = view?.findViewById<Button>(R.id.signInRegisterButton)
@@ -78,6 +78,10 @@ class ProfileFragment(private val tAuth: FirebaseAuth, private val db: FirebaseF
         }
     }
 
+    //TODO - Documentation
+    /**
+     *
+     */
     fun navigateToSignInRegisterFragment() {
         val signInRegisterFragment = SignInRegisterFragment(tAuth, db)
         val fragmentManager = activity!!.supportFragmentManager

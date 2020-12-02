@@ -13,21 +13,30 @@ import com.koushikdutta.ion.Ion
 //TODO - Remove test alarm and replace with fetch article method from API and write to local JSON article dump
 class FetchArticleService : Service() {
 
-    private val ARTICLE_STORE_FILENAME = getString(R.string.article_store_filename)
+    private val ARTICLE_STORE_FILENAME = "articleData"
 
     override fun onCreate() {
         super.onCreate()
         fetchArticles()
     }
 
+    /**
+     *
+     */
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
 
+    /**
+     *
+     */
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         return START_STICKY
     }
 
+    /**
+     *
+     */
     override fun onDestroy() {
         super.onDestroy()
     }
@@ -38,24 +47,17 @@ class FetchArticleService : Service() {
      */
     fun fetchArticles() {
         Ion.with(this)
-                .load("GET", "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d3629af64f934b1889b1fc3afb716b3c")
+                .load("GET", "http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=d3629af64f934b1889b1fc3afb716b3c")
                 .setHeader("user-agent", "insomnia/2020.4.1")
                 .asString()
                 .setCallback { ex, result ->
                     writeToFile(result)
-                    Toast.makeText(applicationContext, readFromFile(), Toast.LENGTH_LONG).show()
                 }
     }
 
-    fun readFromFile() : String {
-        this.openFileInput(ARTICLE_STORE_FILENAME).bufferedReader().useLines { lines ->
-            lines.fold("") { some, text ->
-                return text
-            }
-        }
-        return "ERROR"
-    }
-
+    /**
+     *
+     */
     fun writeToFile(string: String) {
         this.openFileOutput(ARTICLE_STORE_FILENAME, Context.MODE_PRIVATE).use {
             it.write(string.toByteArray())
