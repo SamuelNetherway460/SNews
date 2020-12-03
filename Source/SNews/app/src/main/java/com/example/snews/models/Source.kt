@@ -4,6 +4,8 @@ package com.example.snews.models
 /**
  * Source model for holding source data on a particular article.
  *
+ * @property id The id of the news company.
+ * @property name The name of the news company.
  * @author Samuel Netherway
  */
 class Source (id: String?, name: String) {

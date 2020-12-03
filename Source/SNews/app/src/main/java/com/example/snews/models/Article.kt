@@ -1,9 +1,18 @@
 package com.example.snews.models
 
 //TODO - Null Safety
+//TODO - Correctly format publishedAt date time
 /**
  * Article model for holding data on a single article.
  *
+ * @property source A source object containing information about the article source.
+ * @property author The author of the article.
+ * @property title The title of the article.
+ * @property description A short description about the article.
+ * @property url The url of the web page which contains the article content.
+ * @property urlToImage The url of the image associated with the article.
+ * @property publishedAt The date and time that the article was published.
+ * @property content The article content truncated to 200 characters.
  * @author Samuel Netherway
  */
 class Article (source: Source?, author: String?, title: String?, description: String?, url: String?,
@@ -34,7 +43,7 @@ class Article (source: Source?, author: String?, title: String?, description: St
     }
 
     /**
-     * @return The article source.
+     * @return A source object containing information about the article source.
      */
     fun getSource() : Source? {
         return this.source
@@ -55,28 +64,28 @@ class Article (source: Source?, author: String?, title: String?, description: St
     }
 
     /**
-     * @return A description of the article.
+     * @return A short description about the article.
      */
     fun getDescription() : String? {
         return this.description
     }
 
     /**
-     * @return The url of the article.
+     * @return The url of the web page which contains the article content.
      */
     fun getUrl() : String? {
         return this.url
     }
 
     /**
-     * @return A url to the image associated with the article.
+     * @return The url of the image associated with the article.
      */
     fun getUrlToImage() : String? {
         return this.urlToImage
     }
 
     /**
-     * @return The publisher of the article.
+     * @return The date and time that the article was published.
      */
     fun getPublishedAt() : String? {
         return this.publishedAt

@@ -1,6 +1,8 @@
 package com.example.snews.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,17 +22,16 @@ import com.google.firebase.firestore.FirebaseFirestore
  * A fragment which provides functionality for the Discover screen of the app. The discover screen
  * allows the user to customise their experience by selecting certain news related criteria.
  *
- * @property tAuth The Firebase authentication instance used to sync user discover preferences with
+ * @property mAuth The Firebase authentication instance used to sync user discover preferences with
  *              the FireStore database.
  * @property db    Firestore instance.
  * @author Samuel Netherway
  */
-class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
+class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
 
     private var categorySwitches = ArrayList<SwitchCompat>()
     private var publisherSwitches = ArrayList<SwitchCompat>()
 
-    //TODO - Possibly remove
     /**
      * Creates and returns the view hierarchy associated with the fragment.
      *
@@ -39,11 +40,14 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
      * @param savedInstanceState The saved state of the fragment.
      * @return The view hierarchy associated with the fragment.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.discover_fragment, container, false)
     }
 
-    //TODO - Documentation
     /**
      * Initialising category and publishers switches along with other UI elements.
      *
@@ -165,11 +169,47 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
         updatePublishers()
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onPause() {
+        super.onPause()
+        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON PAUSE CALLED")
+    }
+
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onResume() {
+        super.onResume()
+        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON RESUME CALLED")
+    }
+
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onStop() {
+        super.onStop()
+        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON STOP CALLED")
+    }
+
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON DESTROY CALLED")
+    }
+
     /**
      * Queries the FireStore database to get the user's selected categories and updates the UI.
      */
     fun updateCategories() {
-        var uid: String? = tAuth.uid
+        var uid: String? = mAuth.uid
         if (uid != null) {
             val user = db.collection("users").document(uid)
             user.get()
@@ -200,12 +240,12 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
      * @param category The category preference which has been altered.
      */
     fun updateDatabaseCategory(isChecked: Boolean, category: String) {
-        if (tAuth.uid != null) {
+        if (mAuth.uid != null) {
             var userQuery = UserQueryEngine(db)
             if (isChecked) {
-                userQuery.addCategory(category, tAuth.uid!!)
+                userQuery.addCategory(category, mAuth.uid!!)
             } else {
-                userQuery.removeCategory(category, tAuth.uid!!)
+                userQuery.removeCategory(category, mAuth.uid!!)
             }
         }
     }
@@ -214,7 +254,7 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
      * Queries the FireStore database to get the user's selected publishers and updates the UI.
      */
     fun updatePublishers() {
-        var uid: String? = tAuth.uid
+        var uid: String? = mAuth.uid
         if (uid != null) {
             val user = db.collection("users").document(uid)
             user.get()
@@ -244,12 +284,12 @@ class DiscoverFragment(private val tAuth: FirebaseAuth, private val db: Firebase
      * @param publisher The publisher preference which has been altered.
      */
     fun updateDatabasePublisher(isChecked: Boolean, publisher: String) {
-        if (tAuth.uid != null) {
+        if (mAuth.uid != null) {
             var userQuery = UserQueryEngine(db)
             if (isChecked) {
-                userQuery.addPublisher(publisher, tAuth.uid!!)
+                userQuery.addPublisher(publisher, mAuth.uid!!)
             } else {
-                userQuery.removePublisher(publisher, tAuth.uid!!)
+                userQuery.removePublisher(publisher, mAuth.uid!!)
             }
         }
     }

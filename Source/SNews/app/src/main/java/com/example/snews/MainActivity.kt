@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.snews.fragments.*
@@ -14,7 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
-
 
 //TODO - Full XML Check
 //TODO - Make sure androidx components are being used in all XML files
@@ -27,7 +25,7 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity() {
 
-    private val tAuth = FirebaseAuth.getInstance()
+    private val mAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private val hour = 21
     private val minute = 46
@@ -35,19 +33,20 @@ class MainActivity : AppCompatActivity() {
     //TODO - Documentation
     /**
      *
+     *
+     * @param savedInstanceState
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val bottomNavigation = findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
 
         val homeFragment = HomeFragment()
-        val discoverFragment = DiscoverFragment(tAuth, db)
+        val discoverFragment = DiscoverFragment(mAuth, db)
         val gamesFragment = GamesFragment()
         val searchFragment = SearchFragment()
-        val profileFragment = ProfileFragment(tAuth, db)
+        val profileFragment = ProfileFragment(mAuth, db)
 
         // Default fragment
         setCurrentFragment(homeFragment)
@@ -78,6 +77,10 @@ class MainActivity : AppCompatActivity() {
         }
 
     //TODO - Change
+    //TODO - Documentation
+    /**
+     *
+     */
     private fun setAlarm() {
         var calender = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, hour)

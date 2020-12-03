@@ -1,14 +1,14 @@
 package com.example.snews.fragments
 
-import android.R.attr.password
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 import com.example.snews.utilities.database.queryEngines.UserQueryEngine
@@ -17,7 +17,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 //TODO - Hide remove default error text and put in error handling and checking of user details, like check confirm email and password matches, etc
 //TODO - Full XML Check
@@ -28,11 +27,15 @@ import com.google.firebase.firestore.FirebaseFirestore
  *
  * @author Samuel netherway
  */
-class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
+class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
 
-    //TODO - Documentation
     /**
+     * Creates and returns the view hierarchy associated with the fragment.
      *
+     * @param inflater The layout inflater associated with the fragment.
+     * @param container The fragment container.
+     * @param savedInstanceState The saved state of the fragment.
+     * @return The view hierarchy associated with the fragment.
      */
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -42,9 +45,11 @@ class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: Fi
         return inflater.inflate(R.layout.sign_in_register_fragment, container, false)
     }
 
-    //TODO - Documentation
     /**
+     * Initialising listeners for sign in and register buttons.
      *
+     * @param view The view hierarchy associated with the fragment.
+     * @param savedInstanceState The saved state of the fragment.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,18 +66,54 @@ class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: Fi
         }
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onPause() {
+        super.onPause()
+        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON PAUSE CALLED")
+    }
+
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onResume() {
+        super.onResume()
+        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON RESUME CALLED")
+    }
+
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onStop() {
+        super.onStop()
+        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON STOP CALLED")
+    }
+
+    //TODO - Implement or remove
+    /**
+     *
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON DESTROY CALLED")
+    }
+
     //TODO - Documentation
     /**
      * Attempts to sign the user in with the provided credentials.
      *
-     * @param
+     * @param view The view hierarchy associated with the fragment.
      */
     fun signIn(view: View) {
         val emailSignIn = view.findViewById<EditText>(R.id.signInEmail)
         val passwordSignIn = view.findViewById<EditText>(R.id.signInPassword)
         val errorTextViewSignIn = view.findViewById<TextView>(R.id.signInErrorText)
 
-        tAuth.signInWithEmailAndPassword(emailSignIn.text.toString(), passwordSignIn.text.toString())
+        mAuth.signInWithEmailAndPassword(emailSignIn.text.toString(), passwordSignIn.text.toString())
                 .addOnCompleteListener(this.requireActivity(),
                         OnCompleteListener<AuthResult?> { task ->
                             if (task.isSuccessful) {
@@ -130,11 +171,11 @@ class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: Fi
      *
      */
     fun addNewUserToAuth(firstName: String, lastName: String, email: String, password: String) {
-        tAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this.requireActivity(),
                         OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
-                        val user: FirebaseUser? = tAuth.getCurrentUser()
+                        val user: FirebaseUser? = mAuth.getCurrentUser()
                         addNewUserToFireStore(firstName, lastName, user!!.uid) //TODO - Check null safety
                         navigateToProfileFragment()
                     } else {
@@ -156,7 +197,7 @@ class SignInRegisterFragment(private val tAuth: FirebaseAuth, private val db: Fi
      * Takes the user to the profile fragment.
      */
     fun navigateToProfileFragment() {
-        val profileFragment = ProfileFragment(tAuth, db)
+        val profileFragment = ProfileFragment(mAuth, db)
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fl_main, profileFragment, "ProfileFragment") //TODO - Check what the value of the tag parameter is meant to be

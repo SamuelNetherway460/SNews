@@ -16,9 +16,13 @@ import com.example.snews.R
  */
 class SearchFragment : Fragment() {
 
-    //TODO - Documentation
     /**
+     * Creates and returns the view hierarchy associated with the fragment.
      *
+     * @param inflater The layout inflater associated with the fragment.
+     * @param container The fragment container.
+     * @param savedInstanceState The saved state of the fragment.
+     * @return The view hierarchy associated with the fragment.
      */
     override fun onCreateView(
             inflater: LayoutInflater,

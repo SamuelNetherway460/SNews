@@ -1,6 +1,6 @@
 package com.example.snews.fragments
 
-import android.app.Activity
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +19,7 @@ import org.json.JSONObject
 //TODO - If no discover publishers or categories are selected. Do top headlines as default.
 //TODO - Full XML Check
 //TODO - Documentation
+//TODO - Implement all relevant on's
 /**
  * Fragment responsible for displaying article data.
  *
@@ -29,47 +30,67 @@ class HomeFragment : Fragment() {
     //TODO - Externalise
     private val ARTICLE_STORE_FILENAME = "articleData"
 
-    //TODO - Documentation
     /**
+     * Creates and returns the view hierarchy associated with the fragment.
      *
+     * @param inflater The layout inflater associated with the fragment.
+     * @param container The fragment container.
+     * @param savedInstanceState The saved state of the fragment.
+     * @return The view hierarchy associated with the fragment.
      */
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "ON CREATE VIEW CALLED")
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
-    //TODO - Documentation
     /**
+     * Sets up the recycler view to display news data.
      *
+     * @param view The view hierarchy associated with the fragment.
+     * @param savedInstanceState The saved state of the fragment.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         startRecyclerView(view, getArticles())
-        Log.d(TAG, "HOME FRAGMENT - ON VIEW CREATED")
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "HOME FRAGMENT - ON PAUSE CALLED")
+        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON PAUSE CALLED")
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "HOME FRAGMENT - ON RESUME CALLED")
+        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON RESUME CALLED")
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "HOME FRAGMENT - ON STOP CALLED")
+        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON STOP CALLED")
     }
 
+    //TODO - Implement or remove
+    /**
+     *
+     */
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d(TAG, "HOME FRAGMENT - ON DESTROY CALLED")
+        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON DESTROY CALLED")
     }
 
     /**

@@ -27,10 +27,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  */
 class ArticleViewerFragment(private val article: Article) : Fragment() {
 
-    //TODO - Possibly remove
     /**
      * Creates and returns the view hierarchy associated with the fragment.
      *
+     * @param inflater The layout inflater associated with the fragment.
+     * @param container The fragment container.
+     * @param savedInstanceState The saved state of the fragment.
      * @return The view hierarchy associated with the fragment.
      */
     override fun onCreateView(
@@ -41,7 +43,6 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
         return inflater.inflate(R.layout.article_viewer_fragment, container, false)
     }
 
-    //TODO - Documentation
     /**
      * Initialises the web view and displays the article.
      * Sets up navigation.
@@ -61,6 +62,8 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
 
         if (article.getUrl() != null) {
             webView.loadUrl(article.getUrl()!!)
+        } else {
+            navigateToHomeFragment()
         }
 
         val bottomNavigation = activity!!.findViewById<View>(R.id.bottom_navigation) as BottomNavigationView

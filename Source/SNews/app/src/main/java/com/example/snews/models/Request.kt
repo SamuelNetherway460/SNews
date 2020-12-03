@@ -5,8 +5,8 @@ package com.example.snews.models
  * The Request type defines parameters for requesting content from the News API.
  *
  * @author Samuel Netherway
- * @param url The url of the request.
- * @param type The type of API request.
+ * @property url The url of the request.
+ * @property type The type of API request.
  */
 class Request (url: String, type: String) {
 

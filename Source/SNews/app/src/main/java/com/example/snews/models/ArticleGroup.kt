@@ -4,6 +4,9 @@ package com.example.snews.models
 /**
  * Article group model for holding data on a multiple articles.
  *
+ * @property status The status of the returned article data.
+ * @property totalResults The total number of article associated with the API request.
+ * @property articles The articles returned from the API request.
  * @author Samuel Netherway
  */
 class ArticleGroup (status: String?, totalResults: Int?, articles: ArrayList<Article>?) {
