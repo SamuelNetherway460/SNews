@@ -9,16 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
 import com.example.snews.fragments.ArticleViewerFragment
 import com.example.snews.models.Article
-import com.example.snews.models.ArticleGroup
 
 //TODO - Multiple types of rows
 //TODO - Documentation, look at demo video for correct method layouts and functions
 /**
+ * Manages the article data displayed in the recycler view and navigation to the article viewer
+ * fragment.
  *
  * @author Samuel Netherway
- * @param articleGroup
+ * @param articles An array list of articles to display in the recycler view.
  */
-class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity)
+    : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+    private val EMPTY_STRING = ""
 
     //TODO - Documentation
     /**
@@ -57,12 +61,12 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
         }
     }
 
-    //TODO - Documentation
-    //TODO - Implement
     /**
+     * Navigates the user to the article viewer fragment to display the article.
      *
+     * @param article The article to display.
      */
-    fun navigateToArticleViewerFragment(article: Article) {
+    private fun navigateToArticleViewerFragment(article: Article) {
         val articleViewerFragment = ArticleViewerFragment(article)
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -93,8 +97,9 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var article: Article = articles.get(i)
 
+        //TODO - Use picasso to display image
         viewHolder.mediumArticleTitle.text = article.getTitle()
-        viewHolder.mediumArticleCategory.text = "category" // TODO Replace with category
+        viewHolder.mediumArticleCategory.text = article.getSource()?.getName() ?: EMPTY_STRING // TODO Replace with category
         viewHolder.mediumArticleDateTime.text = article.getPublishedAt()
 
         /*

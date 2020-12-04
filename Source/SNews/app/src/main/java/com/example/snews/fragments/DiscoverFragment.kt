@@ -32,7 +32,7 @@ import org.json.JSONObject
  * allows the user to customise their experience by selecting certain news related criteria.
  *
  * @property mAuth The Firebase authentication instance used to sync user discover preferences with
- *              the FireStore database.
+ *                 the FireStore database.
  * @property db    Firestore instance.
  * @author Samuel Netherway
  */
@@ -62,8 +62,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         return inflater.inflate(R.layout.discover_fragment, container, false)
     }
 
-    //TODO - Implement write category to internal storage file
-    //TODO - Implement write publisher to internal storage file
     /**
      * Initialising category and publishers switches along with other UI elements.
      *
@@ -224,9 +222,9 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - ON RESUME CALLED")
     }
 
-    //TODO - Implement or remove
     /**
-     *
+     * Refresh article store when exiting the discover fragment to reflect the user's new discover
+     * preferences.
      */
     override fun onStop() {
         super.onStop()
@@ -245,20 +243,13 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - ON DESTROY VIEW CALLED")
-        /*
-        if (preferenceChanged) {
-            Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - PREFERENCE CHANGED")
-            activity!!.startService(Intent(activity, FetchArticleService::class.java))
-            preferenceChanged = RESET
-        }
-         */
     }
 
-    //TODO - Redo documentation
     /**
-     * Queries the FireStore database to get the user's selected categories and updates the UI.
+     * Update the category UI selections using the user's account or internal storage if not
+     * signed in.
      */
-    fun updateCategories() {
+    private fun updateCategories() {
         // First try FireStore
         var uid: String? = mAuth.uid
         if (uid != null) {
@@ -280,7 +271,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      *
      * @param selectedCategories A list of selected categories for the currently signed in user.
      */
-    fun updateUICategories(selectedCategories: ArrayList<String>) {
+    private fun updateUICategories(selectedCategories: ArrayList<String>) {
         for (switch in categorySwitches) {
             switch.isChecked = selectedCategories.contains(switch.text.toString())
         }
@@ -304,7 +295,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @param isChecked A boolean indicating whether the category is selected or not.
      * @param category The category preference which has been altered.
      */
-    fun updateDatabaseCategory(isChecked: Boolean, category: String) {
+    private fun updateDatabaseCategory(isChecked: Boolean, category: String) {
         if (mAuth.uid != null) {
             var userQuery = UserQueryEngine(db)
             if (isChecked) {
@@ -321,7 +312,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @param isChecked A boolean indicating whether the category is selected or not.
      * @param category The category preference which has been altered.
      */
-    fun updateInternalStorageCategory(isChecked: Boolean, category: String) {
+    private fun updateInternalStorageCategory(isChecked: Boolean, category: String) {
         var discoverPreferences = JSONObject(readDiscoverPreferences())
         // Add the newly selected category
         if (isChecked) {
@@ -339,23 +330,33 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
     }
 
 
+    /**
+     * Reads the user's discover preferences from internal storage.
+     *
+     * @return A string JSON containing the user's discover preferences.
+     */
     private fun readDiscoverPreferences() : String {
         activity!!.openFileInput(DISCOVER_PREFERENCES_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }
 
-    private fun writeDiscoverPreferences(string: String) {
+    /**
+     * Write the user's discover preferences to internal storage.
+     *
+     * @param preferences a string JSON containing the user's discover preferences.
+     */
+    private fun writeDiscoverPreferences(preferences: String) {
         activity!!.openFileOutput(DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
-            it.write(string.toByteArray())
+            it.write(preferences.toByteArray())
         }
     }
 
-    //TODO - Redo documentation
     /**
-     * Queries the FireStore database to get the user's selected publishers and updates the UI.
+     * Update the publisher UI selections using the user's account or internal storage if not
+     * signed in.
      */
-    fun updatePublishers() {
+    private fun updatePublishers() {
         // First try FireStore preferences
         var uid: String? = mAuth.uid
         if (uid != null) {
@@ -377,7 +378,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      *
      * @param selectedPublishers A list of selected publishers for the currently signed in user.
      */
-    fun updateUIPublishers(selectedPublishers: ArrayList<String>) {
+    private fun updateUIPublishers(selectedPublishers: ArrayList<String>) {
         for (switch in publisherSwitches) {
             switch.isChecked = selectedPublishers.contains(switch.text.toString())
         }
@@ -401,7 +402,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @param isChecked A boolean indicating whether the publisher is selected or not.
      * @param publisher The publisher preference which has been altered.
      */
-    fun updateDatabasePublisher(isChecked: Boolean, publisher: String) {
+    private fun updateDatabasePublisher(isChecked: Boolean, publisher: String) {
         if (mAuth.uid != null) {
             var userQuery = UserQueryEngine(db)
             if (isChecked) {
@@ -418,7 +419,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @param isChecked A boolean indicating whether the publisher is selected or not.
      * @param publisher The publisher preference which has been altered.
      */
-    fun updateInternalStoragePublisher(isChecked: Boolean, publisher: String) {
+    private fun updateInternalStoragePublisher(isChecked: Boolean, publisher: String) {
         var discoverPreferences = JSONObject(readDiscoverPreferences())
         // Add the newly selected publisher
         if (isChecked) {
@@ -435,7 +436,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         writeDiscoverPreferences(discoverPreferences.toString())
     }
 
-    //TODO - Put into own class
     /**
      * Gets the user's selected discover categories.
      *
@@ -450,7 +450,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         return selectedCategoriesList
     }
 
-    //TODO - Put into own class
     /**
      * Gets the user's selected discover publishers.
      *

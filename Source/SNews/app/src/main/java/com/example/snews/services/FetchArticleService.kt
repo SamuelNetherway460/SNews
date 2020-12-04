@@ -74,15 +74,10 @@ class FetchArticleService : Service() {
         super.onDestroy()
     }
 
-    //TODO - Documentation
     /**
      * Fetches the articles from the News API and writes the returned data to a file in internal storage.
      */
-    fun fetchArticles() {
-        //TODO - Remove test preferences
-        var testCategories = arrayListOf<String>("technology", "business", "general")
-        var testPublishers = arrayListOf<String>("BBC News", "CNN", "MAC Rumors")
-
+    private fun fetchArticles() {
         var categoryUserPreferences = getUserCategoryPreferences()
         var publisherUserPreferences = getUserPublisherPreferences()
 
@@ -108,11 +103,10 @@ class FetchArticleService : Service() {
      * @param articleGroup The group of articles obtained from the News API request.
      */
     private fun addArticlesToInternalStorage(articleGroup: JSONObject) {
-        //TODO Shuffle articles
-        var articles= ArticleParser.parseArticleGroup(articleGroup).getArticles()
+        var articles = ArticleParser.parseArticleGroup(articleGroup).getArticles()
+        if (articles != null) articles.shuffle()
         var articleStorage = readArticleStorage()
         var jsonArticleStorage = JSONObject(articleStorage)
-
         if (articles != null) {
             for (article in articles) {
                 jsonArticleStorage.getJSONArray("data").put(article.getJSON())

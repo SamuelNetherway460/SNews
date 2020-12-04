@@ -22,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 /**
  * Fragment responsible for displaying news articles.
  *
- * @property article article to be displayed
+ * @property article The article to be displayed
  * @author Samuel Netherway
  */
 class ArticleViewerFragment(private val article: Article) : Fragment() {
@@ -134,7 +134,7 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
     /**
      * Takes the user to the home fragment
      */
-    fun navigateToHomeFragment() {
+    private fun navigateToHomeFragment() {
         val homeFragment = HomeFragment()
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

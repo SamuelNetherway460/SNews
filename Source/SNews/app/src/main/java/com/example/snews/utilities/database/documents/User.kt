@@ -3,6 +3,7 @@ package com.example.snews.utilities.database.documents
 //TODO - Documentation
 //TODO - Finish Implementation
 //TODO - Null safety
+//TODO - Remove if not used
 /**
  *
  *

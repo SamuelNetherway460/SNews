@@ -1,7 +1,6 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,15 +12,12 @@ import com.example.snews.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.adapters.RecyclerAdapter
 import com.example.snews.models.Article
-import com.example.snews.models.ArticleGroup
-import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.parsers.ArticleParser
 import org.json.JSONObject
 
 //TODO - Implement callback to refresh recycler view content when the article fetching service runs
 //TODO - If no discover publishers or categories are selected. Do top headlines as default.
 //TODO - Full XML Check
-//TODO - Documentation
 //TODO - Implement all relevant on's
 /**
  * Fragment responsible for displaying article data.
@@ -107,7 +103,7 @@ class HomeFragment : Fragment() {
      *
      * @return A list of articles.
      */
-    fun getArticles(): ArrayList<Article> {
+    private fun getArticles(): ArrayList<Article> {
         var articles = ArrayList<Article>()
         if (fileExist(ARTICLE_STORE_FILENAME)) {
             var jsonArticles = JSONObject(readArticleStorage()).getJSONArray("data")
@@ -141,15 +137,14 @@ class HomeFragment : Fragment() {
     }
 
     //TODO - Change method contents to match module recycler view demo
-    //TODO - Documentation
     //TODO - Sort out comments
     /**
      * Sets up the recycler view with article data.
      *
-     * @param view
+     * @param view The current view hierarchy associated with the fragment.
      * @param articleGroup An article group object containing the article data.
      */
-    fun startRecyclerView(view: View, articles: ArrayList<Article>) {
+    private fun startRecyclerView(view: View, articles: ArrayList<Article>) {
         var recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         // Start recylcer view population
         recyclerView.apply {

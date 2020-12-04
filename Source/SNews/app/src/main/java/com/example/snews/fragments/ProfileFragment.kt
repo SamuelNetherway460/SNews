@@ -125,7 +125,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
     /**
      *
      */
-    fun navigateToSignInRegisterFragment() {
+    private fun navigateToSignInRegisterFragment() {
         val signInRegisterFragment = SignInRegisterFragment(mAuth, db)
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -140,7 +140,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      *
      * @param view
      */
-    fun updateUISignedIn(view: View) {
+    private fun updateUISignedIn(view: View) {
         val signInRegister = view.findViewById<Button>(R.id.signInRegisterButton)
         val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
         signInRegister.setText("Sign Out") //TODO - Use external string
