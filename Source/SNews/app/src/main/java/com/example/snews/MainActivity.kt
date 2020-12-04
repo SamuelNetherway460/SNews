@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
     private val DISCOVER_PREFERENCES_FILENAME = "discoverPreferences"
     private val mAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    private val hour = 18
-    private val minute = 12
+    private val hour = 18 //TODO - Move to shared preferences
+    private val minute = 12 //TODO - Move to shared preferences
 
     //TODO - Documentation
     /**
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-    //TODO - Change
+    //TODO - Change, based off shared preferences
     //TODO - Documentation
     /**
      *
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Checks whether a file exists in internal storage.
      *
-     * @param filename The name of the file which is being check for.
+     * @param filename The name of the file which is being checked for.
      * @return A boolean indicating whether the file exists in internal storage or not.
      */
     private fun fileExist(filename: String): Boolean {

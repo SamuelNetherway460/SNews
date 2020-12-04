@@ -91,7 +91,7 @@
                             android:theme="@style/AppTheme.EditText" />
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/spotlightAddWord"
+                            android:id="@+id/addSpotlightChip"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="@string/add"
@@ -108,47 +108,11 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="5dp">
 
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="IPhone"
-                                android:textOff="IPhone"/>
+                            <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/spotlightChipGroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
 
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Apple"
-                                android:textOff="Apple"
-                                android:checked="true"/>
-
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Mac"
-                                android:textOff="Mac"/>
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Release"
-                                android:textOff="Release"
-                                android:checked="true"/>
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Confirmed"
-                                android:textOff="Confirmed"
-                                android:checked="true"/>
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Big Sur"
-                                android:textOff="Big Sur"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </HorizontalScrollView>
                     <androidx.appcompat.widget.AppCompatButton

@@ -2,14 +2,18 @@ package com.example.snews.fragments
 
 import android.content.ContentValues
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -51,6 +55,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
 
         val signInRegister = view.findViewById<Button>(R.id.signInRegisterButton)
         val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
+        val spotlightWordEditText = view.findViewById<EditText>(R.id.spotlightWordEditText)
+        val addSpotlightChipButton = view.findViewById<Button>(R.id.addSpotlightChip)
+        val spotlightChipGroup = view.findViewById<ChipGroup>(R.id.spotlightChipGroup)
 
         if (mAuth.currentUser != null) {
             signInRegister.setText("Sign Out") //TODO - Externalise string
@@ -67,6 +74,28 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
                 navigateToSignInRegisterFragment()
             }
         }
+
+        addSpotlightChipButton.setOnClickListener {
+            var word = spotlightWordEditText.text.toString()
+            var chip: Chip = createNewChip(word)
+            chip.setOnCloseIconClickListener {
+                TransitionManager.beginDelayedTransition(spotlightChipGroup) //TODO - Find out what this does
+                spotlightChipGroup.removeView(chip)
+            }
+        }
+    }
+
+    //TODO - Documentation
+    /**
+     *
+     */
+    private fun createNewChip(text: String) : Chip {
+        var chip = Chip(context)
+        chip.setText(text)
+        chip.isCheckable = true
+        chip.isClickable = true
+        chip.isCloseIconVisible = true
+        return chip
     }
 
     //TODO - Documentation
