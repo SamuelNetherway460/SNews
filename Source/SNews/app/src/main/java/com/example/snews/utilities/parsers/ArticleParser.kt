@@ -15,6 +15,7 @@ import org.json.JSONObject
 class ArticleParser {
 
     companion object {
+
         /**
          * Parses a JSON article group object to a article group object.
          *
@@ -58,7 +59,7 @@ class ArticleParser {
             var urlToImage: String? = jsonArticle.getString("urlToImage")
             var publishedAt: String? = jsonArticle.getString("publishedAt")
             var content: String? = jsonArticle.getString("content")
-            return Article(source, author, title, description, url, urlToImage, publishedAt, content)
+            return Article(jsonArticle, source, author, title, description, url, urlToImage, publishedAt, content)
         }
 
         /**

@@ -1,10 +1,13 @@
 package com.example.snews.models
 
+import org.json.JSONObject
+
 //TODO - Null Safety
 //TODO - Correctly format publishedAt date time
 /**
  * Article model for holding data on a single article.
  *
+ * @property json Raw JSON data for the article.
  * @property source A source object containing information about the article source.
  * @property author The author of the article.
  * @property title The title of the article.
@@ -15,10 +18,11 @@ package com.example.snews.models
  * @property content The article content truncated to 200 characters.
  * @author Samuel Netherway
  */
-class Article (source: Source?, author: String?, title: String?, description: String?, url: String?,
+class Article (json: JSONObject, source: Source?, author: String?, title: String?, description: String?, url: String?,
                urlToImage: String?, publishedAt: String?, content: String?) {
 
     //TODO - Externalise strings
+    private var json: JSONObject
     private var source: Source? = null //TODO - Null Safety
     private var author: String = "No Author"
     private var title: String = "No Title"
@@ -32,6 +36,7 @@ class Article (source: Source?, author: String?, title: String?, description: St
      * @constructor Initializes information about the articles.
      */
     init {
+        this.json = json
         this.source = source //TODO - Null Safety
         if (author != null) this.author = author
         if (title != null) this.title = title
@@ -40,6 +45,14 @@ class Article (source: Source?, author: String?, title: String?, description: St
         if (urlToImage != null) this.urlToImage = urlToImage
         if (publishedAt != null) this.publishedAt = publishedAt
         if (content != null) this.content = content
+    }
+
+    //TODO - Documentation
+    /**
+     * @return
+     */
+    fun getJSON() : JSONObject {
+        return this.json
     }
 
     /**

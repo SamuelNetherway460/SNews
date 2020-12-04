@@ -13,6 +13,7 @@ import com.example.snews.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+//TODO - If a new user logs in run article refresh service
 //TODO - Toast messages if there is a class between spotlight and hide filtering. Ask user to remove one first.
 //TODO - Full XML Check
 //TODO - Implement shared preferences for storage of device specific preferences

@@ -8,22 +8,14 @@ package com.example.snews.models
  * @property url The url of the request.
  * @property type The type of API request.
  */
-class Request (url: String, type: String) {
+class Request (url: String) {
 
     private var url: String = url
-    private var type: String = type //TODO - Use enums for different required request types i.e. GET
 
     /**
      * @return The url for the API request.
      */
     fun getURL() : String {
         return this.url
-    }
-
-    /**
-     * @return The type of API request.
-     */
-    fun getType() : String {
-        return this.type
     }
 }

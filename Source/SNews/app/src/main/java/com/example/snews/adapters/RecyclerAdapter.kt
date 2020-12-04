@@ -18,7 +18,7 @@ import com.example.snews.models.ArticleGroup
  * @author Samuel Netherway
  * @param articleGroup
  */
-class RecyclerAdapter(private val articleGroup: ArticleGroup, private val activity: FragmentActivity) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     //TODO - Documentation
     /**
@@ -91,7 +91,7 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup, private val activi
      *
      */
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var article: Article = articleGroup.getArticles()!!.get(i)
+        var article: Article = articles.get(i)
 
         viewHolder.mediumArticleTitle.text = article.getTitle()
         viewHolder.mediumArticleCategory.text = "category" // TODO Replace with category
@@ -114,6 +114,6 @@ class RecyclerAdapter(private val articleGroup: ArticleGroup, private val activi
      *
      */
     override fun getItemCount(): Int {
-        return articleGroup.getArticles()!!.size
+        return articles.size
     }
 }

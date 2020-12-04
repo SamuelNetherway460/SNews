@@ -1,7 +1,7 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.snews.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.adapters.RecyclerAdapter
+import com.example.snews.models.Article
 import com.example.snews.models.ArticleGroup
+import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.parsers.ArticleParser
 import org.json.JSONObject
 
+//TODO - Implement callback to refresh recycler view content when the article fetching service runs
 //TODO - If no discover publishers or categories are selected. Do top headlines as default.
 //TODO - Full XML Check
 //TODO - Documentation
@@ -54,7 +57,7 @@ class HomeFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startRecyclerView(view, getArticles())
+        //startRecyclerView(view, getArticles()) //TODO - iffy possibly uncomment later
     }
 
     //TODO - Implement or remove
@@ -73,6 +76,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d(ContentValues.TAG, "HOME FRAGMENT - ON RESUME CALLED")
+        startRecyclerView(this.requireView(), getArticles()) //TODO - iffy remove later
     }
 
     //TODO - Implement or remove
@@ -82,6 +86,11 @@ class HomeFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         Log.d(ContentValues.TAG, "HOME FRAGMENT - ON STOP CALLED")
+    }
+
+    //TODO - Possibly remove after testing has concluded
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     //TODO - Implement or remove
@@ -96,11 +105,28 @@ class HomeFragment : Fragment() {
     /**
      * Read and parse the article data from internal storage.
      *
-     * @return An article group object containing the parsed article data.
+     * @return A list of articles.
      */
-    fun getArticles(): ArticleGroup {
-        var rawNewsArticleData = readFromFile()
-        return ArticleParser.parseArticleGroup(JSONObject((rawNewsArticleData)))
+    fun getArticles(): ArrayList<Article> {
+        var articles = ArrayList<Article>()
+        if (fileExist(ARTICLE_STORE_FILENAME)) {
+            var jsonArticles = JSONObject(readArticleStorage()).getJSONArray("data")
+            for (i in 0..jsonArticles.length() - 1) {
+                articles.add(ArticleParser.parseArticle(jsonArticles.getJSONObject(i)))
+            }
+        }
+        return articles
+    }
+
+    /**
+     * Checks whether a file exists in internal storage.
+     *
+     * @param filename The name of the file which is being check for.
+     * @return A boolean indicating whether the file exists in internal storage or not.
+     */
+    private fun fileExist(filename: String): Boolean {
+        val file = context!!.getFileStreamPath(filename)
+        return file.exists()
     }
 
     /**
@@ -108,14 +134,10 @@ class HomeFragment : Fragment() {
      *
      * @return The raw article data.
      */
-    fun readFromFile() : String {
-        //TODO - Null safety
-        activity!!.openFileInput(ARTICLE_STORE_FILENAME).bufferedReader().useLines { lines ->
-            lines.fold("") { some, text ->
-                return text
-            }
+    private fun readArticleStorage() : String {
+        activity!!.openFileInput(ARTICLE_STORE_FILENAME).use {
+            return it.readBytes().decodeToString()
         }
-        return "ERROR"
     }
 
     //TODO - Change method contents to match module recycler view demo
@@ -127,7 +149,7 @@ class HomeFragment : Fragment() {
      * @param view
      * @param articleGroup An article group object containing the article data.
      */
-    fun startRecyclerView(view: View, articleGroup: ArticleGroup) {
+    fun startRecyclerView(view: View, articles: ArrayList<Article>) {
         var recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         // Start recylcer view population
         recyclerView.apply {
@@ -135,7 +157,7 @@ class HomeFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = RecyclerAdapter(articleGroup, activity!!)
+            adapter = RecyclerAdapter(articles, activity!!)
         }
     }
 }
