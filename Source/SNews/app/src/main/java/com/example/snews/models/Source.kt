@@ -1,6 +1,7 @@
 package com.example.snews.models
 
-//TODO - Null safety
+import com.example.snews.utilities.Constants
+
 /**
  * Source model for holding source data on a particular article.
  *
@@ -8,17 +9,17 @@ package com.example.snews.models
  * @property name The name of the news company.
  * @author Samuel Netherway
  */
-class Source (id: String?, name: String) {
+class Source (id: String?, name: String?) {
 
-    private var id: String? = null
-    private var name: String? = null
+    private var id: String = Constants.NO_ID
+    private var name: String = Constants.NO_NAME
 
     /**
      * @constructor Initializes information about the source.
      */
     init {
-        this.id = id
-        this.name = name
+        if (id != null) this.id = id
+        if (name != null) this.name = name
     }
 
     /**

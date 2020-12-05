@@ -70,7 +70,7 @@ class ArticleParser {
          */
         fun parseSource(jsonSource: JSONObject): Source {
             var id: String? = jsonSource.getString("id")
-            var name: String = jsonSource.getString("name")
+            var name: String? = jsonSource.getString("name")
             return Source(id, name)
         }
     }

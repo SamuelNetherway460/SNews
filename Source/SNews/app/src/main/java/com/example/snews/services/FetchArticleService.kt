@@ -1,23 +1,19 @@
 package com.example.snews.services
 
 import android.app.Service
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.example.snews.models.Article
+import com.example.snews.utilities.Constants
 import com.example.snews.utilities.formatters.NewsAPIRequestFormatter
 import com.example.snews.utilities.parsers.ArticleParser
-import com.google.android.material.snackbar.Snackbar
 import com.koushikdutta.ion.Ion
 import org.json.JSONArray
 import org.json.JSONObject
 
-//TODO - JavaDoc
 //TODO - As part of service, send user notification that new articles have been successfully fetched
-//TODO - Remove test alarm and replace with fetch article method from API and write to local JSON article dump
 //TODO - Handle when no articles are returned from a request. Make sure it doesn't bomb out.
 /**
  * A service for fetching article data from the News API.
@@ -26,17 +22,13 @@ import org.json.JSONObject
  */
 class FetchArticleService : Service() {
 
-    private val ARTICLE_STORE_FILENAME = "articleData"
-    private val DISCOVER_PREFERENCES_FILENAME = "discoverPreferences"
-    private val EMPTY_STRING = ""
-
     //TODO - Documentation
     /**
      *
      */
     override fun onCreate() {
         super.onCreate()
-        Log.d(ContentValues.TAG, "SERVICE - CREATED")
+        Log.d(TAG, "SERVICE - CREATED")
     }
 
     //TODO - Documentation
@@ -60,18 +52,10 @@ class FetchArticleService : Service() {
      * @return
      */
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Log.d(ContentValues.TAG, "SERVICE - STARTED")
+        Log.d(TAG, "SERVICE - STARTED")
         fetchArticles()
-        Log.d(ContentValues.TAG, "SERVICE - COMPLETED")
+        Log.d(TAG, "SERVICE - COMPLETED")
         return START_STICKY
-    }
-
-    //TODO - Documentation
-    /**
-     *
-     */
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     /**
@@ -119,7 +103,7 @@ class FetchArticleService : Service() {
      * Deletes the current article internal storage file and creates a new one.
      */
     private fun refreshArticleStorage() {
-        deleteFile(ARTICLE_STORE_FILENAME)
+        deleteFile(Constants.ARTICLE_STORE_FILENAME)
         var data = JSONObject()
         data.put("data", JSONArray())
         writeToArticleStorage(data.toString())
@@ -129,7 +113,7 @@ class FetchArticleService : Service() {
      * Reads the article data from the internal storage file.
      */
     private fun readArticleStorage() : String {
-        this.openFileInput(ARTICLE_STORE_FILENAME).use {
+        this.openFileInput(Constants.ARTICLE_STORE_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }
@@ -140,7 +124,7 @@ class FetchArticleService : Service() {
      * @param string The string data to write to the file.
      */
     private fun writeToArticleStorage(string: String) {
-        this.openFileOutput(ARTICLE_STORE_FILENAME, Context.MODE_PRIVATE).use {
+        this.openFileOutput(Constants.ARTICLE_STORE_FILENAME, Context.MODE_PRIVATE).use {
             it.write(string.toByteArray())
         }
     }
@@ -179,7 +163,7 @@ class FetchArticleService : Service() {
      * @return The user's discover preferences.
      */
     private fun readDiscoverPreferences() : String {
-        this.openFileInput(DISCOVER_PREFERENCES_FILENAME).use {
+        this.openFileInput(Constants.DISCOVER_PREFERENCES_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }

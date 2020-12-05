@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.snews.fragments.*
 import com.example.snews.services.FetchArticleService
+import com.example.snews.utilities.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,6 +18,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
+//TODO - Possibly have a notify user service, start notify user service from fetch articles service
+//TODO - resources.getString(R.string.channel_one_body)
 //TODO - Check edge cases, if articles have never been fetched before, etc. No articles returned from api, etc
 //TODO - Full XML Check
 //TODO - Make sure androidx components are being used in all XML files
@@ -24,6 +27,7 @@ import java.util.*
 //TODO - Enable offline firestore, cache etc
 //TODO - Make all relevant methods private
 //TODO - Sort out final variables
+//TODO - If article title > so many characters, do substring and ...
 /**
  * Main activity which controls navigation between application fragments (screens).
  * Activity also controls the instantiation of Firebase instances for use in across fragments.
@@ -32,8 +36,6 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity() {
 
-    private val ARTICLE_STORE_FILENAME = "articleData"
-    private val DISCOVER_PREFERENCES_FILENAME = "discoverPreferences"
     private val mAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private val hour = 18 //TODO - Move to shared preferences
@@ -50,14 +52,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Check if articles have been fetched before
-        if (!fileExist(ARTICLE_STORE_FILENAME)) {
+        if (!fileExist(Constants.ARTICLE_STORE_FILENAME)) {
             startService(Intent(this, FetchArticleService::class.java))
         } else if (!fileHasArticleContent()) {
             startService(Intent(this, FetchArticleService::class.java))
         }
 
         // Check if the discover preferences file exits
-        if (!fileExist(DISCOVER_PREFERENCES_FILENAME)) {
+        if (!fileExist(Constants.DISCOVER_PREFERENCES_FILENAME)) {
             createNewDiscoverPreferencesFile()
         }
 
@@ -152,7 +154,7 @@ class MainActivity : AppCompatActivity() {
      * @return The article data.
      */
     private fun readArticleStorage() : String {
-        this.openFileInput(ARTICLE_STORE_FILENAME).use {
+        this.openFileInput(Constants.ARTICLE_STORE_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }
@@ -163,7 +165,7 @@ class MainActivity : AppCompatActivity() {
      * @param string The string data to write.
      */
     private fun writeToDiscoverPreferencesFile(string: String) {
-        this.openFileOutput(DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
+        this.openFileOutput(Constants.DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
             it.write(string.toByteArray())
         }
     }

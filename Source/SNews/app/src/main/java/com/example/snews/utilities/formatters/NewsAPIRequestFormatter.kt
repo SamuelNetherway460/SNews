@@ -19,39 +19,39 @@ class NewsAPIRequestFormatter {
     companion object {
 
         // Basic Operators
-        private val BASE_URL = "https://newsapi.org/v2/"
-        private val AND = "&"
-        private val EQUALS = "="
-        private val QUESTION_MARK = "?"
-        private val COMMA = ","
+        private const val BASE_URL = "https://newsapi.org/v2/"
+        private const val AND = "&"
+        private const val EQUALS = "="
+        private const val QUESTION_MARK = "?"
+        private const val COMMA = ","
 
         // Request types
-        private val GET = "GET"
+        private const val GET = "GET"
 
         // Endpoints
-        private val TOP_HEADLINES_ENDPOINT = "top-headlines"
-        private val EVERYTHING_ENDPOINT = "everything"
-        private val SOURCES_ENDPOINT = "sources"
+        private const val TOP_HEADLINES_ENDPOINT = "top-headlines"
+        private const val EVERYTHING_ENDPOINT = "everything"
+        private const val SOURCES_ENDPOINT = "sources"
 
         // Parameters
-        private val API_KEY_PARAMETER_HEADER = "apiKey"
-        private val COUNTRY_PARAMETER_HEADER = "country"
-        private val CATEGORY_PARAMETER_HEADER = "category"
-        private val KEYWORD_PARAMETER_HEADER = "q"
-        private val PAGE_SIZE_PARAMETER_HEADER = "pageSize"
-        private val PAGE_PARAMETER_HEADER = "page"
+        private const val API_KEY_PARAMETER_HEADER = "apiKey"
+        private const val COUNTRY_PARAMETER_HEADER = "country"
+        private const val CATEGORY_PARAMETER_HEADER = "category"
+        private const val KEYWORD_PARAMETER_HEADER = "q"
+        private const val PAGE_SIZE_PARAMETER_HEADER = "pageSize"
+        private const val PAGE_PARAMETER_HEADER = "page"
 
         // Special Values
-        private val API_KEY = "d3629af64f934b1889b1fc3afb716b3c"
+        private const val API_KEY = "d3629af64f934b1889b1fc3afb716b3c"
 
         // Default values
-        private val DEFAULT_COUNTRY = "gb"
-        private val DEFAULT_PAGE_SIZE = "50"
-        private val DEFAULT_REQUEST_URL = BASE_URL + TOP_HEADLINES_ENDPOINT + QUESTION_MARK +
-                COUNTRY_PARAMETER_HEADER + EQUALS + DEFAULT_COUNTRY + AND + API_KEY_PARAMETER_HEADER + EQUALS +
-                API_KEY
+        private const val DEFAULT_COUNTRY = "gb"
+        private const val DEFAULT_PAGE_SIZE = "50"
+        private const val DEFAULT_REQUEST_URL = BASE_URL + TOP_HEADLINES_ENDPOINT + QUESTION_MARK +
+                COUNTRY_PARAMETER_HEADER + EQUALS + DEFAULT_COUNTRY + AND + API_KEY_PARAMETER_HEADER +
+                EQUALS + API_KEY
 
-        private val MAX_PUBLISHERS_PER_REQUEST = 20
+        private const val MAX_PUBLISHERS_PER_REQUEST = 20
 
         //TODO - Documentation
         /**

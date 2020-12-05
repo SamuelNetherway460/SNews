@@ -6,7 +6,6 @@ package com.example.snews.models
  *
  * @author Samuel Netherway
  * @property url The url of the request.
- * @property type The type of API request.
  */
 class Request (url: String) {
 

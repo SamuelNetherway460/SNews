@@ -1,6 +1,7 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +12,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
-import com.example.snews.utilities.database.queryEngines.UserQueryEngine
+import com.example.snews.services.FetchArticleService
+import com.example.snews.utilities.database.UserQueryEngine
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -104,21 +106,25 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
         Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON DESTROY CALLED")
     }
 
-    //TODO - Comments
     /**
      * Attempts to sign the user in with the provided credentials.
      *
      * @param view The view hierarchy associated with the fragment.
      */
     private fun signIn(view: View) {
+        // Getting user details
         val emailSignIn = view.findViewById<EditText>(R.id.signInEmail)
         val passwordSignIn = view.findViewById<EditText>(R.id.signInPassword)
         val errorTextViewSignIn = view.findViewById<TextView>(R.id.signInErrorText)
 
+        // Attempt to sign the user in with their email and password
         mAuth.signInWithEmailAndPassword(emailSignIn.text.toString(), passwordSignIn.text.toString())
                 .addOnCompleteListener(this.requireActivity(),
                         OnCompleteListener<AuthResult?> { task ->
                             if (task.isSuccessful) {
+                                // Refresh articles based off the user's preferences
+                                //TODO - Refresh internal storage preferences
+                                context!!.startService(Intent(context, FetchArticleService::class.java))
                                 navigateToProfileFragment()
                             } else {
                                 //TODO - Add user friendly messages
@@ -132,14 +138,14 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                         })
     }
 
-    //TODO - Implement function
+    //TODO - Test
     /**
      * Registers a new user.
      *
      * @param view The current view hierarchy associated with the fragment.
      */
     private fun register(view: View) {
-
+        // Getting user details
         val registerErrorTextView = view.findViewById<TextView>(R.id.registerErrorText)
         val firstName = view.findViewById<EditText>(R.id.registerFirstName).text.toString()
         val lastName = view.findViewById<EditText>(R.id.registerLastName).text.toString()
@@ -182,6 +188,9 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                     if (task.isSuccessful) {
                         val user: FirebaseUser? = mAuth.getCurrentUser()
                         addNewUserToFireStore(firstName, lastName, user!!.uid) //TODO - Check null safety
+                        // Refresh articles based off the user's preferences
+                        //TODO - Refresh internal storage preferences
+                        context!!.startService(Intent(context, FetchArticleService::class.java))
                         navigateToProfileFragment()
                     } else {
                         //TODO - Implement

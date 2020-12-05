@@ -162,7 +162,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         fragmentTransaction.commit()
     }
 
-    //TODO - Implement
+    //TODO - Implement or remove
     //TODO - Documentation
     /**
      *

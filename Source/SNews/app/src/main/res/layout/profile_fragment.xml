@@ -88,7 +88,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="@string/spotlight_hint"
-                            android:theme="@style/AppTheme.EditText" />
+                            android:theme="@style/AppTheme.EditText"/>
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/addSpotlightChip"

@@ -12,6 +12,7 @@ import com.example.snews.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.adapters.RecyclerAdapter
 import com.example.snews.models.Article
+import com.example.snews.utilities.Constants
 import com.example.snews.utilities.parsers.ArticleParser
 import org.json.JSONObject
 
@@ -25,9 +26,6 @@ import org.json.JSONObject
  * @author Samuel Netherway
  */
 class HomeFragment : Fragment() {
-
-    //TODO - Externalise
-    private val ARTICLE_STORE_FILENAME = "articleData"
 
     /**
      * Creates and returns the view hierarchy associated with the fragment.
@@ -105,7 +103,7 @@ class HomeFragment : Fragment() {
      */
     private fun getArticles(): ArrayList<Article> {
         var articles = ArrayList<Article>()
-        if (fileExist(ARTICLE_STORE_FILENAME)) {
+        if (fileExist(Constants.ARTICLE_STORE_FILENAME)) {
             var jsonArticles = JSONObject(readArticleStorage()).getJSONArray("data")
             for (i in 0..jsonArticles.length() - 1) {
                 articles.add(ArticleParser.parseArticle(jsonArticles.getJSONObject(i)))
@@ -131,7 +129,7 @@ class HomeFragment : Fragment() {
      * @return The raw article data.
      */
     private fun readArticleStorage() : String {
-        activity!!.openFileInput(ARTICLE_STORE_FILENAME).use {
+        activity!!.openFileInput(Constants.ARTICLE_STORE_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }

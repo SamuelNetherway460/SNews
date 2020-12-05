@@ -1,5 +1,6 @@
 package com.example.snews.models
 
+import com.example.snews.utilities.Constants
 import org.json.JSONObject
 
 //TODO - Null Safety
@@ -21,23 +22,22 @@ import org.json.JSONObject
 class Article (json: JSONObject, source: Source?, author: String?, title: String?, description: String?, url: String?,
                urlToImage: String?, publishedAt: String?, content: String?) {
 
-    //TODO - Externalise strings
     private var json: JSONObject
-    private var source: Source? = null //TODO - Null Safety
-    private var author: String = "No Author"
-    private var title: String = "No Title"
-    private var description: String = "No Description"
-    private var url: String = "No URL"
-    private var urlToImage: String = "No URL to Image"
-    private var publishedAt: String = "No Publish Date"
-    private var content: String = "No Content"
+    private var source: Source? = null
+    private var author: String = Constants.NO_AUTHOR
+    private var title: String = Constants.NO_TITLE
+    private var description: String = Constants.NO_DESCRIPTION
+    private var url: String = Constants.NO_URL
+    private var urlToImage: String = Constants.NO_IMAGE_URL
+    private var publishedAt: String = Constants.NO_PUBLISH_DATE
+    private var content: String = Constants.NO_CONTENT
 
     /**
      * @constructor Initializes information about the articles.
      */
     init {
         this.json = json
-        this.source = source //TODO - Null Safety
+        this.source = source
         if (author != null) this.author = author
         if (title != null) this.title = title
         if (description != null) this.description = description
@@ -47,9 +47,8 @@ class Article (json: JSONObject, source: Source?, author: String?, title: String
         if (content != null) this.content = content
     }
 
-    //TODO - Documentation
     /**
-     * @return
+     * @return A JSON object containing the article data.
      */
     fun getJSON() : JSONObject {
         return this.json

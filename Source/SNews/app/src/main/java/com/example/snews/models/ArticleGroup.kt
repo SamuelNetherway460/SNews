@@ -1,5 +1,7 @@
 package com.example.snews.models
 
+import com.example.snews.utilities.Constants
+
 //TODO - Null Safety
 /**
  * Article group model for holding data on a multiple articles.
@@ -11,17 +13,18 @@ package com.example.snews.models
  */
 class ArticleGroup (status: String?, totalResults: Int?, articles: ArrayList<Article>?) {
 
-    private var status: String? = null
-    private var totalResults: Int? = null
-    private var articles: ArrayList<Article>? = null
+    private var status: String = Constants.NO_STATUS
+    private var totalResults: Int = Constants.NULL_RESULTS
+    private var articles: ArrayList<Article>
 
     /**
      * @constructor Initializes information about an article group.
      */
     init {
-        this.status = status
-        this.totalResults = totalResults
-        this.articles = articles
+        this.articles = ArrayList()
+        if (status != null )this.status = status
+        if (totalResults != null) this.totalResults = totalResults
+        if (articles != null) this.articles = articles
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.example.snews.utilities.database.queryEngines
+package com.example.snews.utilities.database
 
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,8 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestore
  */
 class UserQueryEngine(val db: FirebaseFirestore) {
 
-    private val DEFAULT_CATEGORIES = arrayListOf("business", "entertainment", "general")
-    private val DEFAULT_PUBLISHERS = arrayListOf("wired", "tech crunch", "the next web")
+    companion object {
+        private val DEFAULT_CATEGORIES = arrayListOf("business", "entertainment", "general")
+        private val DEFAULT_PUBLISHERS = arrayListOf("wired", "tech crunch", "the next web")
+    }
 
     /**
      * Adds a new user to the FireStore database.

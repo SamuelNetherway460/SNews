@@ -12,7 +12,8 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 import com.example.snews.services.FetchArticleService
-import com.example.snews.utilities.database.queryEngines.UserQueryEngine
+import com.example.snews.utilities.Constants
+import com.example.snews.utilities.database.UserQueryEngine
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.json.JSONArray
@@ -38,10 +39,16 @@ import org.json.JSONObject
  */
 class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
 
-    private val DISCOVER_PREFERENCES_FILENAME = "discoverPreferences"
-    private val CHANGED = true
-    private val NOT_CHANGED = false
-    private val RESET = false
+    //TODO - Documentation
+    /**
+     *
+     */
+    companion object {
+        private const val CHANGED = true
+        private const val NOT_CHANGED = false
+        private const val RESET = false
+    }
+
     private var categorySwitches = ArrayList<SwitchCompat>()
     private var publisherSwitches = ArrayList<SwitchCompat>()
     private var preferenceChanged = NOT_CHANGED
@@ -336,7 +343,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @return A string JSON containing the user's discover preferences.
      */
     private fun readDiscoverPreferences() : String {
-        activity!!.openFileInput(DISCOVER_PREFERENCES_FILENAME).use {
+        activity!!.openFileInput(Constants.DISCOVER_PREFERENCES_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }
@@ -347,7 +354,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @param preferences a string JSON containing the user's discover preferences.
      */
     private fun writeDiscoverPreferences(preferences: String) {
-        activity!!.openFileOutput(DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
+        activity!!.openFileOutput(Constants.DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
             it.write(preferences.toByteArray())
         }
     }

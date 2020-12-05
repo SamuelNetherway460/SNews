@@ -9,20 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.snews.R
 import com.example.snews.fragments.ArticleViewerFragment
 import com.example.snews.models.Article
+import com.example.snews.utilities.Constants
 
 //TODO - Multiple types of rows
 //TODO - Documentation, look at demo video for correct method layouts and functions
+//TODO - Documentation
 /**
  * Manages the article data displayed in the recycler view and navigation to the article viewer
  * fragment.
  *
- * @author Samuel Netherway
  * @param articles An array list of articles to display in the recycler view.
+ * @param activity
+ * @author Samuel Netherway
  */
 class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity)
     : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-
-    private val EMPTY_STRING = ""
 
     //TODO - Documentation
     /**
@@ -99,7 +100,7 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
 
         //TODO - Use picasso to display image
         viewHolder.mediumArticleTitle.text = article.getTitle()
-        viewHolder.mediumArticleCategory.text = article.getSource()?.getName() ?: EMPTY_STRING // TODO Replace with category
+        viewHolder.mediumArticleCategory.text = article.getSource()?.getName() ?: Constants.EMPTY_STRING // TODO Replace with category
         viewHolder.mediumArticleDateTime.text = article.getPublishedAt()
 
         /*
@@ -114,9 +115,8 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
         })
     }
 
-    //TODO - Documentation
     /**
-     *
+     * @return The number of articles to be displayed in the recycler view.
      */
     override fun getItemCount(): Int {
         return articles.size
