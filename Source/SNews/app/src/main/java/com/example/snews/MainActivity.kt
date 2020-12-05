@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     private val mAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    private val hour = 18 //TODO - Move to shared preferences
-    private val minute = 12 //TODO - Move to shared preferences
+    private val hour = 21 //TODO - Move to shared preferences
+    private val minute = 58 //TODO - Move to shared preferences
 
     //TODO - Documentation
     /**

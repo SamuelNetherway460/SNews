@@ -14,9 +14,10 @@ class Constants {
         // General
         const val EMPTY_STRING = ""
 
-        // Internal storage file names
+        // Internal Storage
         const val DISCOVER_PREFERENCES_FILENAME = "discoverPreferences"
         const val ARTICLE_STORE_FILENAME = "articleData"
+        const val ARTICLE_STORE_JSON_ARRAY_NAME = "data"
 
         // Article Group data defaults
         const val NO_STATUS = "No Status"

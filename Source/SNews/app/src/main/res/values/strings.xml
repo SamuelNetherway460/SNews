@@ -14,7 +14,7 @@
     <!--Home Fragment-->
 
 
-    <!--Article Fragment-->
+    <!--Article Viewer Fragment-->
 
 
     <!--Discover Fragment-->
@@ -84,6 +84,9 @@
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="register">Register</string>
+
+    <!--Fetch Article Service-->
+    <string name="new_articles_fetched_notification_title">New articles have been fetched. Check them out!</string>
 
     <!--Dummy Tags-->
     <string name="dummy_tag_trump">Trump</string>

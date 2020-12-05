@@ -24,7 +24,7 @@ class ArticleParser {
         fun parseArticleGroup(articleGroup: JSONObject): ArticleGroup {
             var status: String? = articleGroup.getString("status")
             var totalResults: Int = articleGroup.getString("totalResults").toInt()
-            var articles: ArrayList<Article> = parseArticles(articleGroup.getJSONArray("articles"), totalResults) // TODO Implement null safety if no articles are returned
+            var articles: ArrayList<Article> = parseArticles(articleGroup.getJSONArray("articles")) // TODO Implement null safety if no articles are returned
             return ArticleGroup(status, totalResults, articles)
         }
 
@@ -35,7 +35,7 @@ class ArticleParser {
          * @param totalResults The total number of articles contained in the JSON array.
          * @return An array list of article objects.
          */
-        fun parseArticles(jsonArticles: JSONArray, totalResults: Int): ArrayList<Article> {
+        fun parseArticles(jsonArticles: JSONArray): ArrayList<Article> {
             var articles: ArrayList<Article> = ArrayList()
             // Iterate through the JSON array of articles and add articles to the articles array
             for (i in 0..jsonArticles.length()-1) {
