@@ -39,14 +39,16 @@ import org.json.JSONObject
  */
 class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
 
-    //TODO - Documentation
     /**
-     *
+     * Constant values used throughout the discover fragment.
      */
     companion object {
         private const val CHANGED = true
         private const val NOT_CHANGED = false
         private const val RESET = false
+        private const val FIRESTORE_USERS_DOCUMENT = "users"
+        private const val FIRESTORE_CATEGORIES_FIELD = "categories"
+        private const val FIRESTORE_PUBLISHERS_FIELD = "publishers"
     }
 
     private var categorySwitches = ArrayList<SwitchCompat>()
@@ -82,43 +84,56 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         // Business
         var businessSwitch = view.findViewById<SwitchCompat>(R.id.businessSwitch)
         businessSwitch.setOnClickListener {
-            updateUserCategoryPreference(businessSwitch.isChecked, businessSwitch.text.toString()) }
+            updateUserCategoryPreference(businessSwitch.isChecked, businessSwitch.text.toString())
+        }
         categorySwitches.add(businessSwitch)
 
         // Entertainment
         var entertainmentSwitch = view.findViewById<SwitchCompat>(R.id.entertainmentSwitch)
         entertainmentSwitch.setOnClickListener {
-            updateUserCategoryPreference(entertainmentSwitch.isChecked, entertainmentSwitch.text.toString()) }
+            updateUserCategoryPreference(
+                entertainmentSwitch.isChecked,
+                entertainmentSwitch.text.toString()
+            )
+        }
         categorySwitches.add(entertainmentSwitch)
 
         // General
         var generalSwitch = view.findViewById<SwitchCompat>(R.id.generalSwitch)
         generalSwitch.setOnClickListener {
-            updateUserCategoryPreference(generalSwitch.isChecked, generalSwitch.text.toString()) }
+            updateUserCategoryPreference(generalSwitch.isChecked, generalSwitch.text.toString())
+        }
         categorySwitches.add(generalSwitch)
 
         // Health
         var healthSwitch = view.findViewById<SwitchCompat>(R.id.healthSwitch)
         healthSwitch.setOnClickListener {
-            updateUserCategoryPreference(healthSwitch.isChecked, healthSwitch.text.toString()) }
+            updateUserCategoryPreference(healthSwitch.isChecked, healthSwitch.text.toString())
+        }
         categorySwitches.add(healthSwitch)
 
         // Science
         var scienceSwitch = view.findViewById<SwitchCompat>(R.id.scienceSwitch)
         scienceSwitch.setOnClickListener {
-            updateUserCategoryPreference(scienceSwitch.isChecked, scienceSwitch.text.toString()) }
+            updateUserCategoryPreference(scienceSwitch.isChecked, scienceSwitch.text.toString())
+        }
         categorySwitches.add(scienceSwitch)
 
         // Sports
         var sportsSwitch = view.findViewById<SwitchCompat>(R.id.sportsSwitch)
         sportsSwitch.setOnClickListener {
-            updateUserCategoryPreference(sportsSwitch.isChecked, sportsSwitch.text.toString()) }
+            updateUserCategoryPreference(sportsSwitch.isChecked, sportsSwitch.text.toString())
+        }
         categorySwitches.add(sportsSwitch)
 
         // Technology
         var technologySwitch = view.findViewById<SwitchCompat>(R.id.technologySwitch)
         technologySwitch.setOnClickListener {
-            updateUserCategoryPreference(technologySwitch.isChecked, technologySwitch.text.toString()) }
+            updateUserCategoryPreference(
+                technologySwitch.isChecked,
+                technologySwitch.text.toString()
+            )
+        }
         categorySwitches.add(technologySwitch)
 
 
@@ -126,107 +141,124 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         // Wired
         var wiredSwitch = view.findViewById<SwitchCompat>(R.id.wiredSwitch)
         wiredSwitch.setOnClickListener {
-            updateUserPublisherPreference(wiredSwitch.isChecked, wiredSwitch.text.toString()) }
+            updateUserPublisherPreference(wiredSwitch.isChecked, wiredSwitch.text.toString())
+        }
         publisherSwitches.add(wiredSwitch)
 
         // Tech Crunch
         var techCrunchSwitch = view.findViewById<SwitchCompat>(R.id.techCrunchSwitch)
         techCrunchSwitch.setOnClickListener {
-            updateUserPublisherPreference(techCrunchSwitch.isChecked, techCrunchSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                techCrunchSwitch.isChecked,
+                techCrunchSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(techCrunchSwitch)
 
         // The Next Web
         var theNextWebSwitch = view.findViewById<SwitchCompat>(R.id.theNextWebSwitch)
         theNextWebSwitch.setOnClickListener {
-            updateUserPublisherPreference(theNextWebSwitch.isChecked, theNextWebSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                theNextWebSwitch.isChecked,
+                theNextWebSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(theNextWebSwitch)
 
         // BBC News
         var bbcNewsSwitch = view.findViewById<SwitchCompat>(R.id.bbcNewsSwitch)
         bbcNewsSwitch.setOnClickListener {
-            updateUserPublisherPreference(bbcNewsSwitch.isChecked, bbcNewsSwitch.text.toString()) }
+            updateUserPublisherPreference(bbcNewsSwitch.isChecked, bbcNewsSwitch.text.toString())
+        }
         publisherSwitches.add(bbcNewsSwitch)
 
         // Mac Rumors
         var macRumorsSwitch = view.findViewById<SwitchCompat>(R.id.macRumorsSwitch)
         macRumorsSwitch.setOnClickListener {
-            updateUserPublisherPreference(macRumorsSwitch.isChecked, macRumorsSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                macRumorsSwitch.isChecked,
+                macRumorsSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(macRumorsSwitch)
 
         // CNET
         var cnetSwitch = view.findViewById<SwitchCompat>(R.id.cnetSwitch)
         cnetSwitch.setOnClickListener {
-            updateUserPublisherPreference(cnetSwitch.isChecked, cnetSwitch.text.toString()) }
+            updateUserPublisherPreference(cnetSwitch.isChecked, cnetSwitch.text.toString())
+        }
         publisherSwitches.add(cnetSwitch)
 
         // Bleacher Report
         var bleacherReportSwitch = view.findViewById<SwitchCompat>(R.id.bleacherReportSwitch)
         bleacherReportSwitch.setOnClickListener {
-            updateUserPublisherPreference(bleacherReportSwitch.isChecked, bleacherReportSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                bleacherReportSwitch.isChecked,
+                bleacherReportSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(bleacherReportSwitch)
 
         // Bloomberg
         var bloombergSwitch = view.findViewById<SwitchCompat>(R.id.bloombergSwitch)
         bloombergSwitch.setOnClickListener {
-            updateUserPublisherPreference(bloombergSwitch.isChecked, bloombergSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                bloombergSwitch.isChecked,
+                bloombergSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(bloombergSwitch)
 
         // Business Insider
         var businessInsiderSwitch = view.findViewById<SwitchCompat>(R.id.businessInsiderSwitch)
         businessInsiderSwitch.setOnClickListener {
-            updateUserPublisherPreference(businessInsiderSwitch.isChecked, businessInsiderSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                businessInsiderSwitch.isChecked,
+                businessInsiderSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(businessInsiderSwitch)
 
         // Buzzfeed
         var buzzfeedSwitch = view.findViewById<SwitchCompat>(R.id.buzzfeedSwitch)
         buzzfeedSwitch.setOnClickListener {
-            updateUserPublisherPreference(buzzfeedSwitch.isChecked, buzzfeedSwitch.text.toString()) }
+            updateUserPublisherPreference(buzzfeedSwitch.isChecked, buzzfeedSwitch.text.toString())
+        }
         publisherSwitches.add(buzzfeedSwitch)
 
         // CNN
         var cnnSwitch = view.findViewById<SwitchCompat>(R.id.cnnSwitch)
         cnnSwitch.setOnClickListener {
-            updateUserPublisherPreference(cnnSwitch.isChecked, cnnSwitch.text.toString()) }
+            updateUserPublisherPreference(cnnSwitch.isChecked, cnnSwitch.text.toString())
+        }
         publisherSwitches.add(cnnSwitch)
 
         // ESPN
         var espnSwitch = view.findViewById<SwitchCompat>(R.id.espnSwitch)
         espnSwitch.setOnClickListener {
-            updateUserPublisherPreference(espnSwitch.isChecked, espnSwitch.text.toString()) }
+            updateUserPublisherPreference(espnSwitch.isChecked, espnSwitch.text.toString())
+        }
         publisherSwitches.add(espnSwitch)
 
         // Financial Post
         var finantialPostSwitch = view.findViewById<SwitchCompat>(R.id.finantialPostSwitch)
         finantialPostSwitch.setOnClickListener {
-            updateUserPublisherPreference(finantialPostSwitch.isChecked, finantialPostSwitch.text.toString()) }
+            updateUserPublisherPreference(
+                finantialPostSwitch.isChecked,
+                finantialPostSwitch.text.toString()
+            )
+        }
         publisherSwitches.add(finantialPostSwitch)
 
         // Fox News
         var foxNewsSwitch = view.findViewById<SwitchCompat>(R.id.foxNewsSwitch)
         foxNewsSwitch.setOnClickListener {
-            updateUserPublisherPreference(foxNewsSwitch.isChecked, foxNewsSwitch.text.toString()) }
+            updateUserPublisherPreference(foxNewsSwitch.isChecked, foxNewsSwitch.text.toString())
+        }
         publisherSwitches.add(foxNewsSwitch)
 
         updateCategories()
         updatePublishers()
-    }
-
-    //TODO - Documentation
-    /**
-     *
-     */
-    override fun onPause() {
-        super.onPause()
-        Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - ON PAUSE CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onResume() {
-        super.onResume()
-        Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - ON RESUME CALLED")
     }
 
     /**
@@ -243,15 +275,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         }
     }
 
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - ON DESTROY VIEW CALLED")
-    }
-
     /**
      * Update the category UI selections using the user's account or internal storage if not
      * signed in.
@@ -260,11 +283,11 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         // First try FireStore
         var uid: String? = mAuth.uid
         if (uid != null) {
-            val user = db.collection("users").document(uid)
+            val user = db.collection(FIRESTORE_USERS_DOCUMENT).document(uid)
             user.get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
-                            updateUICategories(document.get("categories") as ArrayList<String>)
+                            updateUICategories(document.get(FIRESTORE_CATEGORIES_FIELD) as ArrayList<String>)
                         }
                     }
         // Use internal storage copy if FireStore is unavailable
@@ -323,15 +346,15 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         var discoverPreferences = JSONObject(readDiscoverPreferences())
         // Add the newly selected category
         if (isChecked) {
-            discoverPreferences.getJSONArray("categories").put(category)
+            discoverPreferences.getJSONArray(Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME).put(category)
         // Find and remove the newly selected category
         } else {
-            var oldCategories = discoverPreferences.getJSONArray("categories")
+            var oldCategories = discoverPreferences.getJSONArray(Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME)
             var newCategories = JSONArray()
             for (i in 0..oldCategories.length() - 1) {
                 if (oldCategories.get(i) != category) newCategories.put(oldCategories.get(i))
             }
-            discoverPreferences.put("categories", newCategories)
+            discoverPreferences.put(Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME, newCategories)
         }
         writeDiscoverPreferences(discoverPreferences.toString())
     }
@@ -351,7 +374,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
     /**
      * Write the user's discover preferences to internal storage.
      *
-     * @param preferences a string JSON containing the user's discover preferences.
+     * @param preferences A string JSON containing the user's discover preferences.
      */
     private fun writeDiscoverPreferences(preferences: String) {
         activity!!.openFileOutput(Constants.DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
@@ -367,11 +390,11 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         // First try FireStore preferences
         var uid: String? = mAuth.uid
         if (uid != null) {
-            val user = db.collection("users").document(uid)
+            val user = db.collection(FIRESTORE_USERS_DOCUMENT).document(uid)
             user.get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
-                            updateUIPublishers(document.get("publishers") as ArrayList<String>)
+                            updateUIPublishers(document.get(FIRESTORE_PUBLISHERS_FIELD) as ArrayList<String>)
                         }
                     }
         // Use internal storage copy if FireStore is unavailable
@@ -430,15 +453,16 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         var discoverPreferences = JSONObject(readDiscoverPreferences())
         // Add the newly selected publisher
         if (isChecked) {
-            discoverPreferences.getJSONArray("publishers").put(publisher)
+            discoverPreferences.getJSONArray(Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME).put(publisher)
             // Find and remove the newly selected publisher
         } else {
-            var oldPublishers = discoverPreferences.getJSONArray("publishers")
+            var oldPublishers = discoverPreferences.getJSONArray(
+                Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME)
             var newPublishers = JSONArray()
             for (i in 0..oldPublishers.length() - 1) {
                 if (oldPublishers.get(i) != publisher) newPublishers.put(oldPublishers.get(i))
             }
-            discoverPreferences.put("publishers", newPublishers)
+            discoverPreferences.put(Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME, newPublishers)
         }
         writeDiscoverPreferences(discoverPreferences.toString())
     }
@@ -449,7 +473,8 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @return An array list containing the user's selected discover categories.
      */
     private fun getUserCategoryPreferences() : ArrayList<String> {
-        var jsonCategories = JSONObject(readDiscoverPreferences()).getJSONArray("categories") //TODO - categories final variable
+        var jsonCategories = JSONObject(readDiscoverPreferences()).getJSONArray(
+            Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME)
         var selectedCategoriesList = ArrayList<String>()
         for (i in 0..jsonCategories.length() - 1) {
             selectedCategoriesList.add(jsonCategories.getString(i))
@@ -463,7 +488,8 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @return An array list containing the user's selected discover publishers.
      */
     private fun getUserPublisherPreferences() : ArrayList<String> {
-        var jsonPublishers = JSONObject(readDiscoverPreferences()).getJSONArray("publishers") //TODO - publishers final variable
+        var jsonPublishers = JSONObject(readDiscoverPreferences()).getJSONArray(
+            Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME)
         var selectedPublishersList = ArrayList<String>()
         for (i in 0..jsonPublishers.length() - 1) {
             selectedPublishersList.add(jsonPublishers.getString(i))

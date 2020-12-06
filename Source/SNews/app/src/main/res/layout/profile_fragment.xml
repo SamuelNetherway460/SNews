@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@string/account_instructions_or_name"
+                android:text="@string/sign_in_or_register_instruction"
                 android:theme="@style/ImportantText" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -174,7 +174,7 @@
                             android:theme="@style/AppTheme.EditText" />
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/hideAddWord"
+                            android:id="@+id/addHideChip"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="@string/add"
@@ -191,47 +191,10 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="5dp">
 
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Covid"
-                                android:textOff="Covid"/>
-
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Trump"
-                                android:textOff="Trump"
-                                android:checked="true"/>
-
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Politics"
-                                android:textOff="Politics"/>
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="Samsung"
-                                android:textOff="Samsung"
-                                android:checked="true"/>
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="America"
-                                android:textOff="America"
-                                android:checked="true"/>
-                            <ToggleButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:theme="@style/AppTheme.ToggleButton"
-                                android:textOn="China"
-                                android:textOff="China"/>
+                            <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/hideChipGroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </HorizontalScrollView>
                     <androidx.appcompat.widget.AppCompatButton
@@ -266,7 +229,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/notification_preferences_header"
+                        android:text="@string/article_fetching_preferences_header"
                         android:theme="@style/HeaderText" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -274,7 +237,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/notification_preferences_description"
+                        android:text="@string/article_fetching_preferences_description"
                         android:theme="@style/DescriptionText" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -283,18 +246,13 @@
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/notificationSettingOneText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting One"
-                            android:theme="@style/SettingText" />
-
                         <TimePicker
+                            android:id="@+id/fetchArticlesTimePicker"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:timePickerMode="spinner"/>
+                            android:headerBackground="@color/primary"
+                            android:numbersSelectorColor="@color/colorSecondary"
+                            android:timePickerMode="clock" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/notificationSettingOneSwitch"
@@ -307,85 +265,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/notificationSettingTwoText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Two"
-                            android:theme="@style/SettingText" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/notificationSettingTwoSwitch"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/notificationSettingThreeText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Three"
-                            android:theme="@style/SettingText" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/notificationSettingThreeSwitch"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/notificationSettingFourText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Four"
-                            android:theme="@style/SettingText" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/notificationSettingFourSwitch"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/notificationSettingFiveText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Five"
-                            android:theme="@style/SettingText" />
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/notificationSettingFiveSwitch"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:orientation="horizontal"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
 
@@ -410,7 +290,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/offline_mode_preferences_header"
+                        android:text="@string/notification_preferences_header"
                         android:theme="@style/HeaderText" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -418,112 +298,112 @@
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/offline_mode_preferences_description"
+                        android:text="@string/notification_preferences_description"
                         android:theme="@style/DescriptionText" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/offlineModeSettingOneText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting One"
-                            android:theme="@style/SettingText" />
-
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offlineModeSettingOneSwitch"
+                            android:id="@+id/businessNotificationSwitch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
+                            android:text="@string/business_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/offlineModeSettingTwoText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Two"
-                            android:theme="@style/SettingText" />
-
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offlineModeSettingTwoSwitch"
+                            android:id="@+id/entertainmentNotificationSwitch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
+                            android:text="@string/entertainment_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/offlineModeSettingThreeText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Three"
-                            android:theme="@style/SettingText" />
-
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offlineModeSettingThreeSwitch"
+                            android:id="@+id/generalNotificationSwitch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
+                            android:text="@string/general_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/offlineModeSettingFourText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Four"
-                            android:theme="@style/SettingText" />
-
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offlineModeSettingFourSwitch"
+                            android:id="@+id/healthNotificationSwitch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
+                            android:text="@string/health_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/offlineModeSettingFiveText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:text="Setting Five"
-                            android:theme="@style/SettingText" />
-
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offlineModeSettingFiveSwitch"
+                            android:id="@+id/scienceNotificationSwitch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:theme="@style/AppTheme.Switch" />
+                            android:text="@string/science_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/sportsNotificationSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/sports_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/technologyNotificationSwitch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/technology_category"
+                            android:theme="@style/AppTheme.Switch"
+                            android:textColor="@color/colorSecondary"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>

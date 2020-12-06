@@ -31,9 +31,8 @@ class FetchArticleService : Service() {
 
     private var notificationHelper: NotificationHelper? = null
 
-    //TODO - Documentation
     /**
-     *
+     * Initialises the notification helper class.
      */
     override fun onCreate() {
         super.onCreate()
@@ -41,16 +40,19 @@ class FetchArticleService : Service() {
         notificationHelper = NotificationHelper(this)
     }
 
-    //TODO - Documentation
     /**
+     * Posts a new notification to the user.
      *
+     * @param id Unique identifier for the notification.
+     * @param title The title of the notification.
+     * @param body The main body of the notification.
      */
-    //Post the notifications//
     fun postNotification(id: Int, title: String, body: String) {
         var notificationBuilder: NotificationCompat.Builder? = null
         when (id) {
             NOTIFICATION_ONE -> notificationBuilder = notificationHelper!!.getNotificationOne(
-                    title, body)
+                title, body
+            )
         }
         if (notificationBuilder != null) notificationHelper!!.notify(id, notificationBuilder)
     }
@@ -68,12 +70,7 @@ class FetchArticleService : Service() {
 
     //TODO - Documentation
     /**
-     *
-     *
-     * @param intent
-     * @param flags
-     * @param startId
-     * @return
+     * Starts the fetch article task.
      */
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Log.d(TAG, "SERVICE - STARTED")
@@ -90,7 +87,7 @@ class FetchArticleService : Service() {
         var publisherUserPreferences = getUserPublisherPreferences()
 
         var requests = NewsAPIRequestFormatter.generateRequestFromDiscoverPreferences(
-                categoryUserPreferences, publisherUserPreferences
+            categoryUserPreferences, publisherUserPreferences
         )
         refreshArticleStorage()
         for (request in requests) {
@@ -101,9 +98,21 @@ class FetchArticleService : Service() {
                 .asString()
                 .setCallback { ex, result ->
                     addArticlesToInternalStorage(JSONObject(result))
-                    postNotification(NOTIFICATION_ONE, NEW_ARTICLES_FETCHED_NOTIFICATION_TITLE, getNotificationBody())
+                    postNotification(
+                        NOTIFICATION_ONE,
+                        NEW_ARTICLES_FETCHED_NOTIFICATION_TITLE,
+                        getNotificationBody()
+                    )
+                    sendCategoryNotification(categoryUserPreferences)
                 }
         }
+    }
+
+    /**
+     * Sends notifications to the user alerting them that category specific articles have been fetched.
+     */
+    private fun sendCategoryNotification(selectedCategories: ArrayList<String>) {
+        //TODO - Look at shared preferences for category notification selections and if they are also in the selected categories array. post a notification
     }
 
     /**
@@ -201,9 +210,10 @@ class FetchArticleService : Service() {
     private fun getNotificationBody() : String {
         var notificationBody = ""
         var samplePublishers = ArrayList<String>()
-        var jsonArticleData = JSONObject(readArticleStorage())
-        var articles = ArticleParser.parseArticles(JSONObject(readArticleStorage())
-                .getJSONArray(Constants.ARTICLE_STORE_JSON_ARRAY_NAME))
+        var articles = ArticleParser.parseArticles(
+            JSONObject(readArticleStorage())
+                .getJSONArray(Constants.ARTICLE_STORE_JSON_ARRAY_NAME)
+        )
         // Find three sample publishers
         var currentArticle = 0
         while(samplePublishers.size <= 3 && currentArticle < articles.size) {
@@ -221,7 +231,9 @@ class FetchArticleService : Service() {
         }
 
         if (samplePublishers.size == 2) {
-            notificationBody = "Articles available from " + samplePublishers.get(0) + " and " + samplePublishers.get(1)
+            notificationBody = "Articles available from " + samplePublishers.get(0) + " and " + samplePublishers.get(
+                1
+            )
         }
 
         if (samplePublishers.size == 3) {

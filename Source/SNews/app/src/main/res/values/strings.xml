@@ -57,23 +57,34 @@
 
 
     <!--Profile Fragment-->
-    <string name="account_instructions_or_name">Please Sign in or Register</string>
+    <string name="sign_in_or_register_instruction">Sign in or Register</string>
     <string name="sign_in_register">Sign In / Register</string>
     <string name="sign_out">Sign Out</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="apply_tags">Apply Tags</string>
     <string name="spotlight_filtering_header">Spotlight</string>
-    <string name="spotlight_filtering_description">Articles containing these words in the title will be pushed to the top of the news feed. Press and hold on a word to remove it permanently. Words can also be toggled off and on.</string>
+    <string name="spotlight_filtering_description">Articles containing these words in the title will be pushed to the top of the news feed. Words can also be toggled off and on.</string>
     <string name="spotlight_hint">Enter word</string>
+    <string name="spotlight_chip_already_exists_message">Word already in spotlight list!</string>
+    <string name="remove_chip_from_spotlight_group_first">Remove word from spotlight group first!</string>
+    <string name="invalid_chip_word">Invalid word! Please try a different word.</string>
     <string name="hide_filtering_header">Hide</string>
-    <string name="hide_filtering_description">Articles containing these words in the title will be hidden from the news feed. Press and hold on a word to remove it permanently. Words can also be toggled off and on.</string>
+    <string name="hide_filtering_description">Articles containing these words in the title will be hidden from the news feed. Words can also be toggled off and on.</string>
     <string name="hide_hint">Enter word</string>
+    <string name="hide_chip_already_exists_message">Word already in hide list!</string>
+    <string name="remove_chip_from_hide_group_first">Remove word from hide group first!</string>
     <string name="add">Add</string>
+    <string name="article_fetching_preferences_header">Article fetching</string>
+    <string name="article_fetching_preferences_description">Customise when new articles are fetched.</string>
     <string name="remove_all">Remove All</string>
     <string name="notification_preferences_header">Notifications</string>
-    <string name="notification_preferences_description">Customise article notifications preferences.</string>
+    <string name="notification_preferences_description">Select the categories that you wish to receive notifications for.</string>
     <string name="offline_mode_preferences_header">Offline Mode</string>
     <string name="offline_mode_preferences_description">Customise preferences for app performance when an active internet connection cannot be achieved.</string>
+    <string name="password_does_not_match">Password does not match! Please enter a valid password.</string>
+    <string name="email_does_not_match">Email does not match! Please enter a valid email address.</string>
+    <string name="invalid_last_name">Please enter a valid last name.</string>
+    <string name="invalid_first_name">Please enter a valid first name.</string>
 
     <!--Sign In Register Fragment-->
     <string name="sign_in">Sign In</string>

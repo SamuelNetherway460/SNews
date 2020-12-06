@@ -2,13 +2,6 @@ package com.example.snews.utilities.formatters
 
 import com.example.snews.models.Request
 
-//https://newsapi.org/v2/top-headlines?sources=bbc-news,cnn&apiKey=d3629af64f934b1889b1fc3afb716b3c
-//http://newsapi.org/v2/top-headlines?country=gb&apiKey=d3629af64f934b1889b1fc3afb716b3c
-//https://newsapi.org/v2/top-headlines?category=business@category=technology&apiKey=d3629af64f934b1889b1fc3afb716b3c
-//https://newsapi.org/v2/top-headlines?category=business@category=technology&apiKey=d3629af64f934b1889b1fc3afb716b3c
-
-//TODO - Documentation
-//TODO - Externalise all strings
 /**
  * Formats URL requests sent to the News API
  *
@@ -53,16 +46,15 @@ class NewsAPIRequestFormatter {
 
         private const val MAX_PUBLISHERS_PER_REQUEST = 20
 
-        //TODO - Documentation
         /**
-         *
+         * Generates a News API request based of user preferences.
          */
         fun generateRequestFromDiscoverPreferences(
             selectedCategories: ArrayList<String>,
             selectedPublishers: ArrayList<String>
         ): ArrayList<Request> {
             var requests = ArrayList<Request>()
-            // If not discover preferences are selected add the default request
+            // If no discover preferences are selected, add the default request
             if (selectedCategories.isEmpty() && selectedPublishers.isEmpty()) requests.add(
                 Request(
                     DEFAULT_REQUEST_URL
@@ -79,13 +71,12 @@ class NewsAPIRequestFormatter {
             return requests
         }
 
-        //TODO - Documentation
         /**
+         * Generates and adds News API category requests to the list of requests.
          *
-         *
-         * @param currentRequests
-         * @param selectedCategories
-         * @return
+         * @param currentRequests The current list of requests to be added to.
+         * @param selectedCategories The user's category preferences.
+         * @return The list of requests with the category requests added.
          */
         private fun makeCategoryRequests(
             currentRequests: ArrayList<Request>,
@@ -102,13 +93,12 @@ class NewsAPIRequestFormatter {
             return currentRequests
         }
 
-        //TODO - Documentation
         /**
+         * Generates and adds News API publisher requests to the list of requests.
          *
-         *
-         * @param currentRequests
-         * @param selectedPublishers
-         * @return
+         * @param currentRequests The current list of requests to be added to.
+         * @param selectedPublishers The user's publisher preferences.
+         * @return The list of requests with the publisher requests added.
          */
         private fun makePublisherRequests(
             currentRequests: ArrayList<Request>,

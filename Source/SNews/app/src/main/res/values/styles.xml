@@ -46,7 +46,7 @@
     </style>
 
     <style name="DescriptionText" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/colorSecondary</item>
     </style>
 

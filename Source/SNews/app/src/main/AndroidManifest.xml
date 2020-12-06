@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <service android:name=".services.FetchArticleService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="false">
+        </service>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

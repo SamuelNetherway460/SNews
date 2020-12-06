@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.snews.fragments.*
 import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.Constants
+import com.example.snews.utilities.database.UserQueryEngine
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

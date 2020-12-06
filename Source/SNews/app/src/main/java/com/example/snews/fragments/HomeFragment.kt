@@ -1,6 +1,6 @@
 package com.example.snews.fragments
 
-import android.content.ContentValues
+import android.content.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import com.example.snews.utilities.Constants
 import com.example.snews.utilities.parsers.ArticleParser
 import org.json.JSONObject
 
-//TODO - Implement callback to refresh recycler view content when the article fetching service runs
 //TODO - If no discover publishers or categories are selected. Do top headlines as default.
 //TODO - Full XML Check
 //TODO - Implement all relevant on's
@@ -45,55 +44,11 @@ class HomeFragment : Fragment() {
 
     /**
      * Sets up the recycler view to display news data.
-     *
-     * @param view The view hierarchy associated with the fragment.
-     * @param savedInstanceState The saved state of the fragment.
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //startRecyclerView(view, getArticles()) //TODO - iffy possibly uncomment later
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onPause() {
-        super.onPause()
-        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON PAUSE CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
      */
     override fun onResume() {
         super.onResume()
         Log.d(ContentValues.TAG, "HOME FRAGMENT - ON RESUME CALLED")
-        startRecyclerView(this.requireView(), getArticles()) //TODO - iffy remove later
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onStop() {
-        super.onStop()
-        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON STOP CALLED")
-    }
-
-    //TODO - Possibly remove after testing has concluded
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(ContentValues.TAG, "HOME FRAGMENT - ON DESTROY CALLED")
+        startRecyclerView(this.requireView(), getArticles())
     }
 
     /**
@@ -134,22 +89,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    //TODO - Change method contents to match module recycler view demo
-    //TODO - Sort out comments
     /**
      * Sets up the recycler view with article data.
      *
      * @param view The current view hierarchy associated with the fragment.
-     * @param articleGroup An article group object containing the article data.
+     * @param articles An array list of article data.
      */
     private fun startRecyclerView(view: View, articles: ArrayList<Article>) {
         var recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         // Start recylcer view population
-        recyclerView.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
+        recyclerView!!.apply {
             layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
             adapter = RecyclerAdapter(articles, activity!!)
         }
     }

@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso
  * fragment.
  *
  * @param articles An array list of articles to display in the recycler view.
- * @param activity
+ * @param activity The fragment activity which the recycler view is located in.
  * @author Samuel Netherway
  */
 class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity)

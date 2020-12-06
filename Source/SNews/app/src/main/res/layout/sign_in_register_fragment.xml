@@ -48,7 +48,6 @@
                             android:layout_height="match_parent"
                             android:gravity="right|center_vertical"
                             android:layout_weight="1"
-                            android:text="@string/error"
                             android:theme="@style/ErrorText"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -114,7 +113,6 @@
                             android:layout_height="match_parent"
                             android:gravity="right|center_vertical"
                             android:layout_weight="1"
-                            android:text="@string/error"
                             android:theme="@style/ErrorText"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 

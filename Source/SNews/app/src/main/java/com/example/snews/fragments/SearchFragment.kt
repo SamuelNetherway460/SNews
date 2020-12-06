@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 
+//TODO - Possibly do not implement
 //TODO - Full XML Check
 //TODO - Documentation
 /**
- *
+ * Fragment responsible for allowing the user to perform custom key word searches.
  *
  * @author Samuel netherway
  */

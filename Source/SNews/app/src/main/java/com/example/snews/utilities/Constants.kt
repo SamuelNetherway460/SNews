@@ -35,5 +35,14 @@ class Constants {
         // Source data defaults
         const val NO_ID = "No ID"
         const val NO_NAME = "No Name"
+
+        // Firestore
+        const val FIRESTORE_USERS_DOCUMENT = "users"
+        const val FIRESTORE_CATEGORIES_FIELD = "categories"
+        const val FIRESTORE_PUBLISHERS_FIELD = "publishers"
+
+        // Internal Storage
+        const val INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME = "categories"
+        const val INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME = "publishers"
     }
 }

@@ -1,7 +1,6 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.snews.R
-import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.database.UserQueryEngine
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -21,9 +19,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 //TODO - Hide remove default error text and put in error handling and checking of user details, like check confirm email and password matches, etc
-//TODO - Full XML Check
-//TODO - Edit text entry color put in styles file
-//TODO - Documentation
 /**
  * Fragment which allows users to sign in if they already have an account or register if they don't.
  *
@@ -122,9 +117,6 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                 .addOnCompleteListener(this.requireActivity(),
                         OnCompleteListener<AuthResult?> { task ->
                             if (task.isSuccessful) {
-                                // Refresh articles based off the user's preferences
-                                //TODO - Refresh internal storage preferences
-                                context!!.startService(Intent(context, FetchArticleService::class.java))
                                 navigateToProfileFragment()
                             } else {
                                 //TODO - Add user friendly messages
@@ -138,7 +130,6 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                         })
     }
 
-    //TODO - Test
     /**
      * Registers a new user.
      *
@@ -160,16 +151,16 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                     if (registerPassword == registerPasswordConfirm) {
                         addNewUserToAuth(firstName, lastName, registerEmail, registerPassword)
                     } else {
-                        registerErrorTextView.setText("Password does not match! Please enter a valid password.")
+                        registerErrorTextView.setText(resources.getString(R.string.password_does_not_match))
                     }
                 } else {
-                    registerErrorTextView.setText("Email does not match! Please enter a valid email address.")
+                    registerErrorTextView.setText(resources.getString(R.string.email_does_not_match))
                 }
             } else {
-                registerErrorTextView.setText("Please enter a valid last name")
+                registerErrorTextView.setText(resources.getString(R.string.invalid_last_name))
             }
         } else {
-            registerErrorTextView.setText("Please enter a valid first name.")
+            registerErrorTextView.setText(resources.getString(R.string.invalid_first_name))
         }
     }
 
@@ -187,13 +178,8 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                         OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
                         val user: FirebaseUser? = mAuth.getCurrentUser()
-                        addNewUserToFireStore(firstName, lastName, user!!.uid) //TODO - Check null safety
-                        // Refresh articles based off the user's preferences
-                        //TODO - Refresh internal storage preferences
-                        context!!.startService(Intent(context, FetchArticleService::class.java))
+                        addNewUserToFireStore(firstName, lastName, user!!.uid)
                         navigateToProfileFragment()
-                    } else {
-                        //TODO - Implement
                     }
                 })
     }
