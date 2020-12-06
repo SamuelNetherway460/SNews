@@ -3,6 +3,7 @@ package com.example.snews.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.example.snews.R
 import com.example.snews.fragments.ArticleViewerFragment
 import com.example.snews.models.Article
 import com.example.snews.utilities.Constants
+import com.squareup.picasso.Picasso
 
 //TODO - Multiple types of rows
 //TODO - Documentation, look at demo video for correct method layouts and functions
@@ -34,6 +36,7 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
         var mediumArticleTitle: TextView
         var mediumArticleCategory: TextView
         var mediumArticleDateTime: TextView
+        var mediumArticleImage: ImageView
 
         /*
         var largeArticleTitle: TextView
@@ -51,6 +54,7 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
             mediumArticleTitle = itemView.findViewById(R.id.mediumRowArticleTitle)
             mediumArticleCategory = itemView.findViewById(R.id.mediumRowCategory)
             mediumArticleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
+            mediumArticleImage = itemView.findViewById(R.id.mediumRowArticleImage)
 
             /*
             largeArticleImage = itemView.findViewById(R.id.largeRowArticleImage)
@@ -102,6 +106,15 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
         viewHolder.mediumArticleTitle.text = article.getTitle()
         viewHolder.mediumArticleCategory.text = article.getSource()?.getName() ?: Constants.EMPTY_STRING // TODO Replace with category
         viewHolder.mediumArticleDateTime.text = article.getPublishedAt()
+
+        // Load article image
+        // Displays local no article image if the article image cannot be loaded
+        Picasso
+            .get()
+            .load(article.getUrlToImage())
+            .placeholder(R.drawable.ic_no_article_image)
+            .error(R.drawable.ic_no_article_image)
+            .into(viewHolder.mediumArticleImage)
 
         /*
         viewHolder.largeArticleTitle.text = article.getTitle()

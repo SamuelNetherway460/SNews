@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 import com.google.android.material.chip.Chip
@@ -77,11 +79,8 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
 
         addSpotlightChipButton.setOnClickListener {
             var word = spotlightWordEditText.text.toString()
-            var chip: Chip = createNewChip(word)
-            chip.setOnCloseIconClickListener {
-                TransitionManager.beginDelayedTransition(spotlightChipGroup) //TODO - Find out what this does
-                spotlightChipGroup.removeView(chip)
-            }
+            var chip: Chip = createNewChip(word, spotlightChipGroup)
+            spotlightChipGroup.addView(chip)
         }
     }
 
@@ -89,12 +88,22 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
     /**
      *
      */
-    private fun createNewChip(text: String) : Chip {
-        var chip = Chip(context)
-        chip.setText(text)
+    private fun createNewChip(text: String, chipGroup: ChipGroup) : Chip {
+        var chip = Chip(this.requireActivity())
+        chip.text = text
+        chip.chipIcon = ContextCompat.getDrawable(this.requireContext(),R.drawable.ic_no_article_image) // TODO - Replace
         chip.isCheckable = true
         chip.isClickable = true
         chip.isCloseIconVisible = true
+        chip.setOnClickListener{
+            Toast.makeText(this.requireContext(), "Clicked: " + chip.text, Toast.LENGTH_LONG).show()
+        }
+        chip.setOnCloseIconClickListener{
+            // Smoothly remove chip from chip group
+            TransitionManager.beginDelayedTransition(chipGroup)
+            Toast.makeText(this.requireContext(), "Removed: " + chip.text, Toast.LENGTH_LONG).show()
+            chipGroup.removeView(chip)
+        }
         return chip
     }
 

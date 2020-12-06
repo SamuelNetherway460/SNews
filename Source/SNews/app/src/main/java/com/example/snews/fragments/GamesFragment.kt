@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 
+//TODO - Use picasso to load article image
 //TODO - Full XML Check
 //TODO - Documentation
 /**
