@@ -6,7 +6,7 @@ import com.example.snews.models.Source
 import org.json.JSONArray
 import org.json.JSONObject
 
-//TODO - Check null safety
+//TODO - Convert strings to variables
 /**
  * A class used for parsing raw JSON article data.
  *
@@ -23,8 +23,8 @@ class ArticleParser {
          */
         fun parseArticleGroup(articleGroup: JSONObject): ArticleGroup {
             var status: String? = articleGroup.getString("status")
-            var totalResults: Int = articleGroup.getString("totalResults").toInt()
-            var articles: ArrayList<Article> = parseArticles(articleGroup.getJSONArray("articles")) // TODO Implement null safety if no articles are returned
+            var totalResults: Int? = articleGroup.getString("totalResults").toInt()
+            var articles: ArrayList<Article> = parseArticles(articleGroup.getJSONArray("articles"))
             return ArticleGroup(status, totalResults, articles)
         }
 

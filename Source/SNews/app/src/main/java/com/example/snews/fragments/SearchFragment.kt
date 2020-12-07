@@ -10,6 +10,7 @@ import com.example.snews.R
 //TODO - Possibly do not implement
 //TODO - Full XML Check
 //TODO - Documentation
+//TODO - Only allow user to enter a single word. Then fetch articles and populate a recycler view with results
 /**
  * Fragment responsible for allowing the user to perform custom key word searches.
  *

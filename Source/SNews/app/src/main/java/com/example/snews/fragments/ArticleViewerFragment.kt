@@ -14,11 +14,6 @@ import com.example.snews.R
 import com.example.snews.models.Article
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-//TODO - Organises on's in order of being called
-//TODO - Consider all on's
-//TODO - Look into savedInstanceState
-//TODO - Documentation
-//TODO - Implement
 /**
  * Fragment responsible for displaying news articles.
  *
@@ -95,42 +90,6 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onPause() {
-        super.onPause()
-        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON PAUSE CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onResume() {
-        super.onResume()
-        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON RESUME CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onStop() {
-        super.onStop()
-        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON STOP CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(ContentValues.TAG, "ARTICLE VIEWER - ON DESTROY CALLED")
-    }
-
     /**
      * Takes the user to the home fragment
      */
@@ -138,8 +97,7 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
         val homeFragment = HomeFragment()
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        //TODO - should fl_main be this fragment
-        fragmentTransaction.replace(R.id.fl_main, homeFragment, "HomeFragment") //TODO - Check what the value of the tag parameter is meant to be
+        fragmentTransaction.replace(R.id.fl_main, homeFragment, "HomeFragment")
         fragmentTransaction.commit()
     }
 }

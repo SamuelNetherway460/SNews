@@ -11,6 +11,15 @@
     <string name="search_menu">Search</string>
     <string name="profile_menu">Profile</string>
 
+    <!--Notifications-->
+    <string name="new_articles_fetched_notification_title">New articles have been fetched. Check them out!</string>
+    <string name="new_">New </string>
+    <string name="_articles_fetched_notification_title"> articles have been fetched. Check them out!</string>
+    <string name="articles_available_from">Articles available from </string>
+    <string name="and"> and </string>
+    <string name="comma_space">, </string>
+    <string name="and_more"> and more...</string>
+
     <!--Home Fragment-->
 
 
@@ -95,16 +104,7 @@
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="register">Register</string>
-
-    <!--Dummy Tags-->
-    <string name="dummy_tag_trump">Trump</string>
-    <string name="dummy_tag_apple">Apple</string>
-    <string name="dummy_tag_mac">Mac</string>
-    <string name="dummy_tag_computer">Computer</string>
-    <string name="dummy_tag_swimming">Swimming</string>
-    <string name="dummy_tag_rowing">Rowing</string>
-    <string name="dummy_tag_release">Release</string>
-    <string name="dummy_tag_confirmed">Confirmed</string>
+    <string name="please_retry">Please retry!</string>
 
     <!--Dummy News Data-->
     <!--Dummy Article Titles-->

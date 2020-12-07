@@ -1,33 +1,39 @@
 package com.example.snews.fragments
 
-import android.content.ContentValues
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.example.snews.R
+import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.Constants
 import com.example.snews.utilities.database.UserQueryEngine
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import org.json.JSONArray
+import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 
+//TODO - Upate UI categories based off shared preferences
 //TODO - In the relevant on method, check that the current chip groups are correct based off the users account
-//TODO - If a new user logs in run article refresh service
-//TODO - Toast messages if there is a clash between spotlight and hide filtering. Ask user to remove one first.
 //TODO - Full XML Check
 //TODO - Implement shared preferences for storage of device specific preferences
-//TODO - Add signed in check
+//TODO - Shared preferences for notifications being on or off
 /**
  * Fragment responsible for managing the user account and app preferences.
  *
@@ -38,10 +44,13 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
     companion object {
         const val SPOTLIGHT_CHIP = 0
         const val HIDE_CHIP = 1
+        const val DEFAULT_FETCH_ARTICLES_HOUR = 21
+        const val DEFAULT_FETCH_ARTICLES_MINUTE = 0
     }
 
     var spotlightChipGroup: ChipGroup? = null
     var hideChipGroup: ChipGroup? = null
+    private var sharedPreferences: SharedPreferences? = null
 
     /**
      * Creates and returns the view hierarchy associated with the fragment.
@@ -52,9 +61,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      * @return The view hierarchy associated with the fragment.
      */
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
@@ -68,19 +77,35 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREFERENCES_FILENAME, 0)
+
+        // General
         val signInRegister = view.findViewById<Button>(R.id.signInRegisterButton)
         val loggedInStatus = view.findViewById<TextView>(R.id.loggedInStatus)
+        val fetchArticlesTimePicker = view.findViewById<TimePicker>(R.id.fetchArticlesTimePicker)
 
+        // Spotlight filtering
         val spotlightWordEditText = view.findViewById<EditText>(R.id.spotlightWordEditText)
         val addSpotlightChipButton = view.findViewById<Button>(R.id.addSpotlightChip)
         val spotlightRemoveAll = view.findViewById<Button>(R.id.spotlightRemoveAll)
         spotlightChipGroup = view.findViewById<ChipGroup>(R.id.spotlightChipGroup)
 
+        // Hide filtering
         val addHideChipButton = view.findViewById<Button>(R.id.addHideChip)
         val hideWordEditText = view.findViewById<EditText>(R.id.hideWordEditText)
         val hideRemoveAll = view.findViewById<Button>(R.id.hideRemoveAll)
         hideChipGroup = view.findViewById<ChipGroup>(R.id.hideChipGroup)
 
+        // Category notification preferences
+        val businessNotificationSwitch = view.findViewById<SwitchCompat>(R.id.businessNotificationSwitch)
+        val entertainmentNotificationSwitch = view.findViewById<SwitchCompat>(R.id.entertainmentNotificationSwitch)
+        val generalNotificationSwitch = view.findViewById<SwitchCompat>(R.id.generalNotificationSwitch)
+        val healthNotificationSwitch = view.findViewById<SwitchCompat>(R.id.healthNotificationSwitch)
+        val scienceNotificationSwitch = view.findViewById<SwitchCompat>(R.id.scienceNotificationSwitch)
+        val sportsNotificationSwitch = view.findViewById<SwitchCompat>(R.id.sportsNotificationSwitch)
+        val technologyNotificationSwitch = view.findViewById<SwitchCompat>(R.id.technologyNotificationSwitch)
+
+        // Display the correct message depending on if the user is signed in or not
         if (mAuth.currentUser != null) {
             signInRegister.setText(resources.getString(R.string.sign_out))
         } else {
@@ -124,6 +149,97 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
             hideChipGroup!!.removeAllViews()
             removeAllChipsFromStorage(HIDE_CHIP)
         }
+
+        // Set time to fetch articles
+        fetchArticlesTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
+            addArticleFetchTimeToSharedPreferences(hourOfDay, minute)
+            updateAlarmManager()
+        }
+
+        // Business notifications
+        businessNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(businessNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(businessNotificationSwitch.text.toString())
+            }
+        }
+
+        // Entertainment notifications
+        entertainmentNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(entertainmentNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(entertainmentNotificationSwitch.text.toString())
+            }
+        }
+
+        // General notifications
+        generalNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(generalNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(generalNotificationSwitch.text.toString())
+            }
+        }
+
+        // Health notifications
+        healthNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(healthNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(healthNotificationSwitch.text.toString())
+            }
+        }
+
+        // Science notifications
+        scienceNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(scienceNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(scienceNotificationSwitch.text.toString())
+            }
+        }
+
+        // Sports notifications
+        sportsNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(sportsNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(sportsNotificationSwitch.text.toString())
+            }
+        }
+
+        // Technology notifications
+        technologyNotificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                turnCategoryNotificationsOn(technologyNotificationSwitch.text.toString())
+            } else {
+                turnCategoryNotificationsOff(technologyNotificationSwitch.text.toString())
+            }
+        }
+    }
+
+    /**
+     * Turns on notifications for a category in shared preferences.
+     *
+     * @param category The category to receive notifications about.
+     */
+    private fun turnCategoryNotificationsOn(category: String) {
+        var editor = sharedPreferences!!.edit()
+        editor.putBoolean(category.toLowerCase(), true)
+        editor.commit()
+    }
+
+    /**
+     * Turns off notifications for a category in shared preferences.
+     *
+     * @param category The category to not receive notifications about.
+     */
+    private fun turnCategoryNotificationsOff(category: String) {
+        var editor = sharedPreferences!!.edit()
+        editor.putBoolean(category.toLowerCase(), false)
+        editor.commit()
     }
 
     /**
@@ -136,121 +252,90 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         if (mAuth.currentUser != null) {
             if (signInRegister != null) signInRegister.setText(resources.getString(R.string.sign_out))
             if (signInRegister != null && loggedInStatus != null) loggedInStatus.setText(mAuth.currentUser!!.email)
-            updateLoggedInUI()
-            overwriteInternalStorage()
+            updateChipsUI()
         } else {
             if (signInRegister != null) signInRegister.setText(resources.getString(R.string.sign_in_register))
+            updateChipsUI()
         }
     }
 
-    //TODO - Implement or remove
     /**
+     * Adds the user selected article fetch time.
      *
+     * @param hourOfDay The hour to fetch the articles.
+     * @param minute The minute to fetch the articles.
      */
-    override fun onPause() {
-        super.onPause()
-        Log.d(ContentValues.TAG, "PROFILE FRAGMENT - ON PAUSE CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onResume() {
-        super.onResume()
-        Log.d(ContentValues.TAG, "PROFILE FRAGMENT - ON RESUME CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onStop() {
-        super.onStop()
-        Log.d(ContentValues.TAG, "PROFILE FRAGMENT - ON STOP CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(ContentValues.TAG, "PROFILE FRAGMENT - ON DESTROY CALLED")
+    private fun addArticleFetchTimeToSharedPreferences(hourOfDay: Int, minute: Int) {
+        var editor = sharedPreferences!!.edit()
+        editor.putInt(Constants.FETCH_ARTICLES_HOUR_FIELD_NAME, hourOfDay)
+        editor.putInt(Constants.FETCH_ARTICLES_MINUTE_FIELD_NAME, minute)
+        editor.commit()
     }
 
     /**
-     * Overwrites the internal storage copy of user preferences with the FireStore copy of the
-     * user preference's.
+     * Updates the alarm manager to fetch articles every day at the user specified time.
      */
-    private fun overwriteInternalStorage() {
-        overwriteInternalCategories()
-        overwriteInternalPublishers()
-        overwriteInternalSpotlightChips()
-        overwriteInternalHideChips()
+    private fun updateAlarmManager() {
+        var hour = sharedPreferences!!.getInt(
+                Constants.FETCH_ARTICLES_HOUR_FIELD_NAME, Constants.DEFAULT_FETCH_ARTICLES_HOUR)
+        var minute = sharedPreferences!!.getInt(
+                Constants.FETCH_ARTICLES_MINUTE_FIELD_NAME, Constants.DEFAULT_FETCH_ARTICLES_MINUTE)
+        var calender = Calendar.getInstance()
+        calender.set(Calendar.HOUR_OF_DAY, hour)
+        calender.set(Calendar.MINUTE, minute)
+        var daily = 24 * 60 * 60 * 1000
+        var milliseconds = calender.timeInMillis
+        // If time has already passed, add a day
+        if (milliseconds < System.currentTimeMillis()) milliseconds += daily
+        val intent = Intent(context, FetchArticleService::class.java)
+        // FLAG to avoid creating another service if there is already one
+        val pendingIntent = PendingIntent.getService(context, 1, intent,
+                PendingIntent.FLAG_CANCEL_CURRENT)
+        val alarmManager = context!!.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, milliseconds, AlarmManager.INTERVAL_DAY,
+                pendingIntent)
     }
 
-    //TODO - Implement
-    //TODO - Documentation
     /**
-     *
+     * Updates the user interface to represent the user's key word filtering preferences.
      */
-    private fun overwriteInternalCategories() {
-
-    }
-
-    //TODO - Implement
-    //TODO - Documentation
-    /**
-     *
-     */
-    private fun overwriteInternalPublishers() {
-
-    }
-
-    //TODO - Implement
-    //TODO - Documentation
-    /**
-     *
-     */
-    private fun overwriteInternalSpotlightChips() {
-
-    }
-
-    //TODO - Implement
-    //TODO - Documentation
-    /**
-     *
-     */
-    private fun overwriteInternalHideChips() {
-
-    }
-
-    //TODO - Documentation
-    /**
-     *
-     */
-    private fun updateLoggedInUI() {
+    private fun updateChipsUI() {
+        spotlightChipGroup!!.removeAllViews()
+        hideChipGroup!!.removeAllViews()
         updateSpotlightChipsUI()
         updateHideChipsUI()
     }
 
-    //TODO - Implement
-    //TODO - Documentation
     /**
-     *
+     * Updates the user interface to represent the user's spotlight word preferences.
      */
     private fun updateSpotlightChipsUI() {
+        var internalPreferences = JSONObject(readInternalPreferences())
+        var chipJSONS = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
 
+        for (chip in chipJSONS) {
+            var word = chip.getString(Constants.INTERNAL_WORD_JSON_NAME)
+            var enabled = chip.getBoolean(Constants.INTERNAL_ENABLED_JSON_NAME)
+            var newChip = createNewChip(word, SPOTLIGHT_CHIP, spotlightChipGroup!!)
+            if (!enabled) newChip.isChecked = false
+            spotlightChipGroup!!.addView(newChip)
+        }
     }
 
-    //TODO - Implement
-    //TODO - Documentation
     /**
-     *
+     * Updates the user interface to represent the user's hide word preferences.
      */
     private fun updateHideChipsUI() {
+        var internalPreferences = JSONObject(readInternalPreferences())
+        var chipJSONS = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
 
+        for (chip in chipJSONS) {
+            var word = chip.getString(Constants.INTERNAL_WORD_JSON_NAME)
+            var enabled = chip.getBoolean(Constants.INTERNAL_ENABLED_JSON_NAME)
+            var newChip = createNewChip(word, HIDE_CHIP, hideChipGroup!!)
+            if (!enabled) newChip.isChecked = false
+            hideChipGroup!!.addView(newChip)
+        }
     }
 
     /**
@@ -262,10 +347,10 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(
-            R.id.fl_main,
-            signInRegisterFragment,
-            "SignInRegisterFragment"
-        ) //TODO - Check what the value of the tag parameter is meant to be
+                R.id.fl_main,
+                signInRegisterFragment,
+                Constants.SIGN_IN_REGISTER_TAG
+        )
         fragmentTransaction.commit()
     }
 
@@ -338,23 +423,23 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
                     addChipToStorage(word, SPOTLIGHT_CHIP)
                 } else {
                     Toast.makeText(
-                        this.requireContext(),
-                        resources.getString(R.string.remove_chip_from_hide_group_first),
-                        Toast.LENGTH_LONG
+                            this.requireContext(),
+                            resources.getString(R.string.remove_chip_from_hide_group_first),
+                            Toast.LENGTH_LONG
                     ).show()
                 }
             } else {
                 Toast.makeText(
-                    this.requireContext(),
-                    resources.getString(R.string.spotlight_chip_already_exists_message),
-                    Toast.LENGTH_LONG
+                        this.requireContext(),
+                        resources.getString(R.string.spotlight_chip_already_exists_message),
+                        Toast.LENGTH_LONG
                 ).show()
             }
         } else {
             Toast.makeText(
-                this.requireContext(),
-                resources.getString(R.string.invalid_chip_word),
-                Toast.LENGTH_LONG
+                    this.requireContext(),
+                    resources.getString(R.string.invalid_chip_word),
+                    Toast.LENGTH_LONG
             ).show()
         }
     }
@@ -377,23 +462,23 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
                     addChipToStorage(word, HIDE_CHIP)
                 } else {
                     Toast.makeText(
-                        this.requireContext(),
-                        resources.getString(R.string.remove_chip_from_spotlight_group_first),
-                        Toast.LENGTH_LONG
+                            this.requireContext(),
+                            resources.getString(R.string.remove_chip_from_spotlight_group_first),
+                            Toast.LENGTH_LONG
                     ).show()
                 }
             } else {
                 Toast.makeText(
-                    this.requireContext(),
-                    resources.getString(R.string.hide_chip_already_exists_message),
-                    Toast.LENGTH_LONG
+                        this.requireContext(),
+                        resources.getString(R.string.hide_chip_already_exists_message),
+                        Toast.LENGTH_LONG
                 ).show()
             }
         } else {
             Toast.makeText(
-                this.requireContext(),
-                resources.getString(R.string.invalid_chip_word),
-                Toast.LENGTH_LONG
+                    this.requireContext(),
+                    resources.getString(R.string.invalid_chip_word),
+                    Toast.LENGTH_LONG
             ).show()
         }
     }
@@ -425,7 +510,6 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         }
     }
 
-    //TODO - Implement
     /**
      * Adds a chip to internal storage.
      *
@@ -433,7 +517,24 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      * @param chipType The type of chip.
      */
     private fun addChipToInternalStorage(word: String, chipType: Int) {
+        var chipJSON = JSONObject()
+        chipJSON.put(Constants.INTERNAL_WORD_JSON_NAME, word)
+        chipJSON.put(Constants.INTERNAL_ENABLED_JSON_NAME, true)
 
+        var internalPreferences = JSONObject(readInternalPreferences())
+        var chips: JSONArray
+
+        if (chipType == SPOTLIGHT_CHIP) {
+            chips = internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME)
+            chips.put(chipJSON)
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, chips)
+        } else {
+            chips = internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME)
+            chips.put(chipJSON)
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, chips)
+        }
+
+        writeToInternalStorage(internalPreferences.toString())
     }
 
     /**
@@ -463,7 +564,6 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         }
     }
 
-    //TODO - Implement
     /**
      * Removes the chip record from internal storage.
      *
@@ -471,7 +571,25 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      * @param chipType The type of the chip.
      */
     private fun removeChipFromInternalStorage(chip: Chip, chipType: Int) {
+        var word = chip.text.toString()
 
+        var internalPreferences = JSONObject(readInternalPreferences())
+        var chips: ArrayList<JSONObject>
+        var newChips = ArrayList<JSONObject>()
+
+        if (chipType == SPOTLIGHT_CHIP) {
+            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+        } else {
+            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+        }
+
+        for (chip in chips) {
+            var currentChipWord = chip.getString(Constants.INTERNAL_WORD_JSON_NAME)
+            if (currentChipWord != word) newChips.add(chip)
+        }
+
+        internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(newChips))
+        writeToInternalStorage(internalPreferences.toString())
     }
 
     /**
@@ -499,14 +617,19 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         }
     }
 
-    //TODO - Implement
     /**
      * Removes all chips from internal storage.
      *
      * @param chipType The type of chips to remove.
      */
     private fun removeAllChipsFromInternalStorage(chipType: Int) {
-
+        var internalPreferences = JSONObject(readInternalPreferences())
+        if (chipType == SPOTLIGHT_CHIP) {
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, JSONArray())
+        } else {
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, JSONArray())
+        }
+        writeToInternalStorage(internalPreferences.toString())
     }
 
     /**
@@ -538,9 +661,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      */
     private fun enableChipInFirestore(chip: Chip, chipType: Int) {
         if (chipType == SPOTLIGHT_CHIP) {
-            UserQueryEngine(db).enableSpotlightWord(chip.text.toString(), mAuth.uid.toString())// TODO - Null check
+            UserQueryEngine(db).enableSpotlightWord(chip.text.toString(), mAuth.uid.toString())
         } else {
-            UserQueryEngine(db).enableHideWord(chip.text.toString(), mAuth.uid.toString())// TODO - Null check
+            UserQueryEngine(db).enableHideWord(chip.text.toString(), mAuth.uid.toString())
         }
     }
 
@@ -553,14 +676,13 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
     private fun disableChipInFirestore(chip: Chip, chipType: Int) {
         if (mAuth.currentUser != null) {
             if (chipType == SPOTLIGHT_CHIP) {
-                UserQueryEngine(db).disableSpotlightWord(chip.text.toString(), mAuth.uid.toString())// TODO - Null check
+                UserQueryEngine(db).disableSpotlightWord(chip.text.toString(), mAuth.uid.toString())
             } else {
-                UserQueryEngine(db).disableHideWord(chip.text.toString(), mAuth.uid.toString())// TODO - Null check
+                UserQueryEngine(db).disableHideWord(chip.text.toString(), mAuth.uid.toString())
             }
         }
     }
 
-    //TODO - Implement
     /**
      * Enables a chip in internal storage.
      *
@@ -568,10 +690,32 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      * @param chipType The type of chip.
      */
     private fun enableChipInInternalStorage(chip: Chip, chipType: Int) {
+        var word = chip.text.toString()
 
+        var internalPreferences = JSONObject(readInternalPreferences())
+        var chips: ArrayList<JSONObject>
+
+        if (chipType == SPOTLIGHT_CHIP) {
+            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+        } else {
+            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+        }
+
+        // Find and enable the word
+        for (chip in chips) {
+            if (chip.getString(Constants.INTERNAL_WORD_JSON_NAME) == word) {
+                chip.put(Constants.INTERNAL_ENABLED_JSON_NAME, true)
+            }
+        }
+
+        if (chipType == SPOTLIGHT_CHIP) {
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+        } else {
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+        }
+        writeToInternalStorage(internalPreferences.toString())
     }
 
-    //TODO - Implement
     /**
      * Disables a chip in internal storage.
      *
@@ -579,6 +723,81 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      * @param chipType The type of chip.
      */
     private fun disableChipInInternalStorage(chip: Chip, chipType: Int) {
+        var word = chip.text.toString()
 
+        var internalPreferences = JSONObject(readInternalPreferences())
+        var chips: ArrayList<JSONObject>
+
+        if (chipType == SPOTLIGHT_CHIP) {
+            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+        } else {
+            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+        }
+
+        // Find and disable the word
+        for (chip in chips) {
+            if (chip.getString(Constants.INTERNAL_WORD_JSON_NAME) == word) {
+                chip.put(Constants.INTERNAL_ENABLED_JSON_NAME, false)
+            }
+        }
+
+        if (chipType == SPOTLIGHT_CHIP) {
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+        } else {
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+        }
+        writeToInternalStorage(internalPreferences.toString())
+    }
+
+    /**
+     * Reads the user's preferences from the internal storage file.
+     *
+     * @return The user's preferences.
+     */
+    private fun readInternalPreferences() : String {
+        activity!!.openFileInput(Constants.INTERNAL_PREFERENCES_FILENAME).use {
+            return it.readBytes().decodeToString()
+        }
+    }
+
+    /**
+     * Writes string data to the user's preferences file in internal storage.
+     *
+     * @param string The string data to write to the file.
+     */
+    private fun writeToInternalStorage(string: String) {
+        activity!!.openFileOutput(Constants.INTERNAL_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
+            it.write(string.toByteArray())
+        }
+    }
+
+    //TODO - Move to utilities class
+    /**
+     * Converts a JSON array of JSON object to a array list of JSON objects.
+     *
+     * @param jsonArray The JSON array to be converted.
+     * @return An array list of JSON objects.
+     */
+    private fun jsonArrayToArrayList(jsonArray: JSONArray) : ArrayList<JSONObject> {
+        var jsonArrayList = ArrayList<JSONObject>()
+        for (i in 0..jsonArray.length() - 1) {
+            jsonArrayList.add(jsonArray[i] as JSONObject)
+        }
+        return jsonArrayList
+    }
+
+    //TODO - Move to utilities class
+    /**
+     * Converts an array list of JSON objects into a JSON array.
+     *
+     * @param jsonArrayList The array list of json objects.
+     * @return A JSON array.
+     */
+    private fun jsonArrayListToJSONArray(jsonArrayList: ArrayList<JSONObject>) : JSONArray {
+        var jsonArray = JSONArray()
+        for (json in jsonArrayList) {
+            jsonArray.put(json)
+        }
+        return jsonArray
     }
 }

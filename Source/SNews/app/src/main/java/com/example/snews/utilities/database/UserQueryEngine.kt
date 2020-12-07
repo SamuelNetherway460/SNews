@@ -1,5 +1,6 @@
 package com.example.snews.utilities.database
 
+import com.example.snews.utilities.Constants
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -12,14 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 class UserQueryEngine(val db: FirebaseFirestore) {
 
     companion object {
-        private const val USERS_COLLECTION_PATH = "users"
-        private const val FIRST_NAME_FIELD = "first_name"
-        private const val LAST_NAME_FIELD = "last_name"
-        private const val CATEGORIES_FIELD = "categories"
-        private const val PUBLISHERS_FIELD = "publishers"
-        private const val SPOTLIGHT_FIELD = "spotlight"
-        private const val HIDE_FIELD = "hide"
-
         private const val ACTIVE = true
         private const val INACTIVE = false
         private const val DOT = "."
@@ -37,11 +30,11 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      */
     fun addUser(firstName: String, lastName: String, uid: String) {
         val user: MutableMap<String, Any> = HashMap()
-        user[FIRST_NAME_FIELD] = firstName
-        user[LAST_NAME_FIELD] = lastName
-        user[CATEGORIES_FIELD] = DEFAULT_CATEGORIES
-        user[PUBLISHERS_FIELD] = DEFAULT_PUBLISHERS
-        db.collection(USERS_COLLECTION_PATH).document(uid).set(user)
+        user[Constants.FIRESTORE_FIRST_NAME_FIELD] = firstName
+        user[Constants.FIRESTORE_LAST_NAME_FIELD] = lastName
+        user[Constants.FIRESTORE_CATEGORIES_FIELD] = DEFAULT_CATEGORIES
+        user[Constants.FIRESTORE_PUBLISHERS_FIELD] = DEFAULT_PUBLISHERS
+        db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid).set(user)
     }
 
     /**
@@ -51,8 +44,8 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun addCategory(category: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
-        user.update(CATEGORIES_FIELD, FieldValue.arrayUnion(category))
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
+        user.update(Constants.FIRESTORE_CATEGORIES_FIELD, FieldValue.arrayUnion(category))
     }
 
     /**
@@ -62,8 +55,8 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun removeCategory(category: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
-        user.update(CATEGORIES_FIELD, FieldValue.arrayRemove(category))
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
+        user.update(Constants.FIRESTORE_CATEGORIES_FIELD, FieldValue.arrayRemove(category))
     }
 
     /**
@@ -73,8 +66,8 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun addPublisher(publisher: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
-        user.update(PUBLISHERS_FIELD, FieldValue.arrayUnion(publisher))
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
+        user.update(Constants.FIRESTORE_PUBLISHERS_FIELD, FieldValue.arrayUnion(publisher))
     }
 
     /**
@@ -84,8 +77,8 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun removePublisher(publisher: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
-        user.update(PUBLISHERS_FIELD, FieldValue.arrayRemove(publisher))
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
+        user.update(Constants.FIRESTORE_PUBLISHERS_FIELD, FieldValue.arrayRemove(publisher))
     }
 
     /**
@@ -95,9 +88,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun addSpotlightWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            SPOTLIGHT_FIELD + DOT + word to ACTIVE
+                Constants.FIRESTORE_SPOTLIGHT_FIELD + DOT + word to ACTIVE
         ))
     }
 
@@ -108,9 +101,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun removeSpotlightWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            SPOTLIGHT_FIELD + DOT + word to FieldValue.delete()
+                Constants.FIRESTORE_SPOTLIGHT_FIELD + DOT + word to FieldValue.delete()
         ))
     }
 
@@ -120,9 +113,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun removeAllSpotlightWords(uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            SPOTLIGHT_FIELD to FieldValue.delete()
+                Constants.FIRESTORE_SPOTLIGHT_FIELD to FieldValue.delete()
         ))
     }
 
@@ -133,9 +126,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun enableSpotlightWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            SPOTLIGHT_FIELD + DOT + word to ACTIVE
+                Constants.FIRESTORE_SPOTLIGHT_FIELD + DOT + word to ACTIVE
         ))
     }
 
@@ -146,9 +139,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun disableSpotlightWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            SPOTLIGHT_FIELD + DOT + word to INACTIVE
+                Constants.FIRESTORE_SPOTLIGHT_FIELD + DOT + word to INACTIVE
         ))
     }
 
@@ -159,9 +152,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun addHideWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            HIDE_FIELD + DOT + word to ACTIVE
+                Constants.FIRESTORE_HIDE_FIELD + DOT + word to ACTIVE
         ))
     }
 
@@ -172,9 +165,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun removeHideWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            HIDE_FIELD + DOT + word to FieldValue.delete()
+                Constants.FIRESTORE_HIDE_FIELD + DOT + word to FieldValue.delete()
         ))
     }
 
@@ -184,9 +177,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun removeAllHideWords(uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            HIDE_FIELD to FieldValue.delete()
+                Constants.FIRESTORE_HIDE_FIELD to FieldValue.delete()
         ))
     }
 
@@ -197,9 +190,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun enableHideWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            HIDE_FIELD + DOT + word to ACTIVE
+                Constants.FIRESTORE_HIDE_FIELD + DOT + word to ACTIVE
         ))
     }
 
@@ -210,9 +203,9 @@ class UserQueryEngine(val db: FirebaseFirestore) {
      * @param uid The unique identifier for the user document.
      */
     fun disableHideWord(word: String, uid: String) {
-        val user = db.collection(USERS_COLLECTION_PATH).document(uid)
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
         user.update(mapOf(
-            HIDE_FIELD + DOT + word to INACTIVE
+                Constants.FIRESTORE_HIDE_FIELD + DOT + word to INACTIVE
         ))
     }
 }

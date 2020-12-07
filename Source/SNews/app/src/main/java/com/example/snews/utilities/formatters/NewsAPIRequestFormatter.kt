@@ -35,14 +35,14 @@ class NewsAPIRequestFormatter {
         private const val PAGE_PARAMETER_HEADER = "page"
 
         // Special Values
-        private const val API_KEY = "d3629af64f934b1889b1fc3afb716b3c"
+        private const val API_KEY = "479765865e2b443c9537d0ba3be5efff"
 
         // Default values
         private const val DEFAULT_COUNTRY = "gb"
-        private const val DEFAULT_PAGE_SIZE = "50"
+        private const val DEFAULT_PAGE_SIZE = "100"
         private const val DEFAULT_REQUEST_URL = BASE_URL + TOP_HEADLINES_ENDPOINT + QUESTION_MARK +
-                COUNTRY_PARAMETER_HEADER + EQUALS + DEFAULT_COUNTRY + AND + API_KEY_PARAMETER_HEADER +
-                EQUALS + API_KEY
+                COUNTRY_PARAMETER_HEADER + EQUALS + DEFAULT_COUNTRY + AND + PAGE_SIZE_PARAMETER_HEADER +
+                EQUALS + DEFAULT_PAGE_SIZE + AND + API_KEY_PARAMETER_HEADER + EQUALS + API_KEY
 
         private const val MAX_PUBLISHERS_PER_REQUEST = 20
 
@@ -87,6 +87,7 @@ class NewsAPIRequestFormatter {
                     Request(BASE_URL + TOP_HEADLINES_ENDPOINT + QUESTION_MARK +
                             COUNTRY_PARAMETER_HEADER + EQUALS + DEFAULT_COUNTRY + AND +
                             CATEGORY_PARAMETER_HEADER + EQUALS + category.toLowerCase() + AND +
+                            PAGE_SIZE_PARAMETER_HEADER + EQUALS + DEFAULT_PAGE_SIZE + AND +
                             API_KEY_PARAMETER_HEADER + EQUALS + API_KEY)
                 )
             }
@@ -118,7 +119,8 @@ class NewsAPIRequestFormatter {
                                 COMMA
                     }
                 }
-                currentRequestURL += AND + API_KEY_PARAMETER_HEADER + EQUALS + API_KEY
+                currentRequestURL += AND + PAGE_SIZE_PARAMETER_HEADER + EQUALS + DEFAULT_PAGE_SIZE + AND +
+                        API_KEY_PARAMETER_HEADER + EQUALS + API_KEY
                 currentRequests.add(Request(currentRequestURL))
             }
             return currentRequests

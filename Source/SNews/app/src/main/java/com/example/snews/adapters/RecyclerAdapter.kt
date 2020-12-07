@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 
 //TODO - Multiple types of rows
 //TODO - Documentation, look at demo video for correct method layouts and functions
-//TODO - Documentation
 /**
  * Manages the article data displayed in the recycler view and navigation to the article viewer
  * fragment.
@@ -34,7 +33,7 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var mediumArticleTitle: TextView
-        var mediumArticleCategory: TextView
+        var mediumArticlePublisher: TextView
         var mediumArticleDateTime: TextView
         var mediumArticleImage: ImageView
 
@@ -52,7 +51,7 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
          */
         init {
             mediumArticleTitle = itemView.findViewById(R.id.mediumRowArticleTitle)
-            mediumArticleCategory = itemView.findViewById(R.id.mediumRowCategory)
+            mediumArticlePublisher = itemView.findViewById(R.id.mediumRowCategory)
             mediumArticleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
             mediumArticleImage = itemView.findViewById(R.id.mediumRowArticleImage)
 
@@ -95,16 +94,14 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
          */
     }
 
-    //TODO - Documentation
     /**
-     *
+     * Binds the data to the recycler row.
      */
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var article: Article = articles.get(i)
 
-        //TODO - Use picasso to display image
         viewHolder.mediumArticleTitle.text = article.getTitle()
-        viewHolder.mediumArticleCategory.text = article.getSource()?.getName() ?: Constants.EMPTY_STRING // TODO Replace with category
+        viewHolder.mediumArticlePublisher.text = article.getSource()?.getName() ?: Constants.EMPTY_STRING
         viewHolder.mediumArticleDateTime.text = article.getPublishedAt()
 
         // Load article image

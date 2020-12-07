@@ -23,16 +23,18 @@ internal class NotificationHelper  (base: Context) : ContextWrapper(base) {
      */
     companion object {
         private const val CHANNEL_ONE_ID = "com.example.samuelnetherway.snews.ONE"
-        private const val CHANNEL_ONE_NAME = "Notifcation Channel One"
+        private const val CHANNEL_ONE_NAME = "Notification Channel One"
+        private const val CHANNEL_TWO_ID = "com.example.samuelnetherway.snews.TWO"
+        private const val CHANNEL_TWO_NAME = "Category Notification Channel"
     }
 
-    private var notifationManager: NotificationManager? = null
+    private var notificationManager: NotificationManager? = null
     private val manager: NotificationManager?
         get() {
-            if (notifationManager == null) {
-                notifationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (notificationManager == null) {
+                notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             }
-            return notifationManager
+            return notificationManager
         }
 
     /**
@@ -46,13 +48,21 @@ internal class NotificationHelper  (base: Context) : ContextWrapper(base) {
      * Creates the notification channels required by the application.
      */
     private fun createNotificationChannels() {
-        val notificationChannel = NotificationChannel(CHANNEL_ONE_ID, CHANNEL_ONE_NAME,
+        val notificationChannelOne = NotificationChannel(CHANNEL_ONE_ID, CHANNEL_ONE_NAME,
                 NotificationManager.IMPORTANCE_HIGH)
-        notificationChannel.enableLights(true)
-        notificationChannel.lightColor = Color.BLUE
-        notificationChannel.setShowBadge(true)
-        notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-        manager!!.createNotificationChannel(notificationChannel)
+        notificationChannelOne.enableLights(true)
+        notificationChannelOne.lightColor = Color.BLUE
+        notificationChannelOne.setShowBadge(true)
+        notificationChannelOne.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        manager!!.createNotificationChannel(notificationChannelOne)
+
+        val categoryNotificationChannel = NotificationChannel(CHANNEL_TWO_ID, CHANNEL_TWO_NAME,
+                NotificationManager.IMPORTANCE_HIGH)
+        categoryNotificationChannel.enableLights(true)
+        categoryNotificationChannel.lightColor = Color.BLUE
+        categoryNotificationChannel.setShowBadge(true)
+        categoryNotificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        manager!!.createNotificationChannel(categoryNotificationChannel)
     }
 
     /**
@@ -64,6 +74,22 @@ internal class NotificationHelper  (base: Context) : ContextWrapper(base) {
      */
     fun getNotificationOne(title: String, body: String): NotificationCompat.Builder {
         return NotificationCompat.Builder(applicationContext, CHANNEL_ONE_ID)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setNumber(3)
+                .setAutoCancel(true)
+    }
+
+    /**
+     * Sets up and returns notification one.
+     *
+     * @param title The title of notification one.
+     * @param body The body of notification one.
+     * @return Notification one.
+     */
+    fun getCategoryNotification(title: String, body: String): NotificationCompat.Builder {
+        return NotificationCompat.Builder(applicationContext, CHANNEL_TWO_ID)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)

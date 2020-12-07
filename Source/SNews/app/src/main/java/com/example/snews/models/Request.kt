@@ -1,11 +1,10 @@
 package com.example.snews.models
 
-//TODO - Null Safety
 /**
  * The Request type defines parameters for requesting content from the News API.
  *
- * @author Samuel Netherway
  * @property url The url of the request.
+ * @author Samuel Netherway
  */
 class Request (url: String) {
 

@@ -19,15 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.json.JSONArray
 import org.json.JSONObject
 
-//TODO - Populate internal storage with firestore records when a new user signs in
 //TODO - Full XML Check
 //TODO - Check over xml, put correct colors, i.e. iconColor
-//TODO - Add sign in check
-//TODO - Check null safety
-//TODO - Set default discover options if not signed in
-//TODO - Override current discover preferences in a user logs in
-//TODO - Refresh articles in user changes a discover preference
-//TODO - Run service if discover page changed
 /**
  * A fragment which provides functionality for the Discover screen of the app. The discover screen
  * allows the user to customise their experience by selecting certain news related criteria.
@@ -46,9 +39,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         private const val CHANGED = true
         private const val NOT_CHANGED = false
         private const val RESET = false
-        private const val FIRESTORE_USERS_DOCUMENT = "users"
-        private const val FIRESTORE_CATEGORIES_FIELD = "categories"
-        private const val FIRESTORE_PUBLISHERS_FIELD = "publishers"
     }
 
     private var categorySwitches = ArrayList<SwitchCompat>()
@@ -267,7 +257,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      */
     override fun onStop() {
         super.onStop()
-        Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - ON STOP CALLED")
         if (preferenceChanged) {
             Log.d(ContentValues.TAG, "DISCOVER FRAGMENT - PREFERENCE CHANGED")
             context!!.startService(Intent(context, FetchArticleService::class.java))
@@ -283,16 +272,16 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         // First try FireStore
         var uid: String? = mAuth.uid
         if (uid != null) {
-            val user = db.collection(FIRESTORE_USERS_DOCUMENT).document(uid)
+            val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
             user.get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
-                            updateUICategories(document.get(FIRESTORE_CATEGORIES_FIELD) as ArrayList<String>)
+                            updateUICategories(document.get(Constants.FIRESTORE_CATEGORIES_FIELD) as ArrayList<String>)
                         }
                     }
         // Use internal storage copy if FireStore is unavailable
         } else {
-            updateUICategories(getUserCategoryPreferences())
+            updateUICategories(getInternalCategoryPreferences())
         }
     }
 
@@ -343,20 +332,20 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      * @param category The category preference which has been altered.
      */
     private fun updateInternalStorageCategory(isChecked: Boolean, category: String) {
-        var discoverPreferences = JSONObject(readDiscoverPreferences())
+        var discoverPreferences = JSONObject(readInternalPreferences())
         // Add the newly selected category
         if (isChecked) {
-            discoverPreferences.getJSONArray(Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME).put(category)
+            discoverPreferences.getJSONArray(Constants.INTERNAL_CATEGORIES_JSON_ARRAY_NAME).put(category)
         // Find and remove the newly selected category
         } else {
-            var oldCategories = discoverPreferences.getJSONArray(Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME)
+            var oldCategories = discoverPreferences.getJSONArray(Constants.INTERNAL_CATEGORIES_JSON_ARRAY_NAME)
             var newCategories = JSONArray()
             for (i in 0..oldCategories.length() - 1) {
                 if (oldCategories.get(i) != category) newCategories.put(oldCategories.get(i))
             }
-            discoverPreferences.put(Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME, newCategories)
+            discoverPreferences.put(Constants.INTERNAL_CATEGORIES_JSON_ARRAY_NAME, newCategories)
         }
-        writeDiscoverPreferences(discoverPreferences.toString())
+        writeInternalPreferences(discoverPreferences.toString())
     }
 
 
@@ -365,19 +354,19 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      *
      * @return A string JSON containing the user's discover preferences.
      */
-    private fun readDiscoverPreferences() : String {
-        activity!!.openFileInput(Constants.DISCOVER_PREFERENCES_FILENAME).use {
+    private fun readInternalPreferences() : String {
+        activity!!.openFileInput(Constants.INTERNAL_PREFERENCES_FILENAME).use {
             return it.readBytes().decodeToString()
         }
     }
 
     /**
-     * Write the user's discover preferences to internal storage.
+     * Write the user's preferences to internal storage.
      *
      * @param preferences A string JSON containing the user's discover preferences.
      */
-    private fun writeDiscoverPreferences(preferences: String) {
-        activity!!.openFileOutput(Constants.DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
+    private fun writeInternalPreferences(preferences: String) {
+        activity!!.openFileOutput(Constants.INTERNAL_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
             it.write(preferences.toByteArray())
         }
     }
@@ -390,16 +379,16 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         // First try FireStore preferences
         var uid: String? = mAuth.uid
         if (uid != null) {
-            val user = db.collection(FIRESTORE_USERS_DOCUMENT).document(uid)
+            val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid)
             user.get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
-                            updateUIPublishers(document.get(FIRESTORE_PUBLISHERS_FIELD) as ArrayList<String>)
+                            updateUIPublishers(document.get(Constants.FIRESTORE_PUBLISHERS_FIELD) as ArrayList<String>)
                         }
                     }
         // Use internal storage copy if FireStore is unavailable
         } else {
-            updateUIPublishers(getUserPublisherPreferences())
+            updateUIPublishers(getInternalPublisherPreferences())
         }
     }
 
@@ -444,37 +433,37 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
     }
 
     /**
-     * Updates the internal storage discovery preferences file with the updated publisher preference.
+     * Updates the internal storage preferences file with the updated publisher preference.
      *
      * @param isChecked A boolean indicating whether the publisher is selected or not.
      * @param publisher The publisher preference which has been altered.
      */
     private fun updateInternalStoragePublisher(isChecked: Boolean, publisher: String) {
-        var discoverPreferences = JSONObject(readDiscoverPreferences())
+        var discoverPreferences = JSONObject(readInternalPreferences())
         // Add the newly selected publisher
         if (isChecked) {
-            discoverPreferences.getJSONArray(Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME).put(publisher)
+            discoverPreferences.getJSONArray(Constants.INTERNAL_PUBLISHERS_JSON_ARRAY_NAME).put(publisher)
             // Find and remove the newly selected publisher
         } else {
             var oldPublishers = discoverPreferences.getJSONArray(
-                Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME)
+                Constants.INTERNAL_PUBLISHERS_JSON_ARRAY_NAME)
             var newPublishers = JSONArray()
             for (i in 0..oldPublishers.length() - 1) {
                 if (oldPublishers.get(i) != publisher) newPublishers.put(oldPublishers.get(i))
             }
-            discoverPreferences.put(Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME, newPublishers)
+            discoverPreferences.put(Constants.INTERNAL_PUBLISHERS_JSON_ARRAY_NAME, newPublishers)
         }
-        writeDiscoverPreferences(discoverPreferences.toString())
+        writeInternalPreferences(discoverPreferences.toString())
     }
 
     /**
-     * Gets the user's selected discover categories.
+     * Gets the user's selected categories from internal storage.
      *
      * @return An array list containing the user's selected discover categories.
      */
-    private fun getUserCategoryPreferences() : ArrayList<String> {
-        var jsonCategories = JSONObject(readDiscoverPreferences()).getJSONArray(
-            Constants.INTERNAL_STORAGE_CATEGORIES_JSON_ARRAY_NAME)
+    private fun getInternalCategoryPreferences() : ArrayList<String> {
+        var jsonCategories = JSONObject(readInternalPreferences()).getJSONArray(
+            Constants.INTERNAL_CATEGORIES_JSON_ARRAY_NAME)
         var selectedCategoriesList = ArrayList<String>()
         for (i in 0..jsonCategories.length() - 1) {
             selectedCategoriesList.add(jsonCategories.getString(i))
@@ -483,13 +472,13 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
     }
 
     /**
-     * Gets the user's selected discover publishers.
+     * Gets the user's selected publishers from internal storage.
      *
      * @return An array list containing the user's selected discover publishers.
      */
-    private fun getUserPublisherPreferences() : ArrayList<String> {
-        var jsonPublishers = JSONObject(readDiscoverPreferences()).getJSONArray(
-            Constants.INTERNAL_STORAGE_PUBLISHERS_JSON_ARRAY_NAME)
+    private fun getInternalPublisherPreferences() : ArrayList<String> {
+        var jsonPublishers = JSONObject(readInternalPreferences()).getJSONArray(
+            Constants.INTERNAL_PUBLISHERS_JSON_ARRAY_NAME)
         var selectedPublishersList = ArrayList<String>()
         for (i in 0..jsonPublishers.length() - 1) {
             selectedPublishersList.add(jsonPublishers.getString(i))

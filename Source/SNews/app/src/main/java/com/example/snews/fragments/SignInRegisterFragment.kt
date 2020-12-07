@@ -1,8 +1,8 @@
 package com.example.snews.fragments
 
-import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +10,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.snews.MainActivity
 import com.example.snews.R
+import com.example.snews.services.FetchArticleService
+import com.example.snews.utilities.Constants
 import com.example.snews.utilities.database.UserQueryEngine
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import org.json.JSONArray
+import org.json.JSONObject
 
-//TODO - Hide remove default error text and put in error handling and checking of user details, like check confirm email and password matches, etc
 /**
  * Fragment which allows users to sign in if they already have an account or register if they don't.
  *
@@ -26,7 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestore
  * @property db    Firestore instance.
  * @author Samuel netherway
  */
-class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore) : Fragment() {
+class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore)
+    : Fragment() {
 
     /**
      * Creates and returns the view hierarchy associated with the fragment.
@@ -65,42 +70,6 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
         }
     }
 
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onPause() {
-        super.onPause()
-        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON PAUSE CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onResume() {
-        super.onResume()
-        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON RESUME CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onStop() {
-        super.onStop()
-        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON STOP CALLED")
-    }
-
-    //TODO - Implement or remove
-    /**
-     *
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(ContentValues.TAG, "SIGN IN / REGISTER FRAGMENT - ON DESTROY CALLED")
-    }
-
     /**
      * Attempts to sign the user in with the provided credentials.
      *
@@ -117,14 +86,14 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
                 .addOnCompleteListener(this.requireActivity(),
                         OnCompleteListener<AuthResult?> { task ->
                             if (task.isSuccessful) {
-                                navigateToProfileFragment()
+                                overwriteInternalStoragePreferences(activity as MainActivity)
                             } else {
                                 //TODO - Add user friendly messages
                                 var errorMessage = task.exception?.message
                                 if (errorMessage != null) {
                                     errorTextViewSignIn.setText(errorMessage)
                                 } else {
-                                    errorTextViewSignIn.setText("Please retry") //TODO - Remove or externalise
+                                    errorTextViewSignIn.setText(resources.getString(R.string.please_retry))
                                 }
                             }
                         })
@@ -172,14 +141,14 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
      * @param email     The user's email.
      * @param password  The user's selected password.
      */
-    private fun addNewUserToAuth(firstName: String, lastName: String, email: String, password: String) {
+    private fun addNewUserToAuth(firstName: String, lastName: String, email: String,
+                                 password: String) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this.requireActivity(),
                         OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
-                        val user: FirebaseUser? = mAuth.getCurrentUser()
+                        val user: FirebaseUser? = mAuth.currentUser
                         addNewUserToFireStore(firstName, lastName, user!!.uid)
-                        navigateToProfileFragment()
                     }
                 })
     }
@@ -194,6 +163,148 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
     private fun addNewUserToFireStore(firstName: String, lastName: String, uid: String) {
         val userQueryEngine = UserQueryEngine(db)
         userQueryEngine.addUser(firstName, lastName, uid)
+        overwriteInternalStoragePreferences(activity as MainActivity)
+    }
+
+    /**
+     * Overwrites the internal storage user preferences with Firestore preferences.
+     *
+     * @param activity The main activity.
+     */
+    private fun overwriteInternalStoragePreferences(activity: MainActivity) {
+        fetchUserDocument(activity)
+    }
+
+    /**
+     * Fetches the user's Firestore document and uses it to overwrite internal storage preferences.
+     *
+     * @param activity The main activity.
+     */
+    private fun fetchUserDocument(activity: MainActivity) {
+        var uid: String? = mAuth.uid
+        val user = db.collection(Constants.FIRESTORE_USERS_COLLECTION_PATH).document(uid!!)
+        user.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        overwriteInternalCategories(document.get(Constants.FIRESTORE_CATEGORIES_FIELD)
+                                as ArrayList<String>, activity)
+                        overwriteInternalPublishers(document.get(Constants.FIRESTORE_PUBLISHERS_FIELD)
+                                as ArrayList<String>, activity)
+                        if (document.get(Constants.FIRESTORE_SPOTLIGHT_FIELD) != null) {
+                            overwriteInternalSpotlightChips(document.get(
+                                    Constants.FIRESTORE_SPOTLIGHT_FIELD) as Map<String, Boolean>, activity)
+                        } else{
+                            overwriteInternalSpotlightChips(null, activity)
+                        }
+                        if (document.get(Constants.FIRESTORE_HIDE_FIELD) != null) {
+                            overwriteInternalHideChips(document.get(
+                                    Constants.FIRESTORE_HIDE_FIELD) as Map<String, Boolean>, activity)
+                        } else {
+                            overwriteInternalHideChips(null, activity)
+                        }
+                        activity!!.startService(Intent(activity, FetchArticleService::class.java))
+                        navigateToProfileFragment()
+                    }
+                }
+    }
+
+    /**
+     * Overwrites the internal storage category preferences.
+     *
+     * @param firestoreSelectedCategories The Firestore copy of selected categories.
+     * @param activity The main activity.
+     */
+    private fun overwriteInternalCategories(firestoreSelectedCategories: ArrayList<String>,
+                                            activity: MainActivity) {
+        var discoverPreferences = JSONObject(readInternalPreferences(activity))
+        discoverPreferences.put(Constants.INTERNAL_CATEGORIES_JSON_ARRAY_NAME,
+                JSONArray(firestoreSelectedCategories))
+        writeInternalPreferences(discoverPreferences.toString(), activity)
+    }
+
+    /**
+     * Overwrites the internal storage publisher preferences.
+     *
+     * @param firestoreSelectedPublishers The Firestore copy of selected publishers.
+     * @param activity The main activity.
+     */
+    private fun overwriteInternalPublishers(firestoreSelectedPublishers: ArrayList<String>,
+                                            activity: MainActivity) {
+        var internalPreferences = JSONObject(readInternalPreferences(activity))
+        internalPreferences.put(Constants.INTERNAL_PUBLISHERS_JSON_ARRAY_NAME,
+                JSONArray(firestoreSelectedPublishers))
+        writeInternalPreferences(internalPreferences.toString(), activity)
+    }
+
+    /**
+     * Overwrites internal storage spotlight chip preferences with Firestore spotlight chip preferences.
+     *
+     * @param firestoreSpotlightChips A map containing all hide chip data.
+     * @param activity The main activity.
+     */
+    private fun overwriteInternalSpotlightChips(firestoreSpotlightChips: Map<String, Boolean>?,
+                                                activity: MainActivity) {
+        var internalPreferences = JSONObject(readInternalPreferences(activity))
+        var chips = JSONArray()
+
+        if (firestoreSpotlightChips != null) {
+            for (chip in firestoreSpotlightChips) {
+                var chipJSON = JSONObject()
+                chipJSON.put(Constants.INTERNAL_WORD_JSON_NAME, chip.key)
+                chipJSON.put(Constants.INTERNAL_ENABLED_JSON_NAME, chip.value)
+                chips.put(chipJSON)
+            }
+        }
+
+        internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, chips)
+        writeInternalPreferences(internalPreferences.toString(), activity)
+    }
+
+    /**
+     * Overwrites internal storage hide chip preferences with Firestore hide chip preferences.
+     *
+     * @param firestoreHideChips A map containing all hide chip data.
+     * @param activity The main activity.
+     */
+    private fun overwriteInternalHideChips(firestoreHideChips: Map<String, Boolean>?,
+                                           activity: MainActivity) {
+        var internalPreferences = JSONObject(readInternalPreferences(activity))
+        var chips = JSONArray()
+
+        if (firestoreHideChips != null) {
+            for (chip in firestoreHideChips) {
+                var chipJSON = JSONObject()
+                chipJSON.put(Constants.INTERNAL_WORD_JSON_NAME, chip.key)
+                chipJSON.put(Constants.INTERNAL_ENABLED_JSON_NAME, chip.value)
+                chips.put(chipJSON)
+            }
+        }
+
+        internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, chips)
+        writeInternalPreferences(internalPreferences.toString(), activity)
+    }
+
+    /**
+     * Reads the user's discover preferences from internal storage.
+     *
+     * @param activity The main activity.
+     * @return A string JSON containing the user's discover preferences.
+     */
+    private fun readInternalPreferences(activity: MainActivity) : String {
+        activity!!.openFileInput(Constants.INTERNAL_PREFERENCES_FILENAME).use {
+            return it.readBytes().decodeToString()
+        }
+    }
+
+    /**
+     * Write the user's discover preferences to internal storage.
+     *
+     * @param preferences A string JSON containing the user's discover preferences.
+     */
+    private fun writeInternalPreferences(preferences: String, activity: MainActivity) {
+        activity!!.openFileOutput(Constants.INTERNAL_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
+            it.write(preferences.toByteArray())
+        }
     }
 
     /**
@@ -203,7 +314,7 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
         val profileFragment = ProfileFragment(mAuth, db)
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fl_main, profileFragment, "ProfileFragment") //TODO - Check what the value of the tag parameter is meant to be
+        fragmentTransaction.replace(R.id.fl_main, profileFragment, Constants.PROFILE_FRAGMENT_TAG)
         fragmentTransaction.commit()
     }
 }

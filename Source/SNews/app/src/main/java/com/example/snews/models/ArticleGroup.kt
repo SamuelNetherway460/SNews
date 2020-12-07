@@ -2,7 +2,6 @@ package com.example.snews.models
 
 import com.example.snews.utilities.Constants
 
-//TODO - Null Safety
 /**
  * Article group model for holding data on a multiple articles.
  *

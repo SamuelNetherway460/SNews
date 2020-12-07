@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,6 @@ import androidx.fragment.app.Fragment
 import com.example.snews.fragments.*
 import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.Constants
-import com.example.snews.utilities.database.UserQueryEngine
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,15 +19,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
-//TODO - Possibly have a notify user service, start notify user service from fetch articles service
-//TODO - resources.getString(R.string.channel_one_body)
 //TODO - Check edge cases, if articles have never been fetched before, etc. No articles returned from api, etc
 //TODO - Full XML Check
 //TODO - Make sure androidx components are being used in all XML files
-//TODO - Rename images, remove not required ones
-//TODO - Enable offline firestore, cache etc
 //TODO - Make all relevant methods private
-//TODO - Sort out final variables
 //TODO - If article title > so many characters, do substring and ...
 /**
  * Main activity which controls navigation between application fragments (screens).
@@ -39,18 +34,17 @@ class MainActivity : AppCompatActivity() {
 
     private val mAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    private val hour = 21 //TODO - Move to shared preferences
-    private val minute = 58 //TODO - Move to shared preferences
+    private var sharedPreferences: SharedPreferences? = null
 
-    //TODO - Documentation
     /**
-     *
+     * Performs basic initialisation for the application.
      *
      * @param savedInstanceState
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFERENCES_FILENAME, 0)
 
         // Check if articles have been fetched before
         if (!fileExist(Constants.ARTICLE_STORE_FILENAME)) {
@@ -59,9 +53,9 @@ class MainActivity : AppCompatActivity() {
             startService(Intent(this, FetchArticleService::class.java))
         }
 
-        // Check if the discover preferences file exits
-        if (!fileExist(Constants.DISCOVER_PREFERENCES_FILENAME)) {
-            createNewDiscoverPreferencesFile()
+        // Check if the internal preferences file exits
+        if (!fileExist(Constants.INTERNAL_PREFERENCES_FILENAME)) {
+            createNewInternalPreferencesFile()
         }
 
         val bottomNavigation = findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
@@ -74,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         // Default fragment
         setCurrentFragment(homeFragment)
-        setAlarm()
+        setFetchArticleTimes()
 
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -99,23 +93,28 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-    //TODO - Change, based off shared preferences
-    //TODO - Documentation
     /**
-     *
+     * Sets up article fetching to occur at the user specified time daily.
      */
-    private fun setAlarm() {
+    private fun setFetchArticleTimes() {
+        var hour = sharedPreferences!!.getInt(
+                Constants.FETCH_ARTICLES_HOUR_FIELD_NAME, Constants.DEFAULT_FETCH_ARTICLES_HOUR)
+        var minute = sharedPreferences!!.getInt(
+                Constants.FETCH_ARTICLES_MINUTE_FIELD_NAME, Constants.DEFAULT_FETCH_ARTICLES_MINUTE)
         var calender = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, hour)
         calender.set(Calendar.MINUTE, minute)
         var daily = 24 * 60 * 60 * 1000
-        var milliseconds = calender.timeInMillis //TODO - Use better name for variable
+        var milliseconds = calender.timeInMillis
         // If time has already passed, add a day
-        //if (milliseconds < System.currentTimeMillis()) milliseconds += daily
+        if (milliseconds < System.currentTimeMillis()) milliseconds += daily
         val intent = Intent(this, FetchArticleService::class.java)
-        val pendingIntent = PendingIntent.getService(applicationContext, 1, intent, 0)
+        // FLAG to avoid creating another service if there is already one
+        val pendingIntent = PendingIntent.getService(applicationContext, 1, intent,
+                PendingIntent.FLAG_CANCEL_CURRENT)
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, milliseconds, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, milliseconds, AlarmManager.INTERVAL_DAY,
+                pendingIntent)
     }
 
     /**
@@ -135,18 +134,21 @@ class MainActivity : AppCompatActivity() {
      * @return A boolean indicating whether the file has article content or not.
      */
     private fun fileHasArticleContent() : Boolean {
-        var jsonArticles = JSONObject(readArticleStorage()).getJSONArray("data")
+        var jsonArticles = JSONObject(readArticleStorage())
+                .getJSONArray(Constants.ARTICLE_STORE_JSON_ARRAY_NAME)
         return jsonArticles.length() != 0
     }
 
     /**
-     * Creates a new discover preferences file and writes it to internal storage.
+     * Creates a new internal preferences file and writes it to internal storage.
      */
-    private fun createNewDiscoverPreferencesFile() {
-        var discoverPreferences = JSONObject()
-        discoverPreferences.put("categories", JSONArray())
-        discoverPreferences.put("publishers", JSONArray())
-        writeToDiscoverPreferencesFile(discoverPreferences.toString())
+    private fun createNewInternalPreferencesFile() {
+        var internalPreferences = JSONObject()
+        internalPreferences.put(Constants.INTERNAL_CATEGORIES_JSON_ARRAY_NAME, JSONArray())
+        internalPreferences.put(Constants.INTERNAL_PUBLISHERS_JSON_ARRAY_NAME, JSONArray())
+        internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, JSONArray())
+        internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, JSONArray())
+        writeToInternalPreferencesFile(internalPreferences.toString())
     }
 
     /**
@@ -161,12 +163,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Writes string data to the discover preferences file stored in internal storage.
+     * Writes string data to the internal preferences file stored in internal storage.
      *
      * @param string The string data to write.
      */
-    private fun writeToDiscoverPreferencesFile(string: String) {
-        this.openFileOutput(Constants.DISCOVER_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
+    private fun writeToInternalPreferencesFile(string: String) {
+        this.openFileOutput(Constants.INTERNAL_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
             it.write(string.toByteArray())
         }
     }

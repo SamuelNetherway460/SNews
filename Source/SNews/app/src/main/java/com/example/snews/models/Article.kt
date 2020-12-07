@@ -3,7 +3,6 @@ package com.example.snews.models
 import com.example.snews.utilities.Constants
 import org.json.JSONObject
 
-//TODO - Null Safety
 //TODO - Correctly format publishedAt date time
 /**
  * Article model for holding data on a single article.
