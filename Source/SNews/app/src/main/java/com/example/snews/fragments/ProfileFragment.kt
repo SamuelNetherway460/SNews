@@ -48,9 +48,11 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         const val DEFAULT_FETCH_ARTICLES_MINUTE = 0
     }
 
-    var spotlightChipGroup: ChipGroup? = null
-    var hideChipGroup: ChipGroup? = null
+    private var spotlightChipGroup: ChipGroup? = null
+    private var hideChipGroup: ChipGroup? = null
     private var sharedPreferences: SharedPreferences? = null
+    private var notificationSwitches = ArrayList<SwitchCompat>()
+
 
     /**
      * Creates and returns the view hierarchy associated with the fragment.
@@ -98,12 +100,19 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
 
         // Category notification preferences
         val businessNotificationSwitch = view.findViewById<SwitchCompat>(R.id.businessNotificationSwitch)
+        notificationSwitches.add(businessNotificationSwitch)
         val entertainmentNotificationSwitch = view.findViewById<SwitchCompat>(R.id.entertainmentNotificationSwitch)
+        notificationSwitches.add(entertainmentNotificationSwitch)
         val generalNotificationSwitch = view.findViewById<SwitchCompat>(R.id.generalNotificationSwitch)
+        notificationSwitches.add(generalNotificationSwitch)
         val healthNotificationSwitch = view.findViewById<SwitchCompat>(R.id.healthNotificationSwitch)
+        notificationSwitches.add(healthNotificationSwitch)
         val scienceNotificationSwitch = view.findViewById<SwitchCompat>(R.id.scienceNotificationSwitch)
+        notificationSwitches.add(scienceNotificationSwitch)
         val sportsNotificationSwitch = view.findViewById<SwitchCompat>(R.id.sportsNotificationSwitch)
+        notificationSwitches.add(sportsNotificationSwitch)
         val technologyNotificationSwitch = view.findViewById<SwitchCompat>(R.id.technologyNotificationSwitch)
+        notificationSwitches.add(technologyNotificationSwitch)
 
         // Display the correct message depending on if the user is signed in or not
         if (mAuth.currentUser != null) {
@@ -217,6 +226,18 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
             } else {
                 turnCategoryNotificationsOff(technologyNotificationSwitch.text.toString())
             }
+        }
+
+        updateNotificationSwitches()
+    }
+
+    /**
+     * Updates the user interface for the notification switches.
+     */
+    private fun updateNotificationSwitches() {
+        for (switch in notificationSwitches) {
+            var isChecked = sharedPreferences!!.getBoolean(switch.text.toString().toLowerCase(), false)
+            switch.isChecked = isChecked
         }
     }
 
@@ -349,7 +370,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         fragmentTransaction.replace(
                 R.id.fl_main,
                 signInRegisterFragment,
-                Constants.SIGN_IN_REGISTER_TAG
+                Constants.SIGN_IN_REGISTER_FRAGMENT_TAG
         )
         fragmentTransaction.commit()
     }
@@ -588,7 +609,11 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
             if (currentChipWord != word) newChips.add(chip)
         }
 
-        internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(newChips))
+        if (chipType == SPOTLIGHT_CHIP) {
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(newChips))
+        } else {
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, jsonArrayListToJSONArray(newChips))
+        }
         writeToInternalStorage(internalPreferences.toString())
     }
 

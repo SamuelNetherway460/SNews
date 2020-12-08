@@ -17,7 +17,8 @@ class Constants {
 
         // Fragment Navigation Tags
         const val PROFILE_FRAGMENT_TAG = "ProfileFragment"
-        const val SIGN_IN_REGISTER_TAG = "SignInRegisterFragment"
+        const val SIGN_IN_REGISTER_FRAGMENT_TAG = "SignInRegisterFragment"
+        const val ARTICLE_VIEWER_FRAGMENT_TAG = "ArticleViewerFragment"
 
         // Shared Preferences
         const val SHARED_PREFERENCES_FILENAME = "sharedPreferences"

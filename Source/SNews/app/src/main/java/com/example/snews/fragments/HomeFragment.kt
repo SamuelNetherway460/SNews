@@ -1,6 +1,6 @@
 package com.example.snews.fragments
 
-import android.content.*
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,14 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.snews.R
 import androidx.recyclerview.widget.RecyclerView
+import com.example.snews.R
 import com.example.snews.adapters.RecyclerAdapter
 import com.example.snews.models.Article
 import com.example.snews.utilities.Constants
 import com.example.snews.utilities.parsers.ArticleParser
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 //TODO - Full XML Check
 /**
@@ -86,7 +88,47 @@ class HomeFragment : Fragment() {
             }
         }
 
+        if (spotlightWords != null) {
+            if (spotlightWords.size != 0) {
+                newArticles = spotlightArticles(newArticles, spotlightWords)
+            }
+        }
+
         return newArticles
+    }
+
+    private fun spotlightArticles(articles: ArrayList<Article>, spotlightWords: ArrayList<String>)
+            : ArrayList<Article> {
+        var spotlightOrderedArticles = ArrayList<Article>()
+        var articleRatings: HashMap<Article, Int> = HashMap()
+
+        // Set all scores to zero
+        for (article in articles) {
+            articleRatings.set(article, 0)
+        }
+
+        // Calculate the score for each article based on the number of spotlight words are in the title
+        for (article in articles) {
+            for (word in spotlightWords) {
+                if (article.getTitle() != null) {
+                    if (article.getTitle()!!.toLowerCase().contains(word.toLowerCase())) {
+                        var currentRating: Int = articleRatings[article]!!
+                        currentRating++
+                        articleRatings.set(article, currentRating)
+                    }
+                } else {
+                    articleRatings.set(article, 0)
+                }
+            }
+        }
+
+        // Order articles
+        val sortedArticles = articleRatings.toList().sortedBy { (_, value) -> value}.toMap()
+
+        spotlightOrderedArticles = sortedArticles.keys.toMutableList() as ArrayList<Article>
+        spotlightOrderedArticles.reverse()
+
+        return spotlightOrderedArticles
     }
 
     /**

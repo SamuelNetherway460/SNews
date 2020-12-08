@@ -19,10 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="@string/guess_article"
+            android:checked="true"
+            android:text="@string/guess_the_title"
             android:textColor="@color/text"
-            android:textOff="@string/guess_article"
-            android:textOn="@string/guess_article"
+            android:textOff="@string/guess_the_title"
+            android:textOn="@string/guess_the_title"
             android:theme="@style/AppTheme.ToggleButton" />
 
         <androidx.appcompat.widget.AppCompatToggleButton
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:checked="true"
+            android:checked="false"
             android:text="@string/guess_fact"
             android:textOff="@string/guess_fact"
             android:textOn="@string/guess_fact"
@@ -39,7 +40,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageView"
+        android:id="@+id/questionImageView"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
@@ -49,12 +50,12 @@
         android:scaleType="centerCrop" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/gameInstructions"
+        android:id="@+id/gameStatusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="@string/guess_fact_instruction"
+        android:text="@string/status"
         android:textAlignment="center"
         android:textColor="@color/text"
         android:textSize="24sp" />
@@ -91,7 +92,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="6"
-                android:text="@string/dummy_answer_a"
                 android:theme="@style/AppTheme.Button.Dark" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -115,7 +115,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="6"
-                android:text="@string/dummy_answer_b"
                 android:theme="@style/AppTheme.Button.Dark" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -139,7 +138,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="6"
-                android:text="@string/dummy_answer_c"
                 android:theme="@style/AppTheme.Button.Dark" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -163,7 +161,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="6"
-                android:text="@string/dummy_answer_d"
                 android:theme="@style/AppTheme.Button.Dark" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -188,11 +185,11 @@
             android:theme="@style/AppTheme.Button.Nav" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/skipQuestionButton"
+            android:id="@+id/nextQuestionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/skip_button"
+            android:text="@string/next_question_button"
             android:theme="@style/AppTheme.Button.Nav" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -200,12 +197,11 @@
         android:id="@+id/articleContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/questionImageView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/dummy_question"
         android:textColor="@color/text" />
 </RelativeLayout>

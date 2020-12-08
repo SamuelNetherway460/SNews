@@ -53,14 +53,16 @@
 
     <!--Games Fragment-->
     <string name="view_article_button">View Article</string>
-    <string name="skip_button">Skip Question</string>
+    <string name="next_question_button">Next Question</string>
     <string name="guess_fact">Guess The Fact</string>
-    <string name="guess_article">Guess The Article</string>
+    <string name="guess_the_title">Guess The Title</string>
     <string name="a">A.</string>
     <string name="b">B.</string>
     <string name="c">C.</string>
     <string name="d">D.</string>
-    <string name="guess_fact_instruction">Fill in the blank!</string>
+    <string name="correct">Correct!</string>
+    <string name="incorrect">Incorrect!</string>
+    <string name="status">Guess the article title from the image!</string>
 
     <!--Search Fragment-->
 
