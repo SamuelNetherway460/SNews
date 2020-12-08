@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.view.LayoutInflater
@@ -78,7 +79,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREFERENCES_FILENAME, 0)
 
         // General

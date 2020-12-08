@@ -39,7 +39,6 @@
                 android:id="@+id/mediumRowArticleTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:text="@string/dummy_title_four"
                 android:textColor="@color/text"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -53,7 +52,6 @@
                     android:id="@+id/mediumRowCategory"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_category_two"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorSecondary"
                     android:textSize="12sp"
@@ -65,7 +63,6 @@
                     android:id="@+id/mediumRowDatetime"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_datetime_two"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorSecondary"
                     android:textSize="12sp"

@@ -23,7 +23,6 @@ import java.util.*
 //TODO - Full XML Check
 //TODO - Make sure androidx components are being used in all XML files
 //TODO - Make all relevant methods private
-//TODO - If article title > so many characters, do substring and ...
 /**
  * Main activity which controls navigation between application fragments (screens).
  * Activity also controls the instantiation of Firebase instances for use in across fragments.

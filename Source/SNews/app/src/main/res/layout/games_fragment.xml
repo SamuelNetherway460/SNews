@@ -6,46 +6,14 @@
     android:background="@color/backgroundGreyHeavy"
     tools:context=".fragments.GamesFragment">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/gameSelectorLinear"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatToggleButton
-            android:id="@+id/guessArticleGameToggle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/guess_the_title"
-            android:textColor="@color/text"
-            android:textOff="@string/guess_the_title"
-            android:textOn="@string/guess_the_title"
-            android:theme="@style/AppTheme.ToggleButton" />
-
-        <androidx.appcompat.widget.AppCompatToggleButton
-            android:id="@+id/guessFactGameToggle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="@string/guess_fact"
-            android:textOff="@string/guess_fact"
-            android:textOn="@string/guess_fact"
-            android:theme="@style/AppTheme.ToggleButton" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/questionImageView"
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="160dp"
+        android:layout_below="@+id/gameStatusTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:scaleType="centerCrop" />
 
@@ -53,8 +21,12 @@
         android:id="@+id/gameStatusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="4dp"
         android:text="@string/status"
         android:textAlignment="center"
         android:textColor="@color/text"
@@ -64,9 +36,9 @@
         android:id="@+id/multipleChoiceLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/articleContent"
+        android:layout_below="@+id/answerTextView"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="65dp"
         android:layout_weight="4"
@@ -79,20 +51,12 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textA"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/a"
-                android:theme="@style/AppTheme.TextView" />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonA"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="6"
-                android:theme="@style/AppTheme.Button.Dark" />
+                android:theme="@style/AppTheme.Button.Dark"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -101,14 +65,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textB"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/b"
-                android:theme="@style/AppTheme.TextView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonB"
@@ -125,14 +81,6 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textC"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/c"
-                android:theme="@style/AppTheme.TextView" />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonC"
                 android:layout_width="wrap_content"
@@ -147,14 +95,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textD"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/d"
-                android:theme="@style/AppTheme.TextView" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonD"
@@ -194,14 +134,14 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/articleContent"
+        android:id="@+id/answerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/questionImageView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="9dp"
         android:textColor="@color/text" />
 </RelativeLayout>

@@ -35,20 +35,17 @@
                 <ImageView
                     android:id="@+id/smallRowLeftArticleImage"
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    app:srcCompat="@drawable/dummy_article_image_three"/>
+                    android:layout_height="100dp"/>
 
                 <ImageView
                     android:id="@+id/smallRowLeftProviderLogo"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
-                    android:scaleType="fitStart"
-                    app:srcCompat="@drawable/dummy_provider_three_logo_rectangle"/>
+                    android:scaleType="fitStart"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/smallRowLeftArticleTitle"
-                    android:text="@string/dummy_title_three"
                     android:layout_width="fill_parent"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
@@ -58,7 +55,6 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/smallRowLeftCategory"
-                    android:text="@string/dummy_category_three"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -91,20 +87,17 @@
                 <ImageView
                     android:id="@+id/smallRowRightArticleImage"
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    app:srcCompat="@drawable/dummy_article_image_two"/>
+                    android:layout_height="100dp"/>
 
                 <ImageView
                     android:id="@+id/smallRowRightProviderLogo"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
-                    app:srcCompat="@drawable/dummy_provider_two_logo_rectangle"
                     android:scaleType="fitStart"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/smallRowRightArticleTitle"
-                    android:text="@string/dummy_title_two"
                     android:layout_width="fill_parent"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
@@ -114,7 +107,6 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/smallRowRightCategory"
-                    android:text="@string/dummy_category_two"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

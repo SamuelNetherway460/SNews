@@ -33,8 +33,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/dummy_provider_one_logo_rectangle" />
+            android:scaleType="fitStart"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/largeRowArticleTitle"
@@ -43,7 +42,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
             android:layout_marginRight="10dp"
-            android:text="@string/dummy_title_one"
             android:textAlignment="textStart"
             android:textColor="@color/text"
             android:textSize="14sp"
@@ -56,7 +54,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:text="@string/dummy_description_one"
             android:textAlignment="textStart"
             android:textColor="@color/text"
             android:textSize="11sp" />
@@ -80,7 +77,6 @@
                     android:id="@+id/largeRowCategory"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/dummy_category_one"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorSecondary"
                     android:textSize="10sp"
@@ -92,7 +88,6 @@
                     android:id="@+id/largeRowDatetime"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/dummy_datetime_one"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorSecondary"
                     android:textSize="10sp"

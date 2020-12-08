@@ -1,6 +1,7 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -47,6 +48,8 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         val webView = view.findViewById<WebView>(R.id.articleViewerWebView)
         // Prevent web view from opening browser app
         webView.setWebViewClient(object : WebViewClient() {

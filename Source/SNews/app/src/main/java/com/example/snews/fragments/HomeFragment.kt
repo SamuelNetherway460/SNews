@@ -1,6 +1,7 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,6 +42,11 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.home_fragment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     /**

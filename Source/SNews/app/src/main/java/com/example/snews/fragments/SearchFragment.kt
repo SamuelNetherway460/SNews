@@ -1,5 +1,6 @@
 package com.example.snews.fragments
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,5 +33,10 @@ class SearchFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.search_fragment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 }
