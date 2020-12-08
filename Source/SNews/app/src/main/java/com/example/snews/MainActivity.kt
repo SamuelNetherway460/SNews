@@ -20,10 +20,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
-//TODO - Check edge cases, if articles have never been fetched before, etc. No articles returned from api, etc
 //TODO - Full XML Check
 //TODO - Make sure androidx components are being used in all XML files
-//TODO - Make all relevant methods private
 /**
  * Main activity which controls navigation between application fragments (screens).
  * Activity also controls the instantiation of Firebase instances for use in across fragments.

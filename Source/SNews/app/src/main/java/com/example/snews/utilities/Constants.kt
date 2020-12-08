@@ -11,6 +11,7 @@ class Constants {
      * Companion object containing global values used throughout the entire application.
      */
     companion object {
+
         // General
         const val EMPTY_STRING = ""
         const val SPACE = " "
@@ -27,8 +28,8 @@ class Constants {
         const val SHARED_PREFERENCES_FILENAME = "sharedPreferences"
         const val FETCH_ARTICLES_HOUR_FIELD_NAME = "fetchArticlesHour"
         const val FETCH_ARTICLES_MINUTE_FIELD_NAME = "fetchArticlesMinute"
-        const val DEFAULT_FETCH_ARTICLES_HOUR = 22
-        const val DEFAULT_FETCH_ARTICLES_MINUTE = 0
+        const val DEFAULT_FETCH_ARTICLES_HOUR = 14
+        const val DEFAULT_FETCH_ARTICLES_MINUTE = 20
 
         // Internal Storage
         const val INTERNAL_PREFERENCES_FILENAME = "internalPreferences"

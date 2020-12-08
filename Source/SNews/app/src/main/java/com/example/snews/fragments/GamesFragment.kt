@@ -51,6 +51,12 @@ class GamesFragment : Fragment() {
         return inflater.inflate(R.layout.games_fragment, container, false)
     }
 
+    /**
+     * Perform basic fragment setup.
+     *
+     * @param view The view hierarchy associated with the fragment.
+     * @param savedInstanceState The saved state of the application.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -118,19 +124,34 @@ class GamesFragment : Fragment() {
         }
     }
 
+    /**
+     * When the fragment is started, start a new round.
+     */
     override fun onStart() {
         super.onStart()
         newRound()
     }
 
+    /**
+     * Displays correct on screen.
+     */
     private fun displayCorrectText() {
         answerTextView!!.setText(resources.getString(R.string.correct))
     }
 
+    /**
+     * Displays incorrect on screen.
+     */
     private fun displayIncorrectText() {
         answerTextView!!.setText(resources.getString(R.string.incorrect))
     }
 
+    /**
+     * Determines whether the user's chosen answer was correct.
+     *
+     * @param view The answer button pressed.
+     * @return A boolean indicating whether the correct button was pressed.
+     */
     private fun checkChoice(view: View) : Boolean {
         if (view == buttonA && currentQuestion!!.getCorrectAnswer() == 1) return true
         if (view == buttonB && currentQuestion!!.getCorrectAnswer() == 2) return true
@@ -139,6 +160,9 @@ class GamesFragment : Fragment() {
         return false
     }
 
+    /**
+     * Displays the correct answer on screen by changing the relevant button to green.
+     */
     private fun displayCorrectAnswer() {
         if (currentQuestion!!.getCorrectAnswer() == 1) {
             buttonA!!.backgroundTintList = resources.getColorStateList(R.color.correctButton)
@@ -154,26 +178,18 @@ class GamesFragment : Fragment() {
         }
     }
 
-    private fun disableButtons() {
-        buttonA!!.isClickable = false
-        buttonB!!.isClickable = false
-        buttonC!!.isClickable = false
-        buttonD!!.isClickable = false
-    }
-
-    private fun enableButtons() {
-        buttonA!!.isClickable = true
-        buttonB!!.isClickable = true
-        buttonC!!.isClickable = true
-        buttonD!!.isClickable = true
-    }
-
+    /**
+     * Sets up a new round.
+     */
     private fun newRound() {
         resetUI()
         currentQuestion = generateRandomGameQuestion()
         populateScreen()
     }
 
+    /**
+     * Resets the user interface ready for the next round / question.
+     */
     private fun resetUI() {
         buttonA!!.backgroundTintList = resources.getColorStateList(R.color.backgroundGreyMedium)
         buttonB!!.backgroundTintList = resources.getColorStateList(R.color.backgroundGreyMedium)
@@ -183,6 +199,29 @@ class GamesFragment : Fragment() {
         answerTextView!!.text = Constants.EMPTY_STRING
     }
 
+    /**
+     * Enables all answer buttons so that they can be pressed.
+     */
+    private fun enableButtons() {
+        buttonA!!.isClickable = true
+        buttonB!!.isClickable = true
+        buttonC!!.isClickable = true
+        buttonD!!.isClickable = true
+    }
+
+    /**
+     * Disables all answer buttons so that they cannot be pressed.
+     */
+    private fun disableButtons() {
+        buttonA!!.isClickable = false
+        buttonB!!.isClickable = false
+        buttonC!!.isClickable = false
+        buttonD!!.isClickable = false
+    }
+
+    /**
+     * Populates various on screen views with the question based data.
+     */
     private fun populateScreen() {
         Picasso
                 .get()
@@ -277,8 +316,6 @@ class GamesFragment : Fragment() {
 
     /**
      * Navigates the user to the article viewer fragment to display the article.
-     *
-     * @param article The article to display.
      */
     private fun navigateToArticleViewerFragment() {
         val articleViewerFragment = ArticleViewerFragment(currentQuestion!!.getCorrectArticle()!!,

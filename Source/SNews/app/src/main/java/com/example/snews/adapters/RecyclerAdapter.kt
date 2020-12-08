@@ -13,8 +13,6 @@ import com.example.snews.models.Article
 import com.example.snews.utilities.Constants
 import com.squareup.picasso.Picasso
 
-//TODO - Multiple types of rows
-//TODO - Documentation, look at demo video for correct method layouts and functions
 /**
  * Manages the article data displayed in the recycler view and navigation to the article viewer
  * fragment.
@@ -27,9 +25,8 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
                       private val senderFragment: String)
     : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    //TODO - Documentation
     /**
-     *
+     * Parent class for handling layout inflation and child view use.
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -38,31 +35,11 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
         var mediumArticleDateTime: TextView
         var mediumArticleImage: ImageView
 
-        /*
-        var largeArticleTitle: TextView
-        var largeArticleDescription: TextView
-        var largeArticleCategory: TextView
-        var largeArticleDateTime: TextView
-        var largeArticleImage: ImageView
-         */
-
-        //TODO - Documentation
-        /**
-         * @constructor
-         */
         init {
             mediumArticleTitle = itemView.findViewById(R.id.mediumRowArticleTitle)
             mediumArticlePublisher = itemView.findViewById(R.id.mediumRowCategory)
             mediumArticleDateTime = itemView.findViewById(R.id.mediumRowDatetime)
             mediumArticleImage = itemView.findViewById(R.id.mediumRowArticleImage)
-
-            /*
-            largeArticleImage = itemView.findViewById(R.id.largeRowArticleImage)
-            largeArticleTitle = itemView.findViewById(R.id.largeRowArticleTitle)
-            largeArticleDescription = itemView.findViewById(R.id.largeRowArticleDescription)
-            largeArticleCategory = itemView.findViewById(R.id.largeRowCategory)
-            largeArticleDateTime = itemView.findViewById(R.id.largeRowDatetime)
-             */
         }
     }
 
@@ -80,20 +57,13 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
         fragmentTransaction.commit()
     }
 
-    //TODO - Documentation
     /**
-     *
+     * Inflates the views using the row layout.
      */
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.medium_recycler_row, viewGroup, false)
         return ViewHolder(v)
-
-        /*
-        val v = LayoutInflater.from(viewGroup.context)
-                    .inflate(R.layout.large_recycler_row, viewGroup, false)
-            return ViewHolder(v)
-         */
     }
 
     /**
@@ -114,13 +84,6 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
             .placeholder(R.drawable.ic_no_article_image)
             .error(R.drawable.ic_no_article_image)
             .into(viewHolder.mediumArticleImage)
-
-        /*
-        viewHolder.largeArticleTitle.text = article.getTitle()
-        viewHolder.largeArticleDescription.text = article.getDescription()
-        viewHolder.largeArticleCategory.text = "category"
-        viewHolder.largeArticleDateTime.text = article.getPublishedAt()
-         */
 
         viewHolder.itemView.setOnClickListener(View.OnClickListener {
             navigateToArticleViewerFragment(article)
