@@ -3,7 +3,6 @@ package com.example.snews.fragments
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,7 +69,6 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Setting on click listeners for all category switches
         // Business

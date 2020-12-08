@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 /**
- * Class used to update various details in the user collection for a particular database.
+ * Class used to update various details in the user collection for a particular Firestore database.
  *
  * @author Samuel Netherway
  * @param db The FireStore database instance.

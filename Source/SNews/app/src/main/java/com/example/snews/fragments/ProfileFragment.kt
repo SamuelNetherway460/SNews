@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.view.LayoutInflater
@@ -21,6 +20,7 @@ import com.example.snews.R
 import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.Constants
 import com.example.snews.utilities.database.UserQueryEngine
+import com.example.snews.utilities.parsers.JSONUtil
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
@@ -73,7 +73,6 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREFERENCES_FILENAME, 0)
 
         // General
@@ -327,7 +326,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      */
     private fun updateSpotlightChipsUI() {
         var internalPreferences = JSONObject(readInternalPreferences())
-        var chipJSONS = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+        var chipJSONS = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
 
         for (chip in chipJSONS) {
             var word = chip.getString(Constants.INTERNAL_WORD_JSON_NAME)
@@ -343,7 +342,7 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
      */
     private fun updateHideChipsUI() {
         var internalPreferences = JSONObject(readInternalPreferences())
-        var chipJSONS = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+        var chipJSONS = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
 
         for (chip in chipJSONS) {
             var word = chip.getString(Constants.INTERNAL_WORD_JSON_NAME)
@@ -594,9 +593,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         var newChips = ArrayList<JSONObject>()
 
         if (chipType == SPOTLIGHT_CHIP) {
-            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+            chips = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
         } else {
-            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+            chips = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
         }
 
         for (chip in chips) {
@@ -605,9 +604,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         }
 
         if (chipType == SPOTLIGHT_CHIP) {
-            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(newChips))
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, JSONUtil.jsonArrayListToJSONArray(newChips))
         } else {
-            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, jsonArrayListToJSONArray(newChips))
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, JSONUtil.jsonArrayListToJSONArray(newChips))
         }
         writeToInternalStorage(internalPreferences.toString())
     }
@@ -716,9 +715,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         var chips: ArrayList<JSONObject>
 
         if (chipType == SPOTLIGHT_CHIP) {
-            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+            chips = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
         } else {
-            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+            chips = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
         }
 
         // Find and enable the word
@@ -729,9 +728,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         }
 
         if (chipType == SPOTLIGHT_CHIP) {
-            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, JSONUtil.jsonArrayListToJSONArray(chips))
         } else {
-            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, JSONUtil.jsonArrayListToJSONArray(chips))
         }
         writeToInternalStorage(internalPreferences.toString())
     }
@@ -749,9 +748,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         var chips: ArrayList<JSONObject>
 
         if (chipType == SPOTLIGHT_CHIP) {
-            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
+            chips = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
         } else {
-            chips = jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
+            chips = JSONUtil.jsonArrayToArrayList(internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
         }
 
         // Find and disable the word
@@ -762,9 +761,9 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         }
 
         if (chipType == SPOTLIGHT_CHIP) {
-            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+            internalPreferences.put(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME, JSONUtil.jsonArrayListToJSONArray(chips))
         } else {
-            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, jsonArrayListToJSONArray(chips))
+            internalPreferences.put(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME, JSONUtil.jsonArrayListToJSONArray(chips))
         }
         writeToInternalStorage(internalPreferences.toString())
     }
@@ -789,35 +788,5 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         activity!!.openFileOutput(Constants.INTERNAL_PREFERENCES_FILENAME, Context.MODE_PRIVATE).use {
             it.write(string.toByteArray())
         }
-    }
-
-    //TODO - Move to utilities class
-    /**
-     * Converts a JSON array of JSON object to a array list of JSON objects.
-     *
-     * @param jsonArray The JSON array to be converted.
-     * @return An array list of JSON objects.
-     */
-    private fun jsonArrayToArrayList(jsonArray: JSONArray) : ArrayList<JSONObject> {
-        var jsonArrayList = ArrayList<JSONObject>()
-        for (i in 0..jsonArray.length() - 1) {
-            jsonArrayList.add(jsonArray[i] as JSONObject)
-        }
-        return jsonArrayList
-    }
-
-    //TODO - Move to utilities class
-    /**
-     * Converts an array list of JSON objects into a JSON array.
-     *
-     * @param jsonArrayList The array list of json objects.
-     * @return A JSON array.
-     */
-    private fun jsonArrayListToJSONArray(jsonArrayList: ArrayList<JSONObject>) : JSONArray {
-        var jsonArray = JSONArray()
-        for (json in jsonArrayList) {
-            jsonArray.put(json)
-        }
-        return jsonArray
     }
 }

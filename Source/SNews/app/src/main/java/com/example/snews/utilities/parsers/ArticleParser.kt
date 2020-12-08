@@ -6,7 +6,6 @@ import com.example.snews.models.Source
 import org.json.JSONArray
 import org.json.JSONObject
 
-//TODO - Convert strings to variables
 /**
  * A class used for parsing raw JSON article data.
  *
@@ -16,15 +15,34 @@ class ArticleParser {
 
     companion object {
 
+        // Article group JSON fields
+        private const val STATUS = "status"
+        private const val TOTAL_RESULTS = "totalResults"
+        private const val ARTICLES = "articles"
+
+        // Article JSON fields
+        private const val SOURCE = "source"
+        private const val AUTHOR = "author"
+        private const val TITLE = "title"
+        private const val DESCRIPTION = "description"
+        private const val URL = "url"
+        private const val URL_TO_IMAGE = "urlToImage"
+        private const val PUBLISHED_AT = "publishedAt"
+        private const val CONTENT = "content"
+
+        // Source JSON fields
+        private const val ID = "id"
+        private const val NAME = "name"
+
         /**
          * Parses a JSON article group object to a article group object.
          *
          * @param articleGroup JSON object containing the raw article group data.
          */
         fun parseArticleGroup(articleGroup: JSONObject): ArticleGroup {
-            var status: String? = articleGroup.getString("status")
-            var totalResults: Int? = articleGroup.getString("totalResults").toInt()
-            var articles: ArrayList<Article> = parseArticles(articleGroup.getJSONArray("articles"))
+            var status: String? = articleGroup.getString(STATUS)
+            var totalResults: Int? = articleGroup.getString(TOTAL_RESULTS).toInt()
+            var articles: ArrayList<Article> = parseArticles(articleGroup.getJSONArray(ARTICLES))
             return ArticleGroup(status, totalResults, articles)
         }
 
@@ -51,14 +69,14 @@ class ArticleParser {
          * @return A single article object.
          */
         fun parseArticle(jsonArticle: JSONObject): Article {
-            var source: Source? = parseSource(jsonArticle.getJSONObject("source"))
-            var author: String? = jsonArticle.getString("author")
-            var title: String? = jsonArticle.getString("title")
-            var description: String? = jsonArticle.getString("description")
-            var url: String? = jsonArticle.getString("url")
-            var urlToImage: String? = jsonArticle.getString("urlToImage")
-            var publishedAt: String? = jsonArticle.getString("publishedAt")
-            var content: String? = jsonArticle.getString("content")
+            var source: Source? = parseSource(jsonArticle.getJSONObject(SOURCE))
+            var author: String? = jsonArticle.getString(AUTHOR)
+            var title: String? = jsonArticle.getString(TITLE)
+            var description: String? = jsonArticle.getString(DESCRIPTION)
+            var url: String? = jsonArticle.getString(URL)
+            var urlToImage: String? = jsonArticle.getString(URL_TO_IMAGE)
+            var publishedAt: String? = jsonArticle.getString(PUBLISHED_AT)
+            var content: String? = jsonArticle.getString(CONTENT)
             return Article(jsonArticle, source, author, title, description, url, urlToImage, publishedAt, content)
         }
 
@@ -69,8 +87,8 @@ class ArticleParser {
          * @return A single source object.
          */
         fun parseSource(jsonSource: JSONObject): Source {
-            var id: String? = jsonSource.getString("id")
-            var name: String? = jsonSource.getString("name")
+            var id: String? = jsonSource.getString(ID)
+            var name: String? = jsonSource.getString(NAME)
             return Source(id, name)
         }
     }

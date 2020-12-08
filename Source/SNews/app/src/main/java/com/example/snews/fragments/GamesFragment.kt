@@ -1,6 +1,5 @@
 package com.example.snews.fragments
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +35,6 @@ class GamesFragment : Fragment() {
 
     private var currentQuestion: GameQuestion? = null
 
-
     /**
      * Creates and returns the view hierarchy associated with the fragment.
      *
@@ -55,7 +53,6 @@ class GamesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         questionImageView = view.findViewById(R.id.questionImageView)
         buttonA = view.findViewById(R.id.buttonA)

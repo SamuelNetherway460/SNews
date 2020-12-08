@@ -1,7 +1,6 @@
 package com.example.snews.fragments
 
 import android.content.ContentValues
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +14,7 @@ import com.example.snews.adapters.RecyclerAdapter
 import com.example.snews.models.Article
 import com.example.snews.utilities.Constants
 import com.example.snews.utilities.parsers.ArticleParser
-import org.json.JSONArray
+import com.example.snews.utilities.parsers.JSONUtil
 import org.json.JSONObject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -42,11 +41,6 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.home_fragment, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     /**
@@ -77,7 +71,6 @@ class HomeFragment : Fragment() {
         return articles
     }
 
-    // TODO - Finish, implement spotlight
     /**
      * Performs spotlight and hide filtering on an array of articles.
      *
@@ -103,6 +96,13 @@ class HomeFragment : Fragment() {
         return newArticles
     }
 
+    /**
+     * Orders articles based of the number of spotlight words contained in each articles title.
+     *
+     * @param articles A array list of articles to be ordered.
+     * @param spotlightWords A array list of spotlight words to use for rating articles.
+     * @return An array list of ordered articles.
+     */
     private fun spotlightArticles(articles: ArrayList<Article>, spotlightWords: ArrayList<String>)
             : ArrayList<Article> {
         var spotlightOrderedArticles = ArrayList<Article>()
@@ -182,7 +182,7 @@ class HomeFragment : Fragment() {
     private fun getHideWords() : ArrayList<String> {
         var hideWords = ArrayList<String>()
         var internalPreferences = JSONObject(readInternalPreferences())
-        var chipJSONS = jsonArrayToArrayList(
+        var chipJSONS = JSONUtil.jsonArrayToArrayList(
                 internalPreferences.getJSONArray(Constants.INTERNAL_HIDE_JSON_ARRAY_NAME))
 
         for (chip in chipJSONS) {
@@ -202,7 +202,7 @@ class HomeFragment : Fragment() {
     private fun getSpotlightWords() : ArrayList<String> {
         var spotlightWords = ArrayList<String>()
         var internalPreferences = JSONObject(readInternalPreferences())
-        var chipJSONS = jsonArrayToArrayList(
+        var chipJSONS = JSONUtil.jsonArrayToArrayList(
                 internalPreferences.getJSONArray(Constants.INTERNAL_SPOTLIGHT_JSON_ARRAY_NAME))
 
         for (chip in chipJSONS) {
@@ -212,21 +212,6 @@ class HomeFragment : Fragment() {
         }
 
         return spotlightWords
-    }
-
-    //TODO - Move to utilities class
-    /**
-     * Converts a JSON array of JSON object to a array list of JSON objects.
-     *
-     * @param jsonArray The JSON array to be converted.
-     * @return An array list of JSON objects.
-     */
-    private fun jsonArrayToArrayList(jsonArray: JSONArray) : ArrayList<JSONObject> {
-        var jsonArrayList = ArrayList<JSONObject>()
-        for (i in 0..jsonArray.length() - 1) {
-            jsonArrayList.add(jsonArray[i] as JSONObject)
-        }
-        return jsonArrayList
     }
 
     /**

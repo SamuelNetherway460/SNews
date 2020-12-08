@@ -15,7 +15,7 @@ class Source (id: String?, name: String?) {
     private var name: String = Constants.NO_NAME
 
     /**
-     * @constructor Initializes information about the source.
+     * Initializes information about the source.
      */
     init {
         if (id != null) this.id = id

@@ -19,6 +19,8 @@ import org.json.JSONObject
 
 /**
  * A service for fetching article data from the News API.
+ * Writes article data to internal storage.
+ * Posts appropriate notifications to user to indicate that new articles are avialable.
  *
  * @author Samuel Netherway
  */
@@ -50,7 +52,7 @@ class FetchArticleService : Service() {
      * @param title The title of the notification.
      * @param body The main body of the notification.
      */
-    fun postNotification(id: Int, title: String, body: String) {
+    private fun postNotification(id: Int, title: String, body: String) {
         var notificationBuilder: NotificationCompat.Builder? = null
         when (id) {
             NOTIFICATION_ONE -> notificationBuilder = notificationHelper!!.getNotificationOne(
@@ -63,12 +65,11 @@ class FetchArticleService : Service() {
         if (notificationBuilder != null) notificationHelper!!.notify(id, notificationBuilder)
     }
 
-    //TODO - Documentation
     /**
+     * Binds the intent to the service.
      *
-     *
-     * @param intent
-     * @return
+     * @param intent The intent to bind.
+     * @return A binder object.
      */
     override fun onBind(intent: Intent): IBinder? {
         return null

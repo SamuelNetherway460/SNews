@@ -2,7 +2,6 @@ package com.example.snews.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,8 +57,6 @@ class SignInRegisterFragment(private val mAuth: FirebaseAuth, private val db: Fi
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         val signInButton = view.findViewById<Button>(R.id.signInButton)
         val registerButton = view.findViewById<Button>(R.id.registerButton)

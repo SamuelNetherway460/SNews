@@ -1,6 +1,5 @@
 package com.example.snews.fragments
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import com.example.snews.MainActivity
 import com.example.snews.R
 import com.example.snews.adapters.RecyclerAdapter
 import com.example.snews.models.Article
-import com.example.snews.services.FetchArticleService
 import com.example.snews.utilities.Constants
 import com.example.snews.utilities.formatters.NewsAPIRequestFormatter
 import com.example.snews.utilities.parsers.ArticleParser
@@ -58,7 +56,6 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         searchView = view.findViewById(R.id.searchView)
 
         searchView!!.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
