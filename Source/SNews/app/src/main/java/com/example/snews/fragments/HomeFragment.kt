@@ -273,7 +273,7 @@ class HomeFragment : Fragment() {
         // Start recycler view population
         recyclerView!!.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = RecyclerAdapter(articles, activity!!)
+            adapter = RecyclerAdapter(articles, activity!!, Constants.HOME_FRAGMENT_TAG)
         }
     }
 }

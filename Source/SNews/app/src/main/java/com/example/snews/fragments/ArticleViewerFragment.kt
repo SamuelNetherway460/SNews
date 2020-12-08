@@ -1,9 +1,7 @@
 package com.example.snews.fragments
 
-import android.content.ContentValues
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.snews.R
 import com.example.snews.models.Article
+import com.example.snews.utilities.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -21,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * @property article The article to be displayed
  * @author Samuel Netherway
  */
-class ArticleViewerFragment(private val article: Article) : Fragment() {
+class ArticleViewerFragment(private val article: Article, private val senderFragmentTag: String) : Fragment() {
 
     /**
      * Creates and returns the view hierarchy associated with the fragment.
@@ -61,14 +60,16 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
         if (article.getUrl() != null) {
             webView.loadUrl(article.getUrl()!!)
         } else {
-            navigateToHomeFragment()
+            navigateToSenderFragment()
         }
 
         val bottomNavigation = activity!!.findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
         // Allow alterations to checked menu items
         bottomNavigation.menu.setGroupCheckable(0, true, false)
-        // Uncheck home
+        // Uncheck all possible fragments navigated from
         bottomNavigation.menu.findItem(R.id.home).isChecked = false
+        bottomNavigation.menu.findItem(R.id.search).isChecked = false
+        bottomNavigation.menu.findItem(R.id.games).isChecked = false
         // Prevent alterations to checked menu items
         bottomNavigation.menu.setGroupCheckable(0, true, true)
     }
@@ -80,13 +81,19 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Navigate back to the home fragment if the back buttion is pressed
+        // Navigate back to the sender fragment if the back button is pressed
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true ) {
             override fun handleOnBackPressed() {
-                navigateToHomeFragment()
+                navigateToSenderFragment()
                 val bottomNavigation = activity!!.findViewById<View>(R.id.bottom_navigation) as BottomNavigationView
                 bottomNavigation.menu.setGroupCheckable(0, true, false)
-                bottomNavigation.menu.findItem(R.id.home).isChecked = true
+                if (senderFragmentTag == Constants.HOME_FRAGMENT_TAG) {
+                    bottomNavigation.menu.findItem(R.id.home).isChecked = true
+                } else if (senderFragmentTag == Constants.GAMES_FRAGMENT_TAG) {
+                    bottomNavigation.menu.findItem(R.id.games).isChecked = true
+                } else if (senderFragmentTag == Constants.SEARCH_FRAGMENT_TAG) {
+                    bottomNavigation.menu.findItem(R.id.search).isChecked = true
+                }
                 bottomNavigation.menu.setGroupCheckable(0, true, true)
             }
         }
@@ -94,13 +101,20 @@ class ArticleViewerFragment(private val article: Article) : Fragment() {
     }
 
     /**
-     * Takes the user to the home fragment
+     * Takes the user back to the sender fragment
      */
-    private fun navigateToHomeFragment() {
-        val homeFragment = HomeFragment()
+    private fun navigateToSenderFragment() {
+        var fragment = Fragment()
+        if (senderFragmentTag == Constants.HOME_FRAGMENT_TAG) {
+            fragment = HomeFragment()
+        } else if (senderFragmentTag == Constants.GAMES_FRAGMENT_TAG) {
+            fragment = GamesFragment()
+        } else if (senderFragmentTag == Constants.SEARCH_FRAGMENT_TAG) {
+            fragment = SearchFragment()
+        }
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fl_main, homeFragment, "HomeFragment")
+        fragmentTransaction.replace(R.id.fl_main, fragment, senderFragmentTag)
         fragmentTransaction.commit()
     }
 }

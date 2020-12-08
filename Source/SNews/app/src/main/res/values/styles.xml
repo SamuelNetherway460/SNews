@@ -4,6 +4,8 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customizations -->
         <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary</item>
+        <item name="autoCompleteTextViewStyle">@style/AppTheme.SearchView</item>
     </style>
 
     <style name="AppTheme.ToggleButton" parent="Base.Widget.AppCompat.Button">
@@ -13,7 +15,7 @@
     </style>
 
     <style name="AppTheme.Button.Dark" parent="Widget.AppCompat.Button">
-        <item name="android:textColor">@color/icon</item>
+        <item name="android:textColor">@color/colorSecondary</item>
         <item name="android:backgroundTint">@color/backgroundGreyLight</item>
         <item name="android:textSize">14dp</item>
         <item name="android:inputType">textMultiLine</item>
@@ -60,6 +62,12 @@
     <style name="SettingText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="AppTheme.SearchView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:background">@color/backgroundGreyMedium</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textColorHint">@color/backgroundGreyLight</item>
     </style>
 
     <style name="ErrorText" parent="Widget.AppCompat.TextView">

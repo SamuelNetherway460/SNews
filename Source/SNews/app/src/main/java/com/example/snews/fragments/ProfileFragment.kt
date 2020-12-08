@@ -30,11 +30,7 @@ import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
-//TODO - Upate UI categories based off shared preferences
-//TODO - In the relevant on method, check that the current chip groups are correct based off the users account
 //TODO - Full XML Check
-//TODO - Implement shared preferences for storage of device specific preferences
-//TODO - Shared preferences for notifications being on or off
 /**
  * Fragment responsible for managing the user account and app preferences.
  *
@@ -45,8 +41,6 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
     companion object {
         const val SPOTLIGHT_CHIP = 0
         const val HIDE_CHIP = 1
-        const val DEFAULT_FETCH_ARTICLES_HOUR = 21
-        const val DEFAULT_FETCH_ARTICLES_MINUTE = 0
     }
 
     private var spotlightChipGroup: ChipGroup? = null
@@ -309,11 +303,11 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         var milliseconds = calender.timeInMillis
         // If time has already passed, add a day
         if (milliseconds < System.currentTimeMillis()) milliseconds += daily
-        val intent = Intent(context, FetchArticleService::class.java)
+        val intent = Intent(activity, FetchArticleService::class.java)
         // FLAG to avoid creating another service if there is already one
-        val pendingIntent = PendingIntent.getService(context, 1, intent,
+        val pendingIntent = PendingIntent.getService(activity, 1, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT)
-        val alarmManager = context!!.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+        val alarmManager = activity!!.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, milliseconds, AlarmManager.INTERVAL_DAY,
                 pendingIntent)
     }

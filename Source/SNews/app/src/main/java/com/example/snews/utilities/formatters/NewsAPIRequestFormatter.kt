@@ -72,6 +72,19 @@ class NewsAPIRequestFormatter {
         }
 
         /**
+         * Generates a request which will be used to query articles using a keyword.
+         *
+         * @param word The keyword which will be presented to the News API.
+         * @return A formatted keyword request.
+         */
+        fun generateRequestFromKeyWord(word: String) : Request {
+            return Request(BASE_URL + EVERYTHING_ENDPOINT + QUESTION_MARK +
+                    KEYWORD_PARAMETER_HEADER + EQUALS + word + AND +
+                    PAGE_SIZE_PARAMETER_HEADER + EQUALS + DEFAULT_PAGE_SIZE + AND +
+                    API_KEY_PARAMETER_HEADER + EQUALS + API_KEY)
+        }
+
+        /**
          * Generates and adds News API category requests to the list of requests.
          *
          * @param currentRequests The current list of requests to be added to.

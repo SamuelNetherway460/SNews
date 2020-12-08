@@ -65,7 +65,8 @@
     <string name="status">Guess the article title from the image!</string>
 
     <!--Search Fragment-->
-
+    <string name="search">Search</string>
+    <string name="remove_spaces">Please remove spaces from search</string>
 
     <!--Profile Fragment-->
     <string name="sign_in_or_register_instruction">Sign in or Register</string>

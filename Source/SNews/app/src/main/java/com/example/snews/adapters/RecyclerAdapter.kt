@@ -23,7 +23,8 @@ import com.squareup.picasso.Picasso
  * @param activity The fragment activity which the recycler view is located in.
  * @author Samuel Netherway
  */
-class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity)
+class RecyclerAdapter(private val articles: ArrayList<Article>, private val activity: FragmentActivity,
+                      private val senderFragment: String)
     : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     //TODO - Documentation
@@ -71,10 +72,11 @@ class RecyclerAdapter(private val articles: ArrayList<Article>, private val acti
      * @param article The article to display.
      */
     private fun navigateToArticleViewerFragment(article: Article) {
-        val articleViewerFragment = ArticleViewerFragment(article)
+        val articleViewerFragment = ArticleViewerFragment(article, senderFragment)
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fl_main, articleViewerFragment, "ArticleViewerFragment") //TODO - Check what the value of the tag paramaeter is meant to be
+        fragmentTransaction.replace(R.id.fl_main, articleViewerFragment,
+                Constants.ARTICLE_VIEWER_FRAGMENT_TAG)
         fragmentTransaction.commit()
     }
 

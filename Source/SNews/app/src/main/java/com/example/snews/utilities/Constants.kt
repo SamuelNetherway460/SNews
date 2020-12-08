@@ -17,6 +17,9 @@ class Constants {
 
         // Fragment Navigation Tags
         const val PROFILE_FRAGMENT_TAG = "ProfileFragment"
+        const val HOME_FRAGMENT_TAG = "HomeFragment"
+        const val SEARCH_FRAGMENT_TAG = "SearchFragment"
+        const val GAMES_FRAGMENT_TAG = "GamesFragment"
         const val SIGN_IN_REGISTER_FRAGMENT_TAG = "SignInRegisterFragment"
         const val ARTICLE_VIEWER_FRAGMENT_TAG = "ArticleViewerFragment"
 
@@ -24,8 +27,8 @@ class Constants {
         const val SHARED_PREFERENCES_FILENAME = "sharedPreferences"
         const val FETCH_ARTICLES_HOUR_FIELD_NAME = "fetchArticlesHour"
         const val FETCH_ARTICLES_MINUTE_FIELD_NAME = "fetchArticlesMinute"
-        const val DEFAULT_FETCH_ARTICLES_HOUR = 13
-        const val DEFAULT_FETCH_ARTICLES_MINUTE = 32
+        const val DEFAULT_FETCH_ARTICLES_HOUR = 22
+        const val DEFAULT_FETCH_ARTICLES_MINUTE = 0
 
         // Internal Storage
         const val INTERNAL_PREFERENCES_FILENAME = "internalPreferences"

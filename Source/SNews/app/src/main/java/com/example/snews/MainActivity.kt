@@ -109,11 +109,9 @@ class MainActivity : AppCompatActivity() {
         if (milliseconds < System.currentTimeMillis()) milliseconds += daily
         val intent = Intent(this, FetchArticleService::class.java)
         // FLAG to avoid creating another service if there is already one
-        val pendingIntent = PendingIntent.getService(applicationContext, 1, intent,
-                PendingIntent.FLAG_CANCEL_CURRENT)
+        val pendingIntent = PendingIntent.getService(applicationContext, 1, intent, 0)
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, milliseconds, AlarmManager.INTERVAL_DAY,
-                pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, milliseconds, pendingIntent)
     }
 
     /**

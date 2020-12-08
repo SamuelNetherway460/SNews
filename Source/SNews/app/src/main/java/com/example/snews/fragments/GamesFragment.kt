@@ -32,7 +32,7 @@ class GamesFragment : Fragment() {
     private var buttonD: Button? = null
     private var viewArticleButton: Button? = null
     private var nextQuestionButton: Button? = null
-    private var gameStatusTextView: TextView? = null
+    private var answerTextView: TextView? = null
 
     private var currentQuestion: GameQuestion? = null
 
@@ -64,38 +64,50 @@ class GamesFragment : Fragment() {
         buttonD = view.findViewById(R.id.buttonD)
         viewArticleButton = view.findViewById(R.id.viewArticleButton)
         nextQuestionButton = view.findViewById(R.id.nextQuestionButton)
-        gameStatusTextView = view.findViewById(R.id.gameStatusTextView)
+        answerTextView = view.findViewById(R.id.answerTextView)
 
         buttonA!!.setOnClickListener {
             if (checkChoice(buttonA!!)) {
-                displayCorrect()
+                displayCorrectText()
             } else {
-                displayIncorrect()
+                buttonA!!.backgroundTintList = resources.getColorStateList(R.color.incorrectButton)
+                displayIncorrectText()
             }
+            displayCorrectAnswer()
+            disableButtons()
         }
 
         buttonB!!.setOnClickListener {
             if (checkChoice(buttonB!!)) {
-                displayCorrect()
+                displayCorrectText()
             } else {
-                displayIncorrect()
+                buttonB!!.backgroundTintList = resources.getColorStateList(R.color.incorrectButton)
+                displayIncorrectText()
             }
+            displayCorrectAnswer()
+            disableButtons()
         }
 
         buttonC!!.setOnClickListener {
             if (checkChoice(buttonC!!)) {
-                displayCorrect()
+                displayCorrectText()
             } else {
-                displayIncorrect()
+                buttonC!!.backgroundTintList = resources.getColorStateList(R.color.incorrectButton)
+                displayIncorrectText()
             }
+            displayCorrectAnswer()
+            disableButtons()
         }
 
         buttonD!!.setOnClickListener {
             if (checkChoice(buttonD!!)) {
-                displayCorrect()
+                displayCorrectText()
             } else {
-                displayIncorrect()
+                buttonD!!.backgroundTintList = resources.getColorStateList(R.color.incorrectButton)
+                displayIncorrectText()
             }
+            displayCorrectAnswer()
+            disableButtons()
         }
 
         nextQuestionButton!!.setOnClickListener {
@@ -114,15 +126,15 @@ class GamesFragment : Fragment() {
         newRound()
     }
 
-    private fun displayCorrect() {
-        gameStatusTextView!!.setText(resources.getString(R.string.correct))
+    private fun displayCorrectText() {
+        answerTextView!!.setText(resources.getString(R.string.correct))
     }
 
-    private fun displayIncorrect() {
-        gameStatusTextView!!.setText(resources.getString(R.string.incorrect))
+    private fun displayIncorrectText() {
+        answerTextView!!.setText(resources.getString(R.string.incorrect))
     }
 
-    private fun checkChoice(view: View) : Boolean{
+    private fun checkChoice(view: View) : Boolean {
         if (view == buttonA && currentQuestion!!.getCorrectAnswer() == 1) return true
         if (view == buttonB && currentQuestion!!.getCorrectAnswer() == 2) return true
         if (view == buttonC && currentQuestion!!.getCorrectAnswer() == 3) return true
@@ -130,9 +142,48 @@ class GamesFragment : Fragment() {
         return false
     }
 
+    private fun displayCorrectAnswer() {
+        if (currentQuestion!!.getCorrectAnswer() == 1) {
+            buttonA!!.backgroundTintList = resources.getColorStateList(R.color.correctButton)
+        }
+        if (currentQuestion!!.getCorrectAnswer() == 2) {
+            buttonB!!.backgroundTintList = resources.getColorStateList(R.color.correctButton)
+        }
+        if (currentQuestion!!.getCorrectAnswer() == 3) {
+            buttonC!!.backgroundTintList = resources.getColorStateList(R.color.correctButton)
+        }
+        if (currentQuestion!!.getCorrectAnswer() == 4) {
+            buttonD!!.backgroundTintList = resources.getColorStateList(R.color.correctButton)
+        }
+    }
+
+    private fun disableButtons() {
+        buttonA!!.isClickable = false
+        buttonB!!.isClickable = false
+        buttonC!!.isClickable = false
+        buttonD!!.isClickable = false
+    }
+
+    private fun enableButtons() {
+        buttonA!!.isClickable = true
+        buttonB!!.isClickable = true
+        buttonC!!.isClickable = true
+        buttonD!!.isClickable = true
+    }
+
     private fun newRound() {
+        resetUI()
         currentQuestion = generateRandomGameQuestion()
         populateScreen()
+    }
+
+    private fun resetUI() {
+        buttonA!!.backgroundTintList = resources.getColorStateList(R.color.backgroundGreyMedium)
+        buttonB!!.backgroundTintList = resources.getColorStateList(R.color.backgroundGreyMedium)
+        buttonC!!.backgroundTintList = resources.getColorStateList(R.color.backgroundGreyMedium)
+        buttonD!!.backgroundTintList = resources.getColorStateList(R.color.backgroundGreyMedium)
+        enableButtons()
+        answerTextView!!.text = Constants.EMPTY_STRING
     }
 
     private fun populateScreen() {
@@ -233,7 +284,8 @@ class GamesFragment : Fragment() {
      * @param article The article to display.
      */
     private fun navigateToArticleViewerFragment() {
-        val articleViewerFragment = ArticleViewerFragment(currentQuestion!!.getCorrectArticle()!!)
+        val articleViewerFragment = ArticleViewerFragment(currentQuestion!!.getCorrectArticle()!!,
+                Constants.GAMES_FRAGMENT_TAG)
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fl_main, articleViewerFragment,
