@@ -231,7 +231,7 @@ class DiscoverFragment(private val mAuth: FirebaseAuth, private val db: Firebase
         publisherSwitches.add(espnSwitch)
 
         // Financial Post
-        var finantialPostSwitch = view.findViewById<SwitchCompat>(R.id.finantialPostSwitch)
+        var finantialPostSwitch = view.findViewById<SwitchCompat>(R.id.financialPostSwitch)
         finantialPostSwitch.setOnClickListener {
             updateUserPublisherPreference(
                 finantialPostSwitch.isChecked,
