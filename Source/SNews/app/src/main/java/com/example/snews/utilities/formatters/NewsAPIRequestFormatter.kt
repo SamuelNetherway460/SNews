@@ -35,7 +35,7 @@ class NewsAPIRequestFormatter {
         private const val PAGE_PARAMETER_HEADER = "page"
 
         // Special Values
-        private const val API_KEY = "479765865e2b443c9537d0ba3be5efff"
+        private const val API_KEY = "d3629af64f934b1889b1fc3afb716b3c"
 
         // Default values
         private const val DEFAULT_COUNTRY = "gb"
