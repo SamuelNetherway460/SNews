@@ -20,8 +20,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
-//TODO - Full XML Check
-//TODO - Make sure androidx components are being used in all XML files
 /**
  * Main activity which controls navigation between application fragments (screens).
  * Activity also controls the instantiation of Firebase instances for use in across fragments.
@@ -103,15 +101,14 @@ class MainActivity : AppCompatActivity() {
         var calender = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, hour)
         calender.set(Calendar.MINUTE, minute)
-        var daily = 24 * 60 * 60 * 1000
         var milliseconds = calender.timeInMillis
-        // If time has already passed, add a day
-        if (milliseconds < System.currentTimeMillis()) milliseconds += daily
         val intent = Intent(this, FetchArticleService::class.java)
         // FLAG to avoid creating another service if there is already one
-        val pendingIntent = PendingIntent.getService(applicationContext, 1, intent, 0)
+        val pendingIntent = PendingIntent.getService(applicationContext, 1, intent,
+                PendingIntent.FLAG_CANCEL_CURRENT)
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, milliseconds, pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, milliseconds, AlarmManager.INTERVAL_DAY,
+                pendingIntent)
     }
 
     /**

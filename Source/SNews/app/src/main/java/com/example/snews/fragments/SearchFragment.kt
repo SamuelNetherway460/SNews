@@ -20,11 +20,6 @@ import com.example.snews.utilities.parsers.ArticleParser
 import com.koushikdutta.ion.Ion
 import org.json.JSONObject
 
-
-//TODO - Possibly do not implement
-//TODO - Full XML Check
-//TODO - Documentation
-//TODO - Only allow user to enter a single word. Then fetch articles and populate a recycler view with results
 /**
  * Fragment responsible for allowing the user to perform custom key word searches.
  *
@@ -99,45 +94,6 @@ class SearchFragment : Fragment() {
                             startRecyclerView(view!!, articleGroup.getArticles()!!)
                         }
                     }
-        }
-    }
-
-    /**
-     * Read and parse the article data from internal storage.
-     *
-     * @return A list of articles.
-     */
-    private fun getArticles(): ArrayList<Article> {
-        var articles = ArrayList<Article>()
-        if (fileExist(Constants.ARTICLE_STORE_FILENAME)) {
-            var jsonArticles = JSONObject(readArticleStorage())
-                    .getJSONArray(Constants.ARTICLE_STORE_JSON_ARRAY_NAME)
-            for (i in 0..jsonArticles.length() - 1) {
-                articles.add(ArticleParser.parseArticle(jsonArticles.getJSONObject(i)))
-            }
-        }
-        return articles
-    }
-
-    /**
-     * Checks whether a file exists in internal storage.
-     *
-     * @param filename The name of the file which is being check for.
-     * @return A boolean indicating whether the file exists in internal storage or not.
-     */
-    private fun fileExist(filename: String): Boolean {
-        val file = context!!.getFileStreamPath(filename)
-        return file.exists()
-    }
-
-    /**
-     * Reads the article data from internal storage.
-     *
-     * @return The raw article data.
-     */
-    private fun readArticleStorage() : String {
-        activity!!.openFileInput(Constants.ARTICLE_STORE_FILENAME).use {
-            return it.readBytes().decodeToString()
         }
     }
 

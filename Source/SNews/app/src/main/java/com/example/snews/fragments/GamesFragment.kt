@@ -16,7 +16,6 @@ import com.example.snews.utilities.parsers.ArticleParser
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
-//TODO - Full XML Check
 /**
  * Fragment for controlling news themed multiple choice games.
  *

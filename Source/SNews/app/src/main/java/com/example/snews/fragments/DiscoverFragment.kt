@@ -19,8 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.json.JSONArray
 import org.json.JSONObject
 
-//TODO - Full XML Check
-//TODO - Check over xml, put correct colors, i.e. iconColor
 /**
  * A fragment which provides functionality for the Discover screen of the app. The discover screen
  * allows the user to customise their experience by selecting certain news related criteria.

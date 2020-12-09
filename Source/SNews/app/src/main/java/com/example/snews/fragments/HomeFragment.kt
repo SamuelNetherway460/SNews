@@ -19,7 +19,6 @@ import org.json.JSONObject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-//TODO - Full XML Check
 /**
  * Fragment responsible for displaying article data.
  *

@@ -3,6 +3,7 @@ package com.example.snews.fragments
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -30,7 +30,6 @@ import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
-//TODO - Full XML Check
 /**
  * Fragment responsible for managing the user account and app preferences.
  *
@@ -298,15 +297,12 @@ class ProfileFragment(private val mAuth: FirebaseAuth, private val db: FirebaseF
         var calender = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, hour)
         calender.set(Calendar.MINUTE, minute)
-        var daily = 24 * 60 * 60 * 1000
         var milliseconds = calender.timeInMillis
-        // If time has already passed, add a day
-        if (milliseconds < System.currentTimeMillis()) milliseconds += daily
         val intent = Intent(activity, FetchArticleService::class.java)
         // FLAG to avoid creating another service if there is already one
         val pendingIntent = PendingIntent.getService(activity, 1, intent,
-                PendingIntent.FLAG_CANCEL_CURRENT)
-        val alarmManager = activity!!.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+                PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmManager = activity!!.getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, milliseconds, AlarmManager.INTERVAL_DAY,
                 pendingIntent)
     }
