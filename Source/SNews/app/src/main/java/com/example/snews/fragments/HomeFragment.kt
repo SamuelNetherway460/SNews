@@ -254,7 +254,7 @@ class HomeFragment : Fragment() {
      * @param articles An array list of article data.
      */
     private fun startRecyclerView(view: View, articles: ArrayList<Article>) {
-        var recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        var recyclerView = view.findViewById<RecyclerView>(R.id.homeRecyclerView)
         // Start recycler view population
         recyclerView!!.apply {
             layoutManager = LinearLayoutManager(activity)

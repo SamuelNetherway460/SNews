@@ -23,7 +23,7 @@
                 android:src="@drawable/ic_user_3"
                 app:tint="@color/icon" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/loggedInStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="@string/sign_in_register"
-                android:theme="@style/AppTheme.Button.Dark"/>
+                android:theme="@style/AppTheme.Button.Dark" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/spotlightCardView"
@@ -66,7 +66,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="@string/spotlight_filtering_header"
-                        android:theme="@style/HeaderText"/>
+                        android:theme="@style/HeaderText" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/spotlightFilteringDescription"
@@ -88,7 +88,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="@string/spotlight_hint"
-                            android:theme="@style/AppTheme.EditText"/>
+                            android:theme="@style/AppTheme.EditText" />
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/addSpotlightChip"
@@ -111,10 +111,11 @@
                             <com.google.android.material.chip.ChipGroup
                                 android:id="@+id/spotlightChipGroup"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </HorizontalScrollView>
+
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/spotlightRemoveAll"
                         android:layout_width="match_parent"
@@ -149,7 +150,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="@string/hide_filtering_header"
-                        android:theme="@style/HeaderText"/>
+                        android:theme="@style/HeaderText" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/hideFilteringDescription"
@@ -194,9 +195,10 @@
                             <com.google.android.material.chip.ChipGroup
                                 android:id="@+id/hideChipGroup"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </HorizontalScrollView>
+
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/hideRemoveAll"
                         android:layout_width="match_parent"
@@ -265,7 +267,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal"/>
+                        android:orientation="horizontal" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
 
@@ -312,8 +314,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/business_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary" />
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -327,8 +329,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/entertainment_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary"/>
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -342,8 +344,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/general_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary"/>
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -357,8 +359,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/health_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary"/>
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -372,8 +374,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/science_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary"/>
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -387,8 +389,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sports_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary"/>
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -402,8 +404,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/technology_category"
-                            android:theme="@style/AppTheme.Switch"
-                            android:textColor="@color/colorSecondary"/>
+                            android:textColor="@color/colorSecondary"
+                            android:theme="@style/AppTheme.Switch" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>

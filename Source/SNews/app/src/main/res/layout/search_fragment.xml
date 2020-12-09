@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:theme="@style/AppTheme.SearchView"
-            app:queryHint="Enter a keyword!" />
+            app:queryHint="@string/enter_keyword" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecyclerView"

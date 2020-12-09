@@ -67,6 +67,7 @@
     <!--Search Fragment-->
     <string name="search">Search</string>
     <string name="remove_spaces">Please remove spaces from search</string>
+    <string name="enter_keyword">Enter a keyword!</string>
 
     <!--Profile Fragment-->
     <string name="sign_in_or_register_instruction">Sign in or Register</string>

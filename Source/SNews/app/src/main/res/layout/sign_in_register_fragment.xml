@@ -46,9 +46,9 @@
                             android:id="@+id/signInErrorText"
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:gravity="right|center_vertical"
                             android:layout_weight="1"
-                            android:theme="@style/ErrorText"/>
+                            android:gravity="right|center_vertical"
+                            android:theme="@style/ErrorText" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -57,8 +57,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/email_hint"
                         android:inputType="textEmailAddress"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/signInPassword"
@@ -66,8 +66,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/password_hint"
                         android:inputType="textPassword"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/signInButton"
@@ -95,7 +95,6 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
-
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -111,9 +110,9 @@
                             android:id="@+id/registerErrorText"
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:gravity="right|center_vertical"
                             android:layout_weight="1"
-                            android:theme="@style/ErrorText"/>
+                            android:gravity="right|center_vertical"
+                            android:theme="@style/ErrorText" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -122,8 +121,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/first_name_hint"
                         android:inputType="textPersonName|text"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/registerLastName"
@@ -131,8 +130,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/last_name_hint"
                         android:inputType="textPersonName"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/registerEmail"
@@ -140,8 +139,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/email_hint"
                         android:inputType="textEmailAddress"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/registerConfirmEmail"
@@ -149,8 +148,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/confirm_email_hint"
                         android:inputType="textEmailAddress"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/registerPassword"
@@ -158,8 +157,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/password_hint"
                         android:inputType="textPassword"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/registerConfirmPassword"
@@ -167,8 +166,8 @@
                         android:layout_height="match_parent"
                         android:hint="@string/confirm_password_hint"
                         android:inputType="textPassword"
-                        android:theme="@style/AppTheme.EditText"
-                        android:textColor="@color/text" />
+                        android:textColor="@color/text"
+                        android:theme="@style/AppTheme.EditText" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/registerButton"

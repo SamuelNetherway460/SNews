@@ -7,35 +7,30 @@
         android:id="@+id/home"
         android:enabled="true"
         android:icon="@drawable/ic_house"
-        app:showAsAction="ifRoom"
-        android:title="@string/home_menu">
-    </item>
+        android:title="@string/home_menu"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/discover"
         android:enabled="true"
         android:icon="@drawable/ic_server"
-        app:showAsAction="ifRoom"
-        android:title="@string/discover_menu">
-    </item>
+        android:title="@string/discover_menu"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/games"
         android:enabled="true"
         android:icon="@drawable/ic_game_console"
-        app:showAsAction="ifRoom"
-        android:title="@string/games_menu">
-    </item>
+        android:title="@string/games_menu"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/search"
         android:enabled="true"
         android:icon="@drawable/ic_magnifying_glass"
-        app:showAsAction="ifRoom"
-        android:title="@string/search_menu">
-    </item>
+        android:title="@string/search_menu"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/profile"
         android:enabled="true"
         android:icon="@drawable/ic_avatar"
-        app:showAsAction="ifRoom"
-        android:title="@string/profile_menu">
-    </item>
+        android:title="@string/profile_menu"
+        app:showAsAction="ifRoom"></item>
 </menu>
